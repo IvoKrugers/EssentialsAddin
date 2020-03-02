@@ -28,29 +28,37 @@ namespace EssentialsAddin
         public override bool CanBuildNode(Type dataType)
         {
             var canBuild =
-                //typeof(Solution).IsAssignableFrom(dataType) ||
                 typeof(ProjectFolder).IsAssignableFrom(dataType) ||
                 typeof(ProjectFile).IsAssignableFrom(dataType);
-            Debug.WriteLine($"[CanBuildNode] {dataType}, canBuild: {canBuild}");
+            //Debug.WriteLine($"[CanBuildNode] {dataType}, canBuild: {canBuild}");
             return canBuild;
         }
 
         public override void PrepareChildNodes(object dataObject)
         {
-            Debug.WriteLine($"PrepareChildNodes {dataObject}");
+            //Debug.WriteLine($"PrepareChildNodes {dataObject}");
             base.PrepareChildNodes(dataObject);
         }
 
         public override void GetNodeAttributes(ITreeNavigator parentNode, object dataObject, ref NodeAttributes attributes)
         {
-            Debug.WriteLine($"GetNodeAttributes {parentNode}, {dataObject}");
+            //Debug.WriteLine($"GetNodeAttributes {parentNode}, {dataObject}");
 
             base.GetNodeAttributes(parentNode, dataObject, ref attributes);
 
-            if (dataObject is ProjectFolder folder && Filter.Length > 0)
+            if (dataObject is ProjectFolder pf && Filter.Length > 0)
             {
-                Debug.WriteLine($"folder {parentNode}, {dataObject}, folder{folder}");
-                if (!HasChildNodesInFilter((ITreeBuilder)parentNode, dataObject))
+                //Debug.WriteLine($"ProjectFolder {parentNode}, {dataObject}, ProjectFolder: {pf}");
+                if (HasChildNodesInFilter((ITreeBuilder)parentNode, pf))
+                {
+                    parentNode.ExpandToNode();
+                    //var nav = parentNode.GetParentDataItem<ProjectFolder>(true);
+                    //if (nav != null)
+                    //{
+                    //    nav.ExpandToNode();
+                    //}
+                }
+                else
                     attributes = NodeAttributes.Hidden;
             }
 
@@ -71,7 +79,7 @@ namespace EssentialsAddin
 
         }
 
-        public bool HasChildNodesInFilter(ITreeBuilder builder, object dataObject)
+        public bool HasChildNodesInFilter(ITreeBuilder builder, ProjectFolder dataObject)
         {
             Project project = builder.GetParentDataItem(typeof(Project), true) as Project;
             if (project == null)
@@ -81,7 +89,7 @@ namespace EssentialsAddin
             if (project.Files.Count > 500)
                 return true;
 
-            var folder = ((ProjectFolder)dataObject).Path;
+            var folder = dataObject.Path;
 
             foreach (var file in project.Files)
             {
@@ -105,33 +113,7 @@ namespace EssentialsAddin
                     }
                 }
             }
-
             return false;
-        }
-
-
-        public override bool HasChildNodes(ITreeBuilder builder, object dataObject)
-        {
-            if (Filter.Length == 0)
-            {
-                return base.HasChildNodes(builder, dataObject);
-            }
-
-            ProjectFile file = (ProjectFile)dataObject;
-            foreach (var item in file.DependentChildren)
-            {
-                Debug.WriteLine($"HasChildNodes {item.ItemName} {item}");
-            }
-
-            return base.HasChildNodes(builder, dataObject);
-            //ProjectFile file = (ProjectFile)dataObject;
-            //IClass[] cls = Runtime.ParserService.GetFileContents(file.Project, file.Name);
-            //return cls.Length > 0;
-        }
-
-        public override void OnNodeAdded(object dataObject)
-        {
-            base.OnNodeAdded(dataObject);
         }
 
         public override void BuildNode(ITreeBuilder treeBuilder, object dataObject, NodeInfo nodeInfo)
@@ -142,7 +124,7 @@ namespace EssentialsAddin
             ProjectFile file = (ProjectFile)dataObject;
 
             var ext = Path.GetExtension(file.FilePath);
-            var filename = Path.GetFileName(file.FilePath);
+            //var filename = Path.GetFileName(file.FilePath);
 
             // Change node label if OneClick is active
             if (treeBuilder.Options["OneClickShowFile"] && ExcludedExtensions.FindIndex((s) => s == ext) == -1)
@@ -150,20 +132,22 @@ namespace EssentialsAddin
                 nodeInfo.Label = string.Format("{0} {1}", Path.GetFileName(file.FilePath), "=>");
             }
 
-            var filter = Filter;
-            if (filter.Length >= 0)
-            {
-                var disableNode = true;
-                foreach (var key in filter)
-                {
-                    if (file.ProjectVirtualPath.ToString().ToLower().Contains(key))
-                    {
-                        disableNode = false;
-                        break;
-                    }
-                }
-                nodeInfo.DisabledStyle = disableNode;
-            }
+
+
+            //var filter = Filter;
+            //if (filter.Length >= 0)
+            //{
+            //    var disableNode = true;
+            //    foreach (var key in filter)
+            //    {
+            //        if (file.ProjectVirtualPath.ToString().ToLower().Contains(key))
+            //        {
+            //            disableNode = false;
+            //            break;
+            //        }
+            //    }
+            //    nodeInfo.DisabledStyle = disableNode;
+            //}
         }
 
         public override Type CommandHandlerType
