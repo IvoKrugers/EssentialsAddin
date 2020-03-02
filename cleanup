@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+pwd=$(pwd)
+
+echo ""
+echo --[CLEAN Folder]--------------------------------------------------------------------------
+echo $pwd
+echo ------------------------------------------------------------------------------------------
+echo "
+This script is will remove the bin, obj, and packages folder 
+from $pwd" 
+#echo "Continue? [y,n]"
+#read answer
+answer=y
+echo ""
+
+if [ "$answer" == "y" ] 
+then 
+    rm -R ./EssentialsAddin/bin
+    rm -R ./EssentialsAddin/obj
+fi
+echo ------------------------------------------------------------------------------------------
+echo ""

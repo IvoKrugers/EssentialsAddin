@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ExtensionModel>
+	
+	<!--   Register Commands   -->
+	<Extension path = "/MonoDevelop/Ide/Commands">
+        <!--<Command id = "EssentialsAddin.AddinCommands.ViewFile"          
+				_label = "(ivo) View File"  defaultHandler = "EssentialsAddin.ViewFileHandler"/>
+		<Command id = "EssentialsAddin.AddinCommands.ShowProperties"    
+				_label = "(ivo) Properties"/>-->
+		<!--<Command id = "EssentialsAddin.AddinCommands.InsertDate"        
+				_label = "Insert Date" defaultHandler = "EssentialsAddin.InsertDateHandler"/>
+		<Command id = "EssentialsAddin.AddinCommands.NewInstanceVS"     
+				_label = "Open New Instance VS" defaultHandler = "EssentialsAddin.NewInstanceVSHandler"/>
+		<Command id = "EssentialsAddin.AddinCommands.ShowSolutionFilterPad"     
+				_label = "Show Solution Filter Pad" defaultHandler = "EssentialsAddin.SolutionFilter.MenuHandler"/>-->
+    </Extension>
+		
+	<Extension path = "/MonoDevelop/Ide/Pads/ProjectPad">
+		<PadOption id = "OneClickShowFile" _label = "(Essentials) Use one click to show file" defaultValue = "true" />
+		<NodeBuilder class = "EssentialsAddin.FileNodeBuilderExtension"/>
+    </Extension>
+	
+	<!-- Main Tool Menu Entries	-->
+	<Extension path = "/MonoDevelop/Ide/MainMenu/Tools">
+		<ItemSet _label = "Essentials">
+		<CommandItem id = "EssentialsAddin.AddinCommands.ShowSolutionFilterPad" />
+			<CommandItem id = "EssentialsAddin.AddinCommands.InsertDate" />
+<!--			<CommandItem id = "EssentialsAddin.AddinCommands.NewInstanceVS" />-->
+			 <!--<SeparatorItem />-->
+			<!--<LinkItem _label = "Visit Company page" link = "http://altran.com" />
+			<LinkItem _label = "Visit Developer's page" link = "http://ivokrugers.com" />-->
+		</ItemSet>
+	</Extension>
+	
+    <!-- copy/pasting code from https://github.com/colbylwilliams/DefaultDesigner-->
+    <!--<Extension
+        path="/MonoDevelop/Ide/DisplayBindings">
+        <DisplayBinding
+            class="MonoDevelop.MacDev.XcodeInterfaceBuilderDisplayBinding"
+            id="InterfaceBuilderBeforeIPhoneDesinger"
+            insertbefore="IPhoneDesigner" />
+    </Extension>
+    <Extension
+        path="/MonoDevelop/Ide/DisplayBindings">
+        <DisplayBinding
+            class="MonoDevelop.MacDev.XcodeInterfaceBuilderDisplayBinding"
+            id="InterfaceBuilderBeforeIOSDesinger"
+            insertbefore="iOSDesigner" />
+    </Extension>-->
+    
+	<!--<SolutionPad id = "ProjectPad" _label = "Solution" icon = "md-solution-pad" class = "MonoDevelop.Ide.Gui.Pads.ProjectPad.ProjectSolutionPad" defaultLayout="*" defaultPlacement = "Left" group="1Solution">
+		<ContextMenu path="/MonoDevelop/Ide/ContextMenu/ProjectPad" />
+		<PadOption id = "ShowAllFiles" _label = "Show All Files" defaultValue = "False" />
+		<NodeBuilder class = "MonoDevelop.Ide.Gui.Pads.ProjectPad.WorkspaceNodeBuilder"/>
+		<NodeBuilder class = "MonoDevelop.Ide.Gui.Pads.ProjectPad.SolutionNodeBuilder"/>
+		<NodeBuilder class = "MonoDevelop.Ide.Gui.Pads.ProjectPad.SolutionFolderNodeBuilder"/>
+		<NodeBuilder class = "MonoDevelop.Ide.Gui.Pads.ProjectPad.ProjectNodeBuilder"/>
+		<NodeBuilder class = "MonoDevelop.Ide.Gui.Pads.ProjectPad.ProjectReferenceFolderNodeBuilder"/>
+		<NodeBuilder class = "MonoDevelop.Ide.Gui.Pads.ProjectPad.ProjectReferenceNodeBuilder"/>
+		<NodeBuilder class = "MonoDevelop.Ide.Gui.Pads.ProjectPad.ProjectFileNodeBuilder"/>
+		<NodeBuilder class = "MonoDevelop.Ide.Gui.Pads.ProjectPad.ProjectFolderNodeBuilder"/>
+		<NodeBuilder class = "MonoDevelop.Ide.Gui.Pads.ProjectPad.SystemFileNodeBuilder"/>
+		<NodeBuilder class = "MonoDevelop.Ide.Gui.Pads.ProjectPad.ShowAllFilesBuilderExtension"/>
+		<NodeBuilder class = "MonoDevelop.Ide.Gui.Pads.ProjectPad.FileOperationsBuilderExtension"/>
+		<NodeBuilder class = "MonoDevelop.Ide.Gui.Pads.ProjectPad.UnknownEntryNodeBuilder"/>
+		<NodeBuilder class = "MonoDevelop.Ide.Gui.Pads.ProjectPad.SolutionFolderFileNodeBuilder"/>
+		<NodeBuilder class = "MonoDevelop.Ide.Gui.Pads.ProjectPad.PortableFrameworkSubsetNodeBuilder"/>
+		<NodeBuilder class = "MonoDevelop.Ide.Gui.Pads.ProjectPad.ImplicitFrameworkAssemblyReferenceNodeBuilder"/>
+		<NodeBuilder class = "MonoDevelop.Ide.Gui.Pads.ProjectPad.GettingStartedNodeBuilderExtension"/>
+		<NodeBuilder class = "MonoDevelop.Ide.Gui.Pads.ProjectPad.GettingStartedNodeBuilder"/>
+	</SolutionPad>-->
+	
+</ExtensionModel>

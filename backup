@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+
+#Get the absolute path to the scriptfile
+SCRIPTFILE=$0
+
+#Example
+#---------------------------------------------------------------
+#ScriptFile: /Users/ivokrugers/Xamarin_Projects/TransTrack_iOS/test1
+#---------------------------------------------------------------
+#ProjectFolder: /Users/ivokrugers/Xamarin_Projects/TransTrack_iOS
+#RootFolder: /Users/ivokrugers/Xamarin_Projects
+#Folder: TransTrack_iOS
+#---------------------------------------------------------------
+
+#Get the absolute path to the containing folder
+PROJECTFOLDER=${SCRIPTFILE%/*}
+
+
+#Get the absolute path to the parent folder of the project folder
+#ROOTFOLDER=${PROJECTFOLDER%/*} 
+
+#Get just the project folder name
+FOLDERNAME=${PROJECTFOLDER##*/}
+
+
+#Go to project folder
+cd ${PROJECTFOLDER}
+
+
+# Remove bin, obj and packages folders
+./cleanup
+
+# Got parent folder
+cd ..
+
+#Prepare the zip filename
+PREFIX=$(date +'%Y-%m-%d')
+ARCHIVE="${PREFIX} ${FOLDERNAME}.zip"
+ITERATOR=1
+
+#Get unique zip filename
+while [ -f "./${ARCHIVE}" ]
+do
+  ARCHIVE="${PREFIX}_$(printf "%02d" ${ITERATOR}) ${FOLDERNAME}.zip"
+  ((ITERATOR++))
+done
+
+echo --[ZIP Folder]----------------------------------------------------------------------------
+echo "$PROJECTFOLDER -> ${ARCHIVE}"
+echo ------------------------------------------------------------------------------------------
+
+# Create the zip archive
+zip -r -db -q "${ARCHIVE}" ${FOLDERNAME}
+
+echo "
+To automatically close this terminal window go to Terminal app menu: 
+    Terminal> Preferences> Profiles> Shell>
+    When the shell exits: -> Close if the shell exited cleanly
+"
+#Exit cleanly
+exit 0
