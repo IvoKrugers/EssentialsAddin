@@ -1,43 +1,132 @@
-
 using System;
-using MonoDevelop.Core.Collections;
-using MonoDevelop.Components.Commands;
-using MonoDevelop.Projects;
-using MonoDevelop.Ide.Gui.Components;
-using MonoDevelop.Ide;
-using MonoDevelop.Ide.Gui.Pads.ProjectPad;
+using System.Diagnostics;
 using System.IO;
 using MonoDevelop.Core;
+using MonoDevelop.Ide.Gui.Components;
+using MonoDevelop.Ide.Gui.Pads.ProjectPad;
+using MonoDevelop.Projects;
 
 namespace EssentialsAddin
 {
-	public class FileNodeBuilderExtension : NodeBuilderExtension
-	{
-
-		public static string[] ExcludedExtensions = { ".storyboard", ".xib" };
-
-		public override bool CanBuildNode(Type dataType)
-		{
-			return typeof(ProjectFile).IsAssignableFrom(dataType);
-		}
-
-        public override void BuildChildNodes(ITreeBuilder treeBuilder, object dataObject)
+    public class FileNodeBuilderExtension : NodeBuilderExtension
+    {
+        private string[] Filter
         {
-            base.BuildChildNodes(treeBuilder, dataObject);
+            get
+            {
+                var filterText = PropertyService.Get<string>(SolutionFilter.SolutionFilterPad.PROPERTY_KEY, String.Empty).ToLower();
+                filterText = "items".ToLower();
+
+                char[] delimiterChars = { ' ', ';', ':', '\t', '\n' };
+                var filter = filterText.Split(delimiterChars);
+                return filter;
+            }
+        }
+
+        public static string[] ExcludedExtensions = { ".storyboard", ".xib" };
+
+        public override bool CanBuildNode(Type dataType)
+        {
+            var canBuild =
+                //typeof(Solution).IsAssignableFrom(dataType) ||
+                typeof(ProjectFolder).IsAssignableFrom(dataType) ||
+                typeof(ProjectFile).IsAssignableFrom(dataType);
+            Debug.WriteLine($"[CanBuildNode] {dataType}, canBuild: {canBuild}");
+            return canBuild;
         }
 
         public override void PrepareChildNodes(object dataObject)
         {
+            Debug.WriteLine($"PrepareChildNodes {dataObject}");
             base.PrepareChildNodes(dataObject);
         }
+
         public override void GetNodeAttributes(ITreeNavigator parentNode, object dataObject, ref NodeAttributes attributes)
         {
+            Debug.WriteLine($"GetNodeAttributes {parentNode}, {dataObject}");
+
             base.GetNodeAttributes(parentNode, dataObject, ref attributes);
+
+            if (dataObject is ProjectFolder folder && Filter.Length > 0)
+            {
+                Debug.WriteLine($"folder {parentNode}, {dataObject}, folder{folder}");
+                if (!HasChildNodesInFilter((ITreeBuilder)parentNode, dataObject))
+                    attributes = NodeAttributes.Hidden;
+            }
+
+            if (dataObject is ProjectFile file && Filter.Length > 0)
+            {
+                var hide = true;
+                foreach (var key in Filter)
+                {
+                    if (file.ProjectVirtualPath.ToString().ToLower().Contains(key))
+                    {
+                        hide = false;
+                        break;
+                    }
+                }
+                if (hide)
+                    attributes = NodeAttributes.Hidden;
+            }
+
         }
+
+        public bool HasChildNodesInFilter(ITreeBuilder builder, object dataObject)
+        {
+            Project project = builder.GetParentDataItem(typeof(Project), true) as Project;
+            if (project == null)
+                return false;
+
+            // For big projects, a real HasChildNodes value is too slow to get
+            if (project.Files.Count > 500)
+                return true;
+
+            var folder = ((ProjectFolder)dataObject).Path;
+
+            foreach (var file in project.Files)
+            {
+                FilePath path;
+
+                if (!file.Visible || file.Flags.HasFlag(ProjectItemFlags.Hidden))
+                    continue;
+                if (file.Subtype != Subtype.Directory)
+                    path = file.IsLink ? project.BaseDirectory.Combine(file.ProjectVirtualPath) : file.FilePath;
+                else
+                    path = file.FilePath;
+
+                if (path.IsChildPathOf(folder))
+                {
+                    foreach (var key in Filter)
+                    {
+                        if (file.ProjectVirtualPath.ToString().ToLower().Contains(key))
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            return false;
+        }
+
 
         public override bool HasChildNodes(ITreeBuilder builder, object dataObject)
         {
+            if (Filter.Length == 0)
+            {
+                return base.HasChildNodes(builder, dataObject);
+            }
+
+            ProjectFile file = (ProjectFile)dataObject;
+            foreach (var item in file.DependentChildren)
+            {
+                Debug.WriteLine($"HasChildNodes {item.ItemName} {item}");
+            }
+
             return base.HasChildNodes(builder, dataObject);
+            //ProjectFile file = (ProjectFile)dataObject;
+            //IClass[] cls = Runtime.ParserService.GetFileContents(file.Project, file.Name);
+            //return cls.Length > 0;
         }
 
         public override void OnNodeAdded(object dataObject)
@@ -46,144 +135,46 @@ namespace EssentialsAddin
         }
 
         public override void BuildNode(ITreeBuilder treeBuilder, object dataObject, NodeInfo nodeInfo)
-		{
-			ProjectFile file = (ProjectFile)dataObject;
-			var ext = Path.GetExtension(file.FilePath);
-			var filename = Path.GetFileName(file.FilePath);
-			
-			// Change node label if OneClick is active
-			if (treeBuilder.Options["OneClickShowFile"] && ExcludedExtensions.FindIndex((s) => s == ext) == -1)
-			{
-				nodeInfo.Label = string.Format("{0} {1}", Path.GetFileName(file.FilePath), "->");
-			}
-			
-			var filterText = PropertyService.Get<string>(SolutionFilter.SolutionFilterPad.PROPERTY_KEY, String.Empty).ToLower();
-            //filterText = "ViewModels".ToLower();
-			if (!String.IsNullOrWhiteSpace(filterText)) {
-				// Search for keys from the filter in the filename.
-				char[] delimiterChars = { ' ', ';', ':', '\t', '\n' };
-				
-				var filter = filterText.Split(delimiterChars);
-				var disableNode = true;
-				
-				foreach (var key in filter) {
-					if (file.ProjectVirtualPath.ToString().ToLower().Contains(key)){
-						disableNode = false;
-						break;
-					}
-				}
-				
-				nodeInfo.DisabledStyle = disableNode;
-                
-			}
-		}
+        {
+            if (!(dataObject is ProjectFile))
+                return;
 
-		public override Type CommandHandlerType
-		{
-			get
-			{
-				if (Context.GetTreeBuilder().Options["OneClickShowFile"])
-					return typeof(FileNodeCommandHandler);
-				else
-					return null;
-			}
-		}
-	}
+            ProjectFile file = (ProjectFile)dataObject;
 
-	public class FileNodeCommandHandler : NodeCommandHandler
-	{
-		
-		// Double-Clicked
-		public override void ActivateItem()
-		{
-			base.ActivateItem();
-			//var aref = (ProjectFile)CurrentNode.DataItem;
-			//IdeApp.Workbench.OpenDocument(aref.FilePath, project: null);
-		}
-		
-		// Single-Clicked
-		public override void OnItemSelected()
-		{
-			base.OnItemSelected();
+            var ext = Path.GetExtension(file.FilePath);
+            var filename = Path.GetFileName(file.FilePath);
 
-			var f = (ProjectFile)CurrentNode.DataItem;
-			string ext = Path.GetExtension(f.FilePath);
-			if (FileNodeBuilderExtension.ExcludedExtensions.FindIndex((s) => s == ext) == -1)
-			{
-				IdeApp.Workbench.OpenDocument(f.FilePath, project: null);
-			}
-		}
+            // Change node label if OneClick is active
+            if (treeBuilder.Options["OneClickShowFile"] && ExcludedExtensions.FindIndex((s) => s == ext) == -1)
+            {
+                nodeInfo.Label = string.Format("{0} {1}", Path.GetFileName(file.FilePath), "=>");
+            }
 
-		public override void RefreshItem()
-		{
-			base.RefreshItem();
-		}
+            var filter = Filter;
+            if (filter.Length >= 0)
+            {
+                var disableNode = true;
+                foreach (var key in filter)
+                {
+                    if (file.ProjectVirtualPath.ToString().ToLower().Contains(key))
+                    {
+                        disableNode = false;
+                        break;
+                    }
+                }
+                nodeInfo.DisabledStyle = disableNode;
+            }
+        }
 
-		//[CommandHandler (Commands.SynchWithMakefile)]
-		//[AllowMultiSelection]
-		//public void OnExclude ()
-		//{
-		//	//if all of the selection is already checked, then toggle checks them off
-		//	//else it turns them on. hence we need to find if they're all checked,
-		//	bool allChecked = true;
-		//	foreach (ITreeNavigator node in CurrentNodes) {
-		//		ProjectFile file = (ProjectFile) node.DataItem;
-		//		if (file.Project != null) {
-		//			MakefileData data = file.Project.GetMakefileData ();
-		//			if (data != null && data.IsFileIntegrationEnabled (file.BuildAction)) {
-		//				if (data.IsFileExcluded (file.FilePath)) {
-		//					allChecked = false;
-		//					break;
-		//				}
-		//			}
-		//		}
-		//	}
-
-		//	Set<SolutionItem> projects = new Set<SolutionItem> ();
-
-		//	foreach (ITreeNavigator node in CurrentNodes) {
-		//		ProjectFile file = (ProjectFile) node.DataItem;
-		//		if (file.Project != null) {
-		//			projects.Add (file.Project);
-		//			MakefileData data = file.Project.GetMakefileData ();
-		//			if (data != null && data.IntegrationEnabled) {
-		//				data.SetFileExcluded (file.FilePath, allChecked);
-		//			}
-		//		}
-		//	}
-
-		//	IdeApp.ProjectOperations.SaveAsync (projects);
-		//}
-
-		//[CommandUpdateHandler (Commands.SynchWithMakefile)]
-		//public void OnUpdateExclude (CommandInfo cinfo)
-		//{
-		//	bool anyChecked = false;
-		//	bool allChecked = true;
-		//	bool anyEnabled = false;
-		//	bool allEnabled = true;
-
-		//	foreach (ITreeNavigator node in CurrentNodes) {
-		//		ProjectFile file = (ProjectFile) node.DataItem;
-		//		if (file.Project != null) {
-		//			MakefileData data = file.Project.GetMakefileData ();
-		//			if (data != null && data.IsFileIntegrationEnabled (file.BuildAction)) {
-		//				anyEnabled = true;
-		//				if (!data.IsFileExcluded (file.FilePath)) {
-		//					anyChecked = true;
-		//				} else {
-		//					allChecked = false;
-		//				}
-		//			} else {
-		//				allEnabled = false;
-		//			}
-		//		}
-		//	}
-
-		//	cinfo.Visible = anyEnabled;
-		//	cinfo.Enabled = anyEnabled && allEnabled;
-		//	cinfo.Checked = anyChecked;
-		//	cinfo.CheckedInconsistent = anyChecked && !allChecked;
-		//}
-	}
+        public override Type CommandHandlerType
+        {
+            get
+            {
+                if (Context.GetTreeBuilder().Options["OneClickShowFile"])
+                    return typeof(FileNodeCommandHandler);
+                else
+                    return null;
+            }
+        }
+    }
 }

@@ -1,15 +1,14 @@
-﻿using System;
-using MonoDevelop.Components.Commands;
+﻿using MonoDevelop.Components.Commands;
 using MonoDevelop.Ide;
 using MonoDevelop.Ide.Gui;
 
 namespace EssentialsAddin.SolutionFilter
 {
-	public class MenuHandler : CommandHandler
+    public class MenuHandler : CommandHandler
 	{
 		protected override void Run()
 		{
-			var pad = IdeApp.Workbench.GetPad<EssentialsAddin.SolutionFilter.SolutionFilterPad>();
+			var pad = IdeApp.Workbench.GetPad<SolutionFilterPad>();
 			if (pad == null)
 			{
 				var fp = new SolutionFilterPad();

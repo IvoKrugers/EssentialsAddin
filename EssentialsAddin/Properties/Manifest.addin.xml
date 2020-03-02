@@ -16,19 +16,16 @@
     </Extension>
 		
 	<Extension path = "/MonoDevelop/Ide/Pads/ProjectPad">
-		<PadOption id = "OneClickShowFile" _label = "(Essentials) Use one click to show file" defaultValue = "true" />
-		<NodeBuilder class = "EssentialsAddin.FileNodeBuilderExtension"/>
+        <PadOption id = "OneClickShowFile" _label = "(Essentials) Use one click to show file" defaultValue = "true" />
+        <NodeBuilder class = "EssentialsAddin.FileNodeBuilderExtension"/>
     </Extension>
 	
 	<!-- Main Tool Menu Entries	-->
 	<Extension path = "/MonoDevelop/Ide/MainMenu/Tools">
 		<ItemSet _label = "Essentials">
 		<CommandItem id = "EssentialsAddin.AddinCommands.ShowSolutionFilterPad" />
-			<CommandItem id = "EssentialsAddin.AddinCommands.InsertDate" />
-<!--			<CommandItem id = "EssentialsAddin.AddinCommands.NewInstanceVS" />-->
-			 <!--<SeparatorItem />-->
-			<!--<LinkItem _label = "Visit Company page" link = "http://altran.com" />
-			<LinkItem _label = "Visit Developer's page" link = "http://ivokrugers.com" />-->
+    		<SeparatorItem />
+			<LinkItem _label = "Developer's LinkedIn" link = "https://www.linkedin.com/in/ikrugers/" />
 		</ItemSet>
 	</Extension>
 	
