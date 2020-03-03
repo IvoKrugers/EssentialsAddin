@@ -4,30 +4,48 @@ namespace EssentialsAddin
 {
 	public partial class SolutionFilterWidget
 	{
+		private global::Gtk.VBox vbox1;
+
 		private global::Gtk.HBox hbox1;
 
-		private global::Gtk.Label filterLabel;
+		private global::Gtk.Label label1;
 
 		private global::Gtk.Entry filterEntry;
+
+		private global::Gtk.Button clearButton;
+
+		private global::Gtk.CheckButton oneClickCheckbutton;
+
+		private global::Gtk.HBox hbox2;
+
+		private global::Gtk.Label label2;
+
+		private global::Gtk.Entry collapseEntry;
+
+		private global::Gtk.Button collapseButton;
 
 		protected virtual void Build()
 		{
 			global::Stetic.Gui.Initialize(this);
 			// Widget EssentialsAddin.SolutionFilterWidget
 			global::Stetic.BinContainer.Attach(this);
-			this.HeightRequest = 25;
+			this.HeightRequest = 115;
 			this.CanFocus = true;
 			this.Name = "EssentialsAddin.SolutionFilterWidget";
 			// Container child EssentialsAddin.SolutionFilterWidget.Gtk.Container+ContainerChild
+			this.vbox1 = new global::Gtk.VBox();
+			this.vbox1.Name = "vbox1";
+			this.vbox1.Spacing = 6;
+			// Container child vbox1.Gtk.Box+BoxChild
 			this.hbox1 = new global::Gtk.HBox();
 			this.hbox1.Name = "hbox1";
-			this.hbox1.Spacing = 1;
+			this.hbox1.Spacing = 6;
 			// Container child hbox1.Gtk.Box+BoxChild
-			this.filterLabel = new global::Gtk.Label();
-			this.filterLabel.Name = "filterLabel";
-			this.filterLabel.LabelProp = global::Mono.Unix.Catalog.GetString("Filter:");
-			this.hbox1.Add(this.filterLabel);
-			global::Gtk.Box.BoxChild w1 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.filterLabel]));
+			this.label1 = new global::Gtk.Label();
+			this.label1.Name = "label1";
+			this.label1.LabelProp = global::Mono.Unix.Catalog.GetString("Tree Filter:");
+			this.hbox1.Add(this.label1);
+			global::Gtk.Box.BoxChild w1 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.label1]));
 			w1.Position = 0;
 			w1.Expand = false;
 			w1.Fill = false;
@@ -36,18 +54,92 @@ namespace EssentialsAddin
 			this.filterEntry.CanFocus = true;
 			this.filterEntry.Name = "filterEntry";
 			this.filterEntry.IsEditable = true;
+			this.filterEntry.HasFrame = false;
 			this.filterEntry.InvisibleChar = '●';
 			this.hbox1.Add(this.filterEntry);
 			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.filterEntry]));
 			w2.Position = 1;
-			w2.Padding = ((uint)(1));
-			this.Add(this.hbox1);
+			// Container child hbox1.Gtk.Box+BoxChild
+			this.clearButton = new global::Gtk.Button();
+			this.clearButton.CanFocus = true;
+			this.clearButton.Name = "clearButton";
+			this.clearButton.UseUnderline = true;
+			this.clearButton.Label = global::Mono.Unix.Catalog.GetString("Clear");
+			this.hbox1.Add(this.clearButton);
+			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.clearButton]));
+			w3.Position = 2;
+			w3.Expand = false;
+			w3.Fill = false;
+			this.vbox1.Add(this.hbox1);
+			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.hbox1]));
+			w4.Position = 0;
+			w4.Expand = false;
+			w4.Fill = false;
+			// Container child vbox1.Gtk.Box+BoxChild
+			this.oneClickCheckbutton = new global::Gtk.CheckButton();
+			this.oneClickCheckbutton.CanFocus = true;
+			this.oneClickCheckbutton.Name = "oneClickCheckbutton";
+			this.oneClickCheckbutton.Label = global::Mono.Unix.Catalog.GetString("Use one click to show file");
+			this.oneClickCheckbutton.Active = true;
+			this.oneClickCheckbutton.DrawIndicator = true;
+			this.oneClickCheckbutton.UseUnderline = true;
+			this.vbox1.Add(this.oneClickCheckbutton);
+			global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.oneClickCheckbutton]));
+			w5.Position = 1;
+			w5.Expand = false;
+			w5.Fill = false;
+			// Container child vbox1.Gtk.Box+BoxChild
+			this.hbox2 = new global::Gtk.HBox();
+			this.hbox2.Name = "hbox2";
+			this.hbox2.Spacing = 6;
+			// Container child hbox2.Gtk.Box+BoxChild
+			this.label2 = new global::Gtk.Label();
+			this.label2.Name = "label2";
+			this.label2.LabelProp = global::Mono.Unix.Catalog.GetString("Collapse tree and expand \nCSharp Projects containing:");
+			this.label2.Wrap = true;
+			this.hbox2.Add(this.label2);
+			global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.hbox2[this.label2]));
+			w6.Position = 0;
+			w6.Expand = false;
+			w6.Fill = false;
+			// Container child hbox2.Gtk.Box+BoxChild
+			this.collapseEntry = new global::Gtk.Entry();
+			this.collapseEntry.CanFocus = true;
+			this.collapseEntry.Name = "collapseEntry";
+			this.collapseEntry.Text = global::Mono.Unix.Catalog.GetString("core;ios");
+			this.collapseEntry.IsEditable = true;
+			this.collapseEntry.HasFrame = false;
+			this.collapseEntry.InvisibleChar = '●';
+			this.hbox2.Add(this.collapseEntry);
+			global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.hbox2[this.collapseEntry]));
+			w7.Position = 1;
+			// Container child hbox2.Gtk.Box+BoxChild
+			this.collapseButton = new global::Gtk.Button();
+			this.collapseButton.CanFocus = true;
+			this.collapseButton.Name = "collapseButton";
+			this.collapseButton.UseUnderline = true;
+			this.collapseButton.Label = global::Mono.Unix.Catalog.GetString("Collapse");
+			this.hbox2.Add(this.collapseButton);
+			global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.hbox2[this.collapseButton]));
+			w8.Position = 2;
+			w8.Expand = false;
+			w8.Fill = false;
+			this.vbox1.Add(this.hbox2);
+			global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.hbox2]));
+			w9.Position = 2;
+			w9.Expand = false;
+			w9.Fill = false;
+			this.Add(this.vbox1);
 			if ((this.Child != null))
 			{
 				this.Child.ShowAll();
 			}
 			this.Show();
 			this.filterEntry.Changed += new global::System.EventHandler(this.OnFilterEntryChanged);
+			this.filterEntry.EditingDone += new global::System.EventHandler(this.OnEditingDone);
+			this.clearButton.Clicked += new global::System.EventHandler(this.clearButton_Clicked);
+			this.oneClickCheckbutton.Toggled += new global::System.EventHandler(this.oneClickCheckbutton_Toggled);
+			this.collapseButton.Clicked += new global::System.EventHandler(this.collapseButton_Clicked);
 		}
 	}
 }

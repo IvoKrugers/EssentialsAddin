@@ -5,20 +5,63 @@
     <target-gtk-version>2.12</target-gtk-version>
   </configuration>
   <import>
-    <widget-library name="../bin/Debug/EssentialsAddin.dll" internal="true" />
+    <widget-library name="../bin/Release/EssentialsAddin.dll" internal="true" />
   </import>
-  <widget class="Gtk.Bin" id="EssentialsAddin.SolutionFilterWidget" design-size="268 165">
+  <widget class="Gtk.Bin" id="EssentialsAddin.SolutionFilterWidget" design-size="389 165">
     <property name="MemberName" />
-    <property name="HeightRequest">25</property>
+    <property name="HeightRequest">115</property>
     <property name="CanFocus">True</property>
     <child>
-      <widget class="Gtk.HBox" id="hbox1">
+      <widget class="Gtk.VBox" id="vbox1">
         <property name="MemberName" />
-        <property name="Spacing">1</property>
+        <property name="Spacing">6</property>
         <child>
-          <widget class="Gtk.Label" id="filterLabel">
+          <widget class="Gtk.HBox" id="hbox1">
             <property name="MemberName" />
-            <property name="LabelProp" translatable="yes">Filter:</property>
+            <property name="Spacing">6</property>
+            <child>
+              <widget class="Gtk.Label" id="label1">
+                <property name="MemberName" />
+                <property name="LabelProp" translatable="yes">Tree Filter:</property>
+              </widget>
+              <packing>
+                <property name="Position">0</property>
+                <property name="AutoSize">True</property>
+                <property name="Expand">False</property>
+                <property name="Fill">False</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="Gtk.Entry" id="filterEntry">
+                <property name="MemberName" />
+                <property name="CanFocus">True</property>
+                <property name="IsEditable">True</property>
+                <property name="HasFrame">False</property>
+                <property name="InvisibleChar">●</property>
+                <signal name="Changed" handler="OnFilterEntryChanged" />
+                <signal name="EditingDone" handler="OnEditingDone" />
+              </widget>
+              <packing>
+                <property name="Position">1</property>
+                <property name="AutoSize">True</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="Gtk.Button" id="clearButton">
+                <property name="MemberName" />
+                <property name="CanFocus">True</property>
+                <property name="Type">TextOnly</property>
+                <property name="Label" translatable="yes">Clear</property>
+                <property name="UseUnderline">True</property>
+                <signal name="Clicked" handler="clearButton_Clicked" />
+              </widget>
+              <packing>
+                <property name="Position">2</property>
+                <property name="AutoSize">True</property>
+                <property name="Expand">False</property>
+                <property name="Fill">False</property>
+              </packing>
+            </child>
           </widget>
           <packing>
             <property name="Position">0</property>
@@ -28,17 +71,77 @@
           </packing>
         </child>
         <child>
-          <widget class="Gtk.Entry" id="filterEntry">
+          <widget class="Gtk.CheckButton" id="oneClickCheckbutton">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
-            <property name="IsEditable">True</property>
-            <property name="InvisibleChar">●</property>
-            <signal name="Changed" handler="OnFilterEntryChanged" />
+            <property name="Label" translatable="yes">Use one click to show file</property>
+            <property name="Active">True</property>
+            <property name="DrawIndicator">True</property>
+            <property name="HasLabel">True</property>
+            <property name="UseUnderline">True</property>
+            <signal name="Toggled" handler="oneClickCheckbutton_Toggled" />
           </widget>
           <packing>
             <property name="Position">1</property>
-            <property name="AutoSize">False</property>
-            <property name="Padding">1</property>
+            <property name="AutoSize">True</property>
+            <property name="Expand">False</property>
+            <property name="Fill">False</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.HBox" id="hbox2">
+            <property name="MemberName" />
+            <property name="Spacing">6</property>
+            <child>
+              <widget class="Gtk.Label" id="label2">
+                <property name="MemberName" />
+                <property name="LabelProp" translatable="yes">Collapse tree and expand 
+CSharp Projects containing:</property>
+                <property name="Wrap">True</property>
+              </widget>
+              <packing>
+                <property name="Position">0</property>
+                <property name="AutoSize">True</property>
+                <property name="Expand">False</property>
+                <property name="Fill">False</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="Gtk.Entry" id="collapseEntry">
+                <property name="MemberName" />
+                <property name="CanFocus">True</property>
+                <property name="Text" translatable="yes">core;ios</property>
+                <property name="IsEditable">True</property>
+                <property name="HasFrame">False</property>
+                <property name="InvisibleChar">●</property>
+              </widget>
+              <packing>
+                <property name="Position">1</property>
+                <property name="AutoSize">False</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="Gtk.Button" id="collapseButton">
+                <property name="MemberName" />
+                <property name="CanFocus">True</property>
+                <property name="Type">TextOnly</property>
+                <property name="Label" translatable="yes">Collapse</property>
+                <property name="UseUnderline">True</property>
+                <signal name="Clicked" handler="collapseButton_Clicked" />
+              </widget>
+              <packing>
+                <property name="Position">2</property>
+                <property name="AutoSize">True</property>
+                <property name="Expand">False</property>
+                <property name="Fill">False</property>
+              </packing>
+            </child>
+          </widget>
+          <packing>
+            <property name="Position">2</property>
+            <property name="AutoSize">True</property>
+            <property name="Expand">False</property>
+            <property name="Fill">False</property>
           </packing>
         </child>
         <child>
