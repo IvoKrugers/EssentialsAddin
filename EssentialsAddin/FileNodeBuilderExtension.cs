@@ -24,8 +24,13 @@ namespace EssentialsAddin
                 return filter;
             }
         }
-
-        private string OneClickChar = "-->";
+        private readonly string OneClickChar 
+#if DEBUG
+         = "-->";
+#else
+         = "=>";
+#endif
+        public static string OneClickShowFileOption = "OneClickShowFile";
 
         public static string[] ExcludedExtensions = { ".storyboard", ".xib" };
 
@@ -131,7 +136,7 @@ namespace EssentialsAddin
             //var filename = Path.GetFileName(file.FilePath);
 
             // Change node label if OneClick is active
-            if (treeBuilder.Options["OneClickShowFile"] && ExcludedExtensions.FindIndex((s) => s == ext) == -1)
+            if (treeBuilder.Options[OneClickShowFileOption] && ExcludedExtensions.FindIndex((s) => s == ext) == -1)
             {
                 nodeInfo.Label = string.Format("{0} {1}", Path.GetFileName(file.FilePath), OneClickChar);
             }
@@ -158,7 +163,7 @@ namespace EssentialsAddin
         {
             get
             {
-                if (Context.GetTreeBuilder().Options["OneClickShowFile"])
+                if (Context.GetTreeBuilder().Options[OneClickShowFileOption])
                     return typeof(FileNodeCommandHandler);
                 else
                     return null;
