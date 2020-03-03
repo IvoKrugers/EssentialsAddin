@@ -51,24 +51,14 @@ namespace EssentialsAddin
 
         public override void GetNodeAttributes(ITreeNavigator parentNode, object dataObject, ref NodeAttributes attributes)
         {
-            //Debug.WriteLine($"GetNodeAttributes {parentNode}, {dataObject}");
-
             base.GetNodeAttributes(parentNode, dataObject, ref attributes);
 
             if (dataObject is ProjectFolder pf && Filter.Length > 0)
             {
-                //Debug.WriteLine($"ProjectFolder {parentNode}, {dataObject}, ProjectFolder: {pf}");
-                if (HasChildNodesInFilter((ITreeBuilder)parentNode, pf))
+                if (!HasChildNodesInFilter((ITreeBuilder)parentNode, pf))
                 {
-                    parentNode.ExpandToNode();
-                    //var nav = parentNode.GetParentDataItem<ProjectFolder>(true);
-                    //if (nav != null)
-                    //{
-                    //    nav.ExpandToNode();
-                    //}
-                }
-                else
                     attributes = NodeAttributes.Hidden;
+                }
             }
 
             if (dataObject is ProjectFile file && Filter.Length > 0)

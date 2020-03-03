@@ -43,28 +43,59 @@ namespace EssentialsAddin
             filterEntry.GrabFocus();
         }
 
-        private void ExpandAll(ExtensibleTreeView tree,  ITreeNavigator node)
+        private void ExpandAll(ExtensibleTreeView tree, ITreeNavigator node)
         {
             if (node == null)
                 return;
 
-            node.ExpandToNode();
-
-            Debug.WriteLine($"\t{node.DataItem.GetType().FullName}\t{node.NodeName}");
-
-            if (node.HasChildren())
+            var typename = node.DataItem.GetType().Name;
+            if (typename == "Solution")
             {
-                var continueLoop = node.MoveToFirstChild();
-                while (continueLoop)
+                node.ExpandToNode();
+
+                Debug.WriteLine($"\t{node.DataItem.GetType().FullName}\t{node.NodeName}");
+
+                if (node.HasChildren())
                 {
-                    ExpandAll(tree, node);
-                    continueLoop = node.MoveNext();
+                    var continueLoop = node.MoveToFirstChild();
+                    while (continueLoop)
+                    {
+                        ExpandCSharpProject(tree, node);
+                        continueLoop = node.MoveNext();
+                    }
+                    node.MoveToParent();
                 }
-                node.MoveToParent();
-                Debug.WriteLine($"\t--{node.DataItem.GetType().FullName}\t{node.NodeName}");
-                return;
             }
-           
+        }
+
+        private void ExpandCSharpProject(ExtensibleTreeView tree, ITreeNavigator node)
+        {
+            if (node == null)
+                return;
+
+            var typename = node.DataItem.GetType().Name;
+          
+            if (typename == "CSharpProject" || typename == "ProjectFolder" || typename == "ProjectFile")
+            {
+
+                if (node.HasChildren())
+                {
+                    var continueLoop = node.MoveToFirstChild();
+                    while (continueLoop)
+                    {
+                        ExpandCSharpProject(tree, node);
+                        continueLoop = node.MoveNext();
+                    }
+                    node.MoveToParent();
+                    return;
+                }
+
+                if (typename != "CSharpProject")
+                {
+                    Debug.WriteLine($"\tExpandToNode {node.DataItem.GetType().FullName}\t{node.NodeName}");
+                    node.ExpandToNode();
+                }
+            }
         }
     }
 }
