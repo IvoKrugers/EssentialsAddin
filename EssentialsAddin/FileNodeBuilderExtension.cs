@@ -14,14 +14,18 @@ namespace EssentialsAddin
         {
             get
             {
-                var filterText = PropertyService.Get<string>(SolutionFilter.SolutionFilterPad.PROPERTY_KEY, String.Empty).ToLower();
-                filterText = "items".ToLower();
+                var filterText = PropertyService.Get<string>(SolutionFilterPad.PROPERTY_KEY, String.Empty).ToLower();
+                //filterText = "items".ToLower();
+                if (string.IsNullOrEmpty(filterText))
+                    return new string[0];
 
                 char[] delimiterChars = { ' ', ';', ':', '\t', '\n' };
                 var filter = filterText.Split(delimiterChars);
                 return filter;
             }
         }
+
+        private string OneClickChar = "-->";
 
         public static string[] ExcludedExtensions = { ".storyboard", ".xib" };
 
@@ -129,7 +133,7 @@ namespace EssentialsAddin
             // Change node label if OneClick is active
             if (treeBuilder.Options["OneClickShowFile"] && ExcludedExtensions.FindIndex((s) => s == ext) == -1)
             {
-                nodeInfo.Label = string.Format("{0} {1}", Path.GetFileName(file.FilePath), "=>");
+                nodeInfo.Label = string.Format("{0} {1}", Path.GetFileName(file.FilePath), OneClickChar);
             }
 
 

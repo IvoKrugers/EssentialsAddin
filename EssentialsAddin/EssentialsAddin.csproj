@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>EssentialsAddin</RootNamespace>
     <AssemblyName>EssentialsAddin</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <ReleaseVersion>1.2</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -35,33 +35,14 @@
     <Compile Include="ViewFileHandler.cs" />
     <Compile Include="NewInstanceVSHandler.cs" />
     <Compile Include="FileNodeBuilderExtension.cs" />
-    <Compile Include="SolutionFilter\MenuHandler.cs" />
-    <Compile Include="SolutionFilter\SolutionFilterPad.cs" />
     <Compile Include="FileNodeCommandHandler.cs" />
     <Compile Include="downloaded.cs" />
-    <Compile Include="Class Groups\NewClassGroupDialog.cs" />
-    <Compile Include="Class Groups\AddClassGroupDialog.cs" />
-    <Compile Include="Class Groups\ClassGroup.cs" />
-    <Compile Include="Class Groups\ClassGroupCellRenderer.cs" />
-    <Compile Include="Class Groups\ClassGroupColorWidget.cs" />
-    <Compile Include="Class Groups\ClassGroupsTreeView.cs" />
-    <Compile Include="ClassGroupsContextMenu.cs" />
-    <Compile Include="DiagramPadWidget.cs" />
-    <Compile Include="DiagramPad.cs" />
-    <Compile Include="DrawingProgressBar.cs" />
     <Compile Include="gtk-gui\generated.cs" />
-    <Compile Include="gtk-gui\Diagram.DiagramPadWidget.cs" />
-    <Compile Include="gtk-gui\Diagram.ClassGroups.NewClassGroupDialog.cs" />
-    <Compile Include="Drawing\Data\Edge.cs" />
-    <Compile Include="Drawing\Data\Node.cs" />
-    <Compile Include="Drawing\Data\Options.cs" />
-    <Compile Include="Drawing\Data\VisJsDataBuilder.cs" />
-    <Compile Include="Drawing\ClassDrawingEvents.cs" />
-    <Compile Include="Drawing\ClassDrawingWebView.cs" />
-    <Compile Include="Storage\DiagramStorage.cs" />
-    <Compile Include="Storage\StoredDiagramDetails.cs" />
-    <Compile Include="Source Analysis\ClassDefinition.cs" />
-    <Compile Include="Source Analysis\ClassTreeBuilder.cs" />
+    <Compile Include="SolutionFilterWidget.cs" />
+    <Compile Include="gtk-gui\EssentialsAddin.SolutionFilterWidget.cs" />
+    <Compile Include="SolutionFilterPad.cs" />
+    <Compile Include="SolutionFilter\SolutionFilterPad.cs" />
+    <Compile Include="SolutionFilterPadMenuHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Manifest.addin.xml" />
@@ -74,16 +55,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Drawing\WebResources\convex-hull.js" />
-    <None Include="Drawing\WebResources\drawing_area.html" />
-    <None Include="Drawing\WebResources\vis-network.min.css" />
-    <None Include="Drawing\WebResources\vis-network.min.js" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Mono.Posix" />
     <Reference Include="gtk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <Reference Include="gdk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
-    <Reference Include="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MonoDevelop.Addins.0.4.7\build\MonoDevelop.Addins.targets" Condition="Exists('..\packages\MonoDevelop.Addins.0.4.7\build\MonoDevelop.Addins.targets')" />
