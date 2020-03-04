@@ -17,9 +17,8 @@ namespace EssentialsAddin
         public SolutionFilterWidget()
         {
             this.Build();
-            Setup();
-
             this.ShowAll();
+            Setup();
         }
 
         private void Setup()
@@ -47,7 +46,7 @@ namespace EssentialsAddin
         private void StartTimer()
         {
             StopTimer();
-            timer = new Timer(OnTimerElapsed, null, 1000, Timeout.Infinite); // dueTime in miliseconds
+            timer = new Timer(OnTimerElapsed, null, 2000, Timeout.Infinite); // dueTime in miliseconds
         }
 
         private void StopTimer()
@@ -69,34 +68,37 @@ namespace EssentialsAddin
         private void FilterSolutionPad()
         {
             Debug.WriteLine("[OnFilterEntryChanged] TEST!!!!");
-            PropertyService.Set(SolutionFilterPad.PROPERTY_KEY, filterEntry.Text);
 
-            if (string.IsNullOrEmpty(filterEntry.Text))
-            {
-                CollapseToCSharpProjects();
-                return;
-            }
+            IdeApp.Workbench.StatusBar.ShowMessage("Filtering...");
 
-            var pad = (SolutionPad)IdeApp.Workbench.Pads.SolutionPad.Content;
-            if (pad == null)
-                return;
+                PropertyService.Set(SolutionFilterPad.PROPERTY_KEY, filterEntry.Text);
 
-            pad.TreeView.GrabFocus();
-            pad.TreeView.CollapseTree();
+                if (string.IsNullOrEmpty(filterEntry.Text))
+                {
+                    CollapseToCSharpProjects();
+                    return;
+                }
 
-            var root = pad.TreeView.GetRootNode();
-            if (root != null)
-            {
-                root.Expanded = true;
-                var option = root.Options[FileNodeBuilderExtension.OneClickShowFileOption];
-                root.Options[FileNodeBuilderExtension.OneClickShowFileOption] = false;
-                pad.TreeView.RefreshNode(root);
+                var pad = (SolutionPad)IdeApp.Workbench.Pads.SolutionPad.Content;
+                if (pad == null)
+                    return;
 
-                ExpandAll(pad.TreeView, root);
+                pad.TreeView.CollapseTree();
 
-                root.Options[FileNodeBuilderExtension.OneClickShowFileOption] = option;
-            }
-            filterEntry.GrabFocus();
+                var root = pad.TreeView.GetRootNode();
+                if (root != null)
+                {
+                    root.Expanded = true;
+                    var option = root.Options[FileNodeBuilderExtension.OneClickShowFileOption];
+                    root.Options[FileNodeBuilderExtension.OneClickShowFileOption] = false;
+                    pad.TreeView.RefreshNode(root);
+
+                    ExpandAll(pad.TreeView, root);
+                  
+                    root.Options[FileNodeBuilderExtension.OneClickShowFileOption] = option;
+                }
+
+            IdeApp.Workbench.StatusBar.ShowReady();
         }
 
         private void ExpandAll(ExtensibleTreeView tree, ITreeNavigator node)
@@ -156,7 +158,6 @@ namespace EssentialsAddin
 
                 if (typename != "CSharpProject")
                 {
-                    Debug.WriteLine($"\tExpandToNode {node.DataItem.GetType().FullName}\t{node.NodeName}");
                     node.ExpandToNode();
                 }
             }

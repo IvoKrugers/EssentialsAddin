@@ -4,3 +4,4 @@ EssentialsAddin/obj
 packages
 .vs
 .mfractor
+*.mpack
