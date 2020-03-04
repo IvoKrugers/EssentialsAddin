@@ -5,7 +5,7 @@ using Mono.Addins.Description;
 [assembly: Addin(
 	"EssentialsAddin",
 	Namespace = "EssentialsAddin",
-	Version = "1.3"
+	Version = "1.4"
 )]
 
 [assembly: AddinName("EssentialsAddin")]

@@ -2,3 +2,6 @@ EssentialsAddin/bin/Debug
 EssentialsAddin/bin
 EssentialsAddin/obj
 packages
+.vs
+.mfractor
+*.mpack

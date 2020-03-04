@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using MonoDevelop.Components.Commands;
 using MonoDevelop.Ide;
 
@@ -17,18 +18,19 @@ namespace EssentialsAddin
 			
 			//IdeApp.Workbench.ActiveDocumentChanged += OnWindowChanged;
 			//IdeApp.ProjectOperations.CurrentSelectedSolutionChanged += OnSolutionChanged;
-			
-			
 		}
-		void OnSolutionChanged(object sender, MonoDevelop.Projects.SolutionEventArgs e) 
+
+        void OnSolutionChanged(object sender, MonoDevelop.Projects.SolutionEventArgs e) 
 		{
-			System.Diagnostics.Debug.Print($"CurrentSelectedSolutionChanged {IdeApp.ProjectOperations.CurrentSelectedItem.ToString()}");
+			Debug.Print($"CurrentSelectedSolutionChanged {IdeApp.ProjectOperations.CurrentSelectedItem.ToString()}");
 		}
-		void OnWindowChanged(object ob, EventArgs args)
+
+        void OnWindowChanged(object ob, EventArgs args)
 		{
-			System.Diagnostics.Debug.Print($"OnWindowChanged {IdeApp.Workbench.ActiveDocument.FileName}");
+			Debug.Print($"OnWindowChanged {IdeApp.Workbench.ActiveDocument.FileName}");
 		}
-		protected override void Update(CommandInfo info)
+
+        protected override void Update(CommandInfo info)
 		{
 			info.Enabled = true;
 			//info.Enabled = IdeApp.Workbench.ActiveDocument?.Editor != null;

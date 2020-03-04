@@ -1,97 +1,105 @@
-﻿//using System;
-//using MonoDevelop.Components.Commands;
-//using MonoDevelop.Ide.Gui.Components;
-//using MonoDevelop.Projects;
+﻿using System;
+using System.IO;
+using MonoDevelop.Ide;
+using MonoDevelop.Ide.Gui.Components;
+using MonoDevelop.Projects;
 
-//namespace EssentialsAddin
-//{
+namespace EssentialsAddin
+{
+    public class FileNodeCommandHandler : NodeCommandHandler
+    {
 
-//	class AddinProjectNodeBuilder : NodeBuilderExtension
-//	{
-//		public override bool CanBuildNode(Type dataType)
-//		{
-//			return typeof(DotNetProject).IsAssignableFrom(dataType);
-//		}
+        // Double-Clicked
+        public override void ActivateItem()
+        {
+            base.ActivateItem();
+            //var aref = (ProjectFile)CurrentNode.DataItem;
+            //IdeApp.Workbench.OpenDocument(aref.FilePath, project: null);
+        }
 
-//		public override Type CommandHandlerType
-//		{
-//			get { return typeof(AddinProjectCommandHandler); }
-//		}
+        // Single-Clicked
+        public override void OnItemSelected()
+        {
+            base.OnItemSelected();
 
-//		public override bool HasChildNodes(ITreeBuilder builder, object dataObject)
-//		{
-//			return base.HasChildNodes(builder, dataObject);
-//		}
+            var f = (ProjectFile)CurrentNode.DataItem;
+            string ext = Path.GetExtension(f.FilePath);
+            if (FileNodeBuilderExtension.ExcludedExtensions.FindIndex((s) => s == ext) == -1)
+            {
+                IdeApp.Workbench.OpenDocument(f.FilePath, project: null);
+            }
+        }
 
-//		public override void BuildChildNodes(ITreeBuilder treeBuilder, object dataObject)
-//		{
-//			base.BuildChildNodes(treeBuilder, dataObject);
-//		}
+        public override void RefreshItem()
+        {
+            base.RefreshItem();
+        }
 
-//		class AddinProjectCommandHandler : NodeCommandHandler
-//		{
-//			public override void ActivateItem()
-//			{
-//				base.ActivateItem();
-//			}
-//		}
-//	}
-	
-//	public class FileNodeBuilder : TypeNodeBuilder
-//	{
-//		public override Type NodeDataType 
-//		=> typeof(ProjectItem);
+        //[CommandHandler (Commands.SynchWithMakefile)]
+        //[AllowMultiSelection]
+        //public void OnExclude ()
+        //{
+        //	//if all of the selection is already checked, then toggle checks them off
+        //	//else it turns them on. hence we need to find if they're all checked,
+        //	bool allChecked = true;
+        //	foreach (ITreeNavigator node in CurrentNodes) {
+        //		ProjectFile file = (ProjectFile) node.DataItem;
+        //		if (file.Project != null) {
+        //			MakefileData data = file.Project.GetMakefileData ();
+        //			if (data != null && data.IsFileIntegrationEnabled (file.BuildAction)) {
+        //				if (data.IsFileExcluded (file.FilePath)) {
+        //					allChecked = false;
+        //					break;
+        //				}
+        //			}
+        //		}
+        //	}
 
-//		public override string GetNodeName(ITreeNavigator thisNode, object dataObject)
-//		{
-//			var f = (ProjectItem)dataObject;
-//			return f.ItemName;
-//		}
+        //	Set<SolutionItem> projects = new Set<SolutionItem> ();
 
-//		public override void BuildNode(ITreeBuilder treeBuilder, object dataObject, NodeInfo nodeInfo)
-//		{
-//			var f = (ProjectItem)dataObject;
-//			nodeInfo.Label = f.ItemName;
-//		}
+        //	foreach (ITreeNavigator node in CurrentNodes) {
+        //		ProjectFile file = (ProjectFile) node.DataItem;
+        //		if (file.Project != null) {
+        //			projects.Add (file.Project);
+        //			MakefileData data = file.Project.GetMakefileData ();
+        //			if (data != null && data.IntegrationEnabled) {
+        //				data.SetFileExcluded (file.FilePath, allChecked);
+        //			}
+        //		}
+        //	}
 
-//		public override Type CommandHandlerType
-//		=> typeof(FileNodeCommandHandler); 
-//	}
+        //	IdeApp.ProjectOperations.SaveAsync (projects);
+        //}
 
-//	public class FileNodeCommandHandler: NodeCommandHandler
-//	{
-//		//[CommandHandler(AddinCommands.ShowProperties)]
-//		//public void OnShowProperties()
-//		//{	
-//		//	System.Diagnostics.Debug.Print("OnShowProperties");
-//		//}
+        //[CommandUpdateHandler (Commands.SynchWithMakefile)]
+        //public void OnUpdateExclude (CommandInfo cinfo)
+        //{
+        //	bool anyChecked = false;
+        //	bool allChecked = true;
+        //	bool anyEnabled = false;
+        //	bool allEnabled = true;
 
-//		//[CommandUpdateHandler(AddinCommands.ShowProperties)]
-//		//public void UpdateShowProperties(CommandInfo info)
-//		//{
-//		//	info.Enabled = true;
-//		//}
-		
-		
-		
-//		//[CommandHandler(EssentialsAddin.AddinCommands.ViewFile)]
-//		//public void OnViewFile()
-//		//{
-//		//	System.Diagnostics.Debug.Print("OnShowProperties");
-//		//}
-		
-//		public override void OnItemSelected()
-//		{
-//			base.OnItemSelected();
+        //	foreach (ITreeNavigator node in CurrentNodes) {
+        //		ProjectFile file = (ProjectFile) node.DataItem;
+        //		if (file.Project != null) {
+        //			MakefileData data = file.Project.GetMakefileData ();
+        //			if (data != null && data.IsFileIntegrationEnabled (file.BuildAction)) {
+        //				anyEnabled = true;
+        //				if (!data.IsFileExcluded (file.FilePath)) {
+        //					anyChecked = true;
+        //				} else {
+        //					allChecked = false;
+        //				}
+        //			} else {
+        //				allEnabled = false;
+        //			}
+        //		}
+        //	}
 
-
-//			ProjectFile f;
-			
-//		}
-		
-//		public override void ActivateItem()
-//		{
-//			base.ActivateItem();
-//		}
-//	}
-//}
+        //	cinfo.Visible = anyEnabled;
+        //	cinfo.Enabled = anyEnabled && allEnabled;
+        //	cinfo.Checked = anyChecked;
+        //	cinfo.CheckedInconsistent = anyChecked && !allChecked;
+        //}
+    }
+}

@@ -1,37 +1,31 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ExtensionModel>
-	
-	<!--   Register Commands   -->
-	<Extension path = "/MonoDevelop/Ide/Commands">
+    <!--   Register Commands   -->
+    <Extension path="/MonoDevelop/Ide/Commands">
         <!--<Command id = "EssentialsAddin.AddinCommands.ViewFile"          
 				_label = "(ivo) View File"  defaultHandler = "EssentialsAddin.ViewFileHandler"/>
 		<Command id = "EssentialsAddin.AddinCommands.ShowProperties"    
 				_label = "(ivo) Properties"/>-->
-		<!--<Command id = "EssentialsAddin.AddinCommands.InsertDate"        
+        <!--<Command id = "EssentialsAddin.AddinCommands.InsertDate"        
 				_label = "Insert Date" defaultHandler = "EssentialsAddin.InsertDateHandler"/>
 		<Command id = "EssentialsAddin.AddinCommands.NewInstanceVS"     
-				_label = "Open New Instance VS" defaultHandler = "EssentialsAddin.NewInstanceVSHandler"/>
+				_label = "Open New Instance VS" defaultHandler = "EssentialsAddin.NewInstanceVSHandler"/>-->
 		<Command id = "EssentialsAddin.AddinCommands.ShowSolutionFilterPad"     
-				_label = "Show Solution Filter Pad" defaultHandler = "EssentialsAddin.SolutionFilter.MenuHandler"/>-->
+				_label = "Show Solution Filter Pad" defaultHandler = "EssentialsAddin.SolutionFilterPadMenuHandler"/>
     </Extension>
-		
-	<Extension path = "/MonoDevelop/Ide/Pads/ProjectPad">
-		<PadOption id = "OneClickShowFile" _label = "(Essentials) Use one click to show file" defaultValue = "true" />
-		<NodeBuilder class = "EssentialsAddin.FileNodeBuilderExtension"/>
+    <Extension path="/MonoDevelop/Ide/Pads/ProjectPad">
+        <PadOption id="OneClickShowFile" _label="(Essentials) Use one click to show file" defaultValue="true" />
+        <NodeBuilder class="EssentialsAddin.FileNodeBuilderExtension" />
     </Extension>
-	
-	<!-- Main Tool Menu Entries	-->
-	<Extension path = "/MonoDevelop/Ide/MainMenu/Tools">
-		<ItemSet _label = "Essentials">
-		<CommandItem id = "EssentialsAddin.AddinCommands.ShowSolutionFilterPad" />
-			<CommandItem id = "EssentialsAddin.AddinCommands.InsertDate" />
-<!--			<CommandItem id = "EssentialsAddin.AddinCommands.NewInstanceVS" />-->
-			 <!--<SeparatorItem />-->
-			<!--<LinkItem _label = "Visit Company page" link = "http://altran.com" />
-			<LinkItem _label = "Visit Developer's page" link = "http://ivokrugers.com" />-->
-		</ItemSet>
-	</Extension>
-	
+    
+    <!-- Main Tool Menu Entries	-->
+    <Extension path="/MonoDevelop/Ide/MainMenu/Tools">
+        <ItemSet _label="Essentials">
+            <CommandItem id="EssentialsAddin.AddinCommands.ShowSolutionFilterPad" />
+            <SeparatorItem />
+            <LinkItem _label="Developer's LinkedIn" link="https://www.linkedin.com/in/ikrugers/" />
+        </ItemSet>
+    </Extension>
     <!-- copy/pasting code from https://github.com/colbylwilliams/DefaultDesigner-->
     <!--<Extension
         path="/MonoDevelop/Ide/DisplayBindings">
@@ -47,8 +41,7 @@
             id="InterfaceBuilderBeforeIOSDesinger"
             insertbefore="iOSDesigner" />
     </Extension>-->
-    
-	<!--<SolutionPad id = "ProjectPad" _label = "Solution" icon = "md-solution-pad" class = "MonoDevelop.Ide.Gui.Pads.ProjectPad.ProjectSolutionPad" defaultLayout="*" defaultPlacement = "Left" group="1Solution">
+    <!--<SolutionPad id = "ProjectPad" _label = "Solution" icon = "md-solution-pad" class = "MonoDevelop.Ide.Gui.Pads.ProjectPad.ProjectSolutionPad" defaultLayout="*" defaultPlacement = "Left" group="1Solution">
 		<ContextMenu path="/MonoDevelop/Ide/ContextMenu/ProjectPad" />
 		<PadOption id = "ShowAllFiles" _label = "Show All Files" defaultValue = "False" />
 		<NodeBuilder class = "MonoDevelop.Ide.Gui.Pads.ProjectPad.WorkspaceNodeBuilder"/>
@@ -69,5 +62,11 @@
 		<NodeBuilder class = "MonoDevelop.Ide.Gui.Pads.ProjectPad.GettingStartedNodeBuilderExtension"/>
 		<NodeBuilder class = "MonoDevelop.Ide.Gui.Pads.ProjectPad.GettingStartedNodeBuilder"/>
 	</SolutionPad>-->
-	
+    <Extension path="/MonoDevelop/Ide/Pads">
+        <Pad id="EssentialsAddin.SolutionFilterPad" 
+             _label="Essentials Pad" 
+             class="EssentialsAddin.SolutionFilterPad" 
+             defaultStatus="Dockable" 
+             defaultPlacement="ProjectPad/bottom" />
+    </Extension>
 </ExtensionModel>
