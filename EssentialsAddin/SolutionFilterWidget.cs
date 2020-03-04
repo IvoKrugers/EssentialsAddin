@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading;
 using MonoDevelop.Core;
 using MonoDevelop.Ide;
 using MonoDevelop.Ide.Gui.Components;
@@ -11,6 +12,8 @@ namespace EssentialsAddin
     [System.ComponentModel.ToolboxItem(true)]
     public partial class SolutionFilterWidget : Gtk.Bin
     {
+        private Timer timer;
+
         public SolutionFilterWidget()
         {
             this.Build();
@@ -38,7 +41,62 @@ namespace EssentialsAddin
 
         protected void OnFilterEntryChanged(object sender, EventArgs e)
         {
-            FilterSolutionPad();
+            StartTimer();
+        }
+
+        private void StartTimer()
+        {
+            StopTimer();
+            timer = new Timer(OnTimerElapsed, null, 1000, Timeout.Infinite); // dueTime in miliseconds
+        }
+
+        private void StopTimer()
+        {
+            timer?.Dispose();
+            timer = null;
+        }
+
+        object refreshLock = new Object();
+        private void OnTimerElapsed(object state)
+        {
+            lock (refreshLock)
+            {
+                StopTimer();
+                Runtime.RunInMainThread(FilterSolutionPad);
+            }
+        }
+
+        private void FilterSolutionPad()
+        {
+            Debug.WriteLine("[OnFilterEntryChanged] TEST!!!!");
+            PropertyService.Set(SolutionFilterPad.PROPERTY_KEY, filterEntry.Text);
+
+            if (string.IsNullOrEmpty(filterEntry.Text))
+            {
+                CollapseToCSharpProjects();
+                return;
+            }
+
+            var pad = (SolutionPad)IdeApp.Workbench.Pads.SolutionPad.Content;
+            if (pad == null)
+                return;
+
+            pad.TreeView.GrabFocus();
+            pad.TreeView.CollapseTree();
+
+            var root = pad.TreeView.GetRootNode();
+            if (root != null)
+            {
+                root.Expanded = true;
+                var option = root.Options[FileNodeBuilderExtension.OneClickShowFileOption];
+                root.Options[FileNodeBuilderExtension.OneClickShowFileOption] = false;
+                pad.TreeView.RefreshNode(root);
+
+                ExpandAll(pad.TreeView, root);
+
+                root.Options[FileNodeBuilderExtension.OneClickShowFileOption] = option;
+            }
+            filterEntry.GrabFocus();
         }
 
         private void ExpandAll(ExtensibleTreeView tree, ITreeNavigator node)
@@ -58,7 +116,16 @@ namespace EssentialsAddin
                     var continueLoop = node.MoveToFirstChild();
                     while (continueLoop)
                     {
-                        ExpandCSharpProjectFiles(tree, node);
+                        var wso = node.DataItem as WorkspaceObject;
+                            Debug.WriteLine($"{wso.Name} {wso}");
+                            foreach (var item in CollapseFilter)
+                            {
+                                if (wso.Name.ToLower().Contains(item))
+                                {
+                                    ExpandCSharpProjectFiles(tree, node);
+                                    break;
+                                }
+                            }
                         continueLoop = node.MoveNext();
                     }
                     node.MoveToParent();
@@ -75,7 +142,6 @@ namespace EssentialsAddin
 
             if (typename == "CSharpProject" || typename == "ProjectFolder" || typename == "ProjectFile")
             {
-
                 if (node.HasChildren())
                 {
                     var continueLoop = node.MoveToFirstChild();
@@ -115,7 +181,6 @@ namespace EssentialsAddin
         {
             CollapseToCSharpProjects();
         }
-
 
         private string[] CollapseFilter
         {
@@ -186,41 +251,6 @@ namespace EssentialsAddin
 
         protected void OnEditingDone(object sender, EventArgs e)
         {
-            
         }
-
-        private void FilterSolutionPad()
-        {
-            Debug.WriteLine("[OnFilterEntryChanged] TEST!!!!");
-            PropertyService.Set(SolutionFilterPad.PROPERTY_KEY, filterEntry.Text);
-
-            if (string.IsNullOrEmpty(filterEntry.Text))
-            {
-                CollapseToCSharpProjects();
-                return;
-            }
-
-            var pad = (SolutionPad)IdeApp.Workbench.Pads.SolutionPad.Content;
-            if (pad == null)
-                return;
-
-            pad.TreeView.GrabFocus();
-            pad.TreeView.CollapseTree();
-
-            var root = pad.TreeView.GetRootNode();
-            if (root != null)
-            {
-                root.Expanded = true;
-                var option = root.Options[FileNodeBuilderExtension.OneClickShowFileOption];
-                root.Options[FileNodeBuilderExtension.OneClickShowFileOption] = false;
-                pad.TreeView.RefreshNode(root);
-
-                ExpandAll(pad.TreeView, root);
-
-                root.Options[FileNodeBuilderExtension.OneClickShowFileOption] = option;
-            }
-            filterEntry.GrabFocus();
-        }
-
     }
 }

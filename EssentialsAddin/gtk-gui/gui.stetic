@@ -5,9 +5,9 @@
     <target-gtk-version>2.12</target-gtk-version>
   </configuration>
   <import>
-    <widget-library name="../bin/Release/EssentialsAddin.dll" internal="true" />
+    <widget-library name="../bin/Debug/EssentialsAddin.dll" internal="true" />
   </import>
-  <widget class="Gtk.Bin" id="EssentialsAddin.SolutionFilterWidget" design-size="389 165">
+  <widget class="Gtk.Bin" id="EssentialsAddin.SolutionFilterWidget" design-size="425 165">
     <property name="MemberName" />
     <property name="HeightRequest">115</property>
     <property name="CanFocus">True</property>
@@ -29,6 +29,7 @@
                 <property name="AutoSize">True</property>
                 <property name="Expand">False</property>
                 <property name="Fill">False</property>
+                <property name="Padding">6</property>
               </packing>
             </child>
             <child>
@@ -43,7 +44,7 @@
               </widget>
               <packing>
                 <property name="Position">1</property>
-                <property name="AutoSize">True</property>
+                <property name="AutoSize">False</property>
               </packing>
             </child>
             <child>
@@ -56,10 +57,12 @@
                 <signal name="Clicked" handler="clearButton_Clicked" />
               </widget>
               <packing>
+                <property name="PackType">End</property>
                 <property name="Position">2</property>
                 <property name="AutoSize">True</property>
                 <property name="Expand">False</property>
                 <property name="Fill">False</property>
+                <property name="Padding">10</property>
               </packing>
             </child>
           </widget>
@@ -95,8 +98,7 @@
             <child>
               <widget class="Gtk.Label" id="label2">
                 <property name="MemberName" />
-                <property name="LabelProp" translatable="yes">Collapse tree and expand 
-CSharp Projects containing:</property>
+                <property name="LabelProp" translatable="yes">Only expand Projects containing:</property>
                 <property name="Wrap">True</property>
               </widget>
               <packing>
@@ -104,6 +106,7 @@ CSharp Projects containing:</property>
                 <property name="AutoSize">True</property>
                 <property name="Expand">False</property>
                 <property name="Fill">False</property>
+                <property name="Padding">6</property>
               </packing>
             </child>
             <child>
@@ -117,7 +120,7 @@ CSharp Projects containing:</property>
               </widget>
               <packing>
                 <property name="Position">1</property>
-                <property name="AutoSize">False</property>
+                <property name="AutoSize">True</property>
               </packing>
             </child>
             <child>
@@ -125,7 +128,7 @@ CSharp Projects containing:</property>
                 <property name="MemberName" />
                 <property name="CanFocus">True</property>
                 <property name="Type">TextOnly</property>
-                <property name="Label" translatable="yes">Collapse</property>
+                <property name="Label" translatable="yes">Test</property>
                 <property name="UseUnderline">True</property>
                 <signal name="Clicked" handler="collapseButton_Clicked" />
               </widget>
@@ -134,6 +137,7 @@ CSharp Projects containing:</property>
                 <property name="AutoSize">True</property>
                 <property name="Expand">False</property>
                 <property name="Fill">False</property>
+                <property name="Padding">10</property>
               </packing>
             </child>
           </widget>

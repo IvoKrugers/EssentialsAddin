@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using Microsoft.VisualStudio.Text.Editor.Commanding.Commands;
 using MonoDevelop.Core;
 using MonoDevelop.Ide.Gui.Components;
 using MonoDevelop.Ide.Gui.Pads.ProjectPad;
@@ -10,21 +12,7 @@ namespace EssentialsAddin
 {
     public class FileNodeBuilderExtension : NodeBuilderExtension
     {
-        private string[] Filter
-        {
-            get
-            {
-                var filterText = PropertyService.Get<string>(SolutionFilterPad.PROPERTY_KEY, String.Empty).ToLower();
-                //filterText = "items".ToLower();
-                if (string.IsNullOrEmpty(filterText))
-                    return new string[0];
-
-                char[] delimiterChars = { ' ', ';', ':', '\t', '\n' };
-                var filter = filterText.Split(delimiterChars);
-                return filter;
-            }
-        }
-        private readonly string OneClickChar 
+        private readonly string OneClickChar
 #if DEBUG
          = "-->";
 #else
@@ -33,6 +21,8 @@ namespace EssentialsAddin
         public static string OneClickShowFileOption = "OneClickShowFile";
 
         public static string[] ExcludedExtensions = { ".storyboard", ".xib" };
+
+        private FilteredProjectCache _fileCache = new FilteredProjectCache();
 
         public override bool CanBuildNode(Type dataType)
         {
@@ -53,20 +43,23 @@ namespace EssentialsAddin
         {
             base.GetNodeAttributes(parentNode, dataObject, ref attributes);
 
-            if (dataObject is ProjectFolder pf && Filter.Length > 0)
+            var filter = EssentialProperties.SolutionFilterArray;
+            if (dataObject is ProjectFolder pf && filter.Length > 0)
             {
                 if (!HasChildNodesInFilter((ITreeBuilder)parentNode, pf))
                 {
                     attributes = NodeAttributes.Hidden;
                 }
+                var txt = attributes == NodeAttributes.Hidden ? "HIDE" : "SHOW";
+                Debug.WriteLine($"{txt} \tProjectFolder {pf.Path} ");
             }
 
-            if (dataObject is ProjectFile file && Filter.Length > 0)
+            if (dataObject is ProjectFile file && filter.Length > 0)
             {
                 var hide = true;
-                foreach (var key in Filter)
+                foreach (var key in filter)
                 {
-                    if (file.ProjectVirtualPath.ToString().ToLower().Contains(key))
+                    if (file.ProjectVirtualPath.FileNameWithoutExtension.ToLower().Contains(key))
                     {
                         hide = false;
                         break;
@@ -75,8 +68,8 @@ namespace EssentialsAddin
                 if (hide)
                     attributes = NodeAttributes.Hidden;
             }
-
         }
+       
 
         public bool HasChildNodesInFilter(ITreeBuilder builder, ProjectFolder dataObject)
         {
@@ -84,35 +77,39 @@ namespace EssentialsAddin
             if (project == null)
                 return false;
 
+            _fileCache.AddFilesForProject(project);
+            return _fileCache.IsProjectFolderVisible(dataObject);
+
             // For big projects, a real HasChildNodes value is too slow to get
-            if (project.Files.Count > 500)
-                return true;
+            //if (project.Files.Count > 500)
+            //    return true;
 
-            var folder = dataObject.Path;
+            //var folder = dataObject.Path;
 
-            foreach (var file in project.Files)
-            {
-                FilePath path;
+            //foreach (var file in project.Files)
+            //{
+            //    FilePath path;
 
-                if (!file.Visible || file.Flags.HasFlag(ProjectItemFlags.Hidden))
-                    continue;
-                if (file.Subtype != Subtype.Directory)
-                    path = file.IsLink ? project.BaseDirectory.Combine(file.ProjectVirtualPath) : file.FilePath;
-                else
-                    path = file.FilePath;
+            //    if (!file.Visible || file.Flags.HasFlag(ProjectItemFlags.Hidden) || file.Subtype == Subtype.Directory)
+            //        continue;
 
-                if (path.IsChildPathOf(folder))
-                {
-                    foreach (var key in Filter)
-                    {
-                        if (file.ProjectVirtualPath.ToString().ToLower().Contains(key))
-                        {
-                            return true;
-                        }
-                    }
-                }
-            }
-            return false;
+            //    if (file.Subtype != Subtype.Directory)
+            //        path = file.IsLink ? project.BaseDirectory.Combine(file.ProjectVirtualPath) : file.FilePath;
+            //    //else
+            //    //    path = file.FilePath;
+
+            //    if (path.IsChildPathOf(folder))
+            //    {
+            //        foreach (var key in _filter)
+            //        {
+            //            if (file.ProjectVirtualPath.FileNameWithoutExtension.ToLower().Contains(key))
+            //            {
+            //                return true;
+            //            }
+            //        }
+            //    }
+            //}
+            //return false;
         }
 
         public override void BuildNode(ITreeBuilder treeBuilder, object dataObject, NodeInfo nodeInfo)

@@ -1,4 +1,6 @@
-﻿using MonoDevelop.Components;
+﻿using System.Diagnostics;
+using MonoDevelop.Components;
+using MonoDevelop.Ide;
 using MonoDevelop.Ide.Gui;
 
 namespace EssentialsAddin
@@ -16,7 +18,7 @@ namespace EssentialsAddin
         protected override void Initialize(IPadWindow window)
         {
             base.Initialize(window);
-            //StartListeningForWorkspaceChanges();
+            StartListeningForWorkspaceChanges();
             //window.PadHidden += (sender, e) => control.SaveNodeLocationsForSelectedProject();
 
             //Debug.WriteLine($"Bundle path: {NSBundle.MainBundle.BundlePath}");
@@ -29,6 +31,9 @@ namespace EssentialsAddin
             //IdeApp.Workspace.SolutionLoaded += (sender, e) => control.ReloadProjects();
             //IdeApp.Workspace.ItemAddedToSolution += (sender, e) => control.ReloadProjects();
             //IdeApp.Workspace.ItemRemovedFromSolution += (sender, e) => control.ReloadProjects();
+            IdeApp.Workspace.LastWorkspaceItemClosed += (sender, e) => Debug.WriteLine("LASTWORKSPACEITEMCLOSED !!");
+            IdeApp.Workspace.WorkspaceItemClosed += (sender, e) => Debug.WriteLine("WorkspaceItemClosed !!");
+            IdeApp.Workspace.WorkspaceItemUnloaded += (sender, e) => Debug.WriteLine("WorkspaceItemUnloaded !!");
         }
     }
 }

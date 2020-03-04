@@ -43,6 +43,8 @@
     <Compile Include="SolutionFilterPad.cs" />
     <Compile Include="SolutionFilter\SolutionFilterPad.cs" />
     <Compile Include="SolutionFilterPadMenuHandler.cs" />
+    <Compile Include="FilteredProjectCache.cs" />
+    <Compile Include="EssentialProperties.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Manifest.addin.xml" />

@@ -49,6 +49,7 @@ namespace EssentialsAddin
 			w1.Position = 0;
 			w1.Expand = false;
 			w1.Fill = false;
+			w1.Padding = ((uint)(6));
 			// Container child hbox1.Gtk.Box+BoxChild
 			this.filterEntry = new global::Gtk.Entry();
 			this.filterEntry.CanFocus = true;
@@ -67,9 +68,11 @@ namespace EssentialsAddin
 			this.clearButton.Label = global::Mono.Unix.Catalog.GetString("Clear");
 			this.hbox1.Add(this.clearButton);
 			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.clearButton]));
+			w3.PackType = ((global::Gtk.PackType)(1));
 			w3.Position = 2;
 			w3.Expand = false;
 			w3.Fill = false;
+			w3.Padding = ((uint)(10));
 			this.vbox1.Add(this.hbox1);
 			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.hbox1]));
 			w4.Position = 0;
@@ -95,13 +98,14 @@ namespace EssentialsAddin
 			// Container child hbox2.Gtk.Box+BoxChild
 			this.label2 = new global::Gtk.Label();
 			this.label2.Name = "label2";
-			this.label2.LabelProp = global::Mono.Unix.Catalog.GetString("Collapse tree and expand \nCSharp Projects containing:");
+			this.label2.LabelProp = global::Mono.Unix.Catalog.GetString("Only expand Projects containing:");
 			this.label2.Wrap = true;
 			this.hbox2.Add(this.label2);
 			global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.hbox2[this.label2]));
 			w6.Position = 0;
 			w6.Expand = false;
 			w6.Fill = false;
+			w6.Padding = ((uint)(6));
 			// Container child hbox2.Gtk.Box+BoxChild
 			this.collapseEntry = new global::Gtk.Entry();
 			this.collapseEntry.CanFocus = true;
@@ -118,12 +122,13 @@ namespace EssentialsAddin
 			this.collapseButton.CanFocus = true;
 			this.collapseButton.Name = "collapseButton";
 			this.collapseButton.UseUnderline = true;
-			this.collapseButton.Label = global::Mono.Unix.Catalog.GetString("Collapse");
+			this.collapseButton.Label = global::Mono.Unix.Catalog.GetString("Test");
 			this.hbox2.Add(this.collapseButton);
 			global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.hbox2[this.collapseButton]));
 			w8.Position = 2;
 			w8.Expand = false;
 			w8.Fill = false;
+			w8.Padding = ((uint)(10));
 			this.vbox1.Add(this.hbox2);
 			global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.hbox2]));
 			w9.Position = 2;
