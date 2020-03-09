@@ -5,7 +5,7 @@ using MonoDevelop.Ide;
 using MonoDevelop.Ide.Gui.Components;
 using MonoDevelop.Projects;
 
-namespace EssentialsAddin
+namespace EssentialsAddin.SolutionFilter
 {
     public class FileNodeCommandHandler : NodeCommandHandler
     {

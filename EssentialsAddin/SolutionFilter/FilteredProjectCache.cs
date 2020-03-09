@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using Cairo;
 using EssentialsAddin.Helpers;
 using MonoDevelop.Core;
 using MonoDevelop.Ide.Gui.Pads.ProjectPad;
 using MonoDevelop.Projects;
 
-namespace EssentialsAddin
+namespace EssentialsAddin.SolutionFilter
 {
     public class FilteredProjectCache
     {
@@ -68,12 +69,9 @@ namespace EssentialsAddin
 
         private void ClearCacheOfProject(Project project)
         {
-            foreach (var item in _folderDictionary)
+            foreach (var s in _folderDictionary.Where(item => item.Key.StartsWith(project.Name)).ToList())
             {
-                if (item.Key.StartsWith(project.Name))
-                {
-                    _folderDictionary.Remove(item.Key);
-                }
+                _folderDictionary.Remove(s.Key);
             }
         }
 

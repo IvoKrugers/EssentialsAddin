@@ -9,7 +9,7 @@ using MonoDevelop.Ide.Gui.Components;
 using MonoDevelop.Ide.Gui.Pads.ProjectPad;
 using MonoDevelop.Projects;
 
-namespace EssentialsAddin
+namespace EssentialsAddin.SolutionFilter
 {
     public class FileNodeBuilderExtension : NodeBuilderExtension
     {
@@ -120,7 +120,7 @@ namespace EssentialsAddin
 
             var ext = Path.GetExtension(file.FilePath);
 
-            if (treeBuilder.Options[OneClickShowFileOption] &&  EssentialProperties.ExcludedExtensionsFromOneClick.FindIndex((s) => s == ext) == -1)
+            if (EssentialProperties.OneClickShowFile &&  EssentialProperties.ExcludedExtensionsFromOneClick.FindIndex((s) => s == ext) == -1)
             {
                 nodeInfo.Label = string.Format("{0} {1}", Path.GetFileName(file.FilePath), OneClickChar);
             }
@@ -130,7 +130,8 @@ namespace EssentialsAddin
         {
             get
             {
-                if (Context.GetTreeBuilder().Options[OneClickShowFileOption])
+                //if (Context.GetTreeBuilder().Options[OneClickShowFileOption])
+                if (EssentialProperties.OneClickShowFile)
                     return typeof(FileNodeCommandHandler);
                 else
                     return null;

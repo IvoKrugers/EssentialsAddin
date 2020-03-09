@@ -11,11 +11,11 @@
 		<Command id = "EssentialsAddin.AddinCommands.NewInstanceVS"     
 				_label = "Open New Instance VS" defaultHandler = "EssentialsAddin.NewInstanceVSHandler"/>-->
 		<Command id = "EssentialsAddin.AddinCommands.ShowSolutionFilterPad"     
-				_label = "Show Solution Filter Pad" defaultHandler = "EssentialsAddin.SolutionFilterPadMenuHandler"/>
+				_label = "Show Solution Filter Pad" defaultHandler = "EssentialsAddin.SolutionFilter.SolutionFilterPadMenuHandler"/>
     </Extension>
     <Extension path="/MonoDevelop/Ide/Pads/ProjectPad">
-        <PadOption id="OneClickShowFile" _label="(Essentials) Use one click to show file" defaultValue="true" />
-        <NodeBuilder class="EssentialsAddin.FileNodeBuilderExtension" />
+<!--        <PadOption id="OneClickShowFile" _label="(Essentials) Use one click to show file" defaultValue="true" />-->
+        <NodeBuilder class="EssentialsAddin.SolutionFilter.FileNodeBuilderExtension" />
     </Extension>
     
     <!-- Main Tool Menu Entries	-->
@@ -64,7 +64,7 @@
 	</SolutionPad>-->
     <Extension path="/MonoDevelop/Ide/Pads">
         <Pad id="EssentialsAddin.SolutionFilterPad" 
-             _label="Essentials Pad" 
+             _label="Essentials Pad (1.4.0)" 
              class="EssentialsAddin.SolutionFilterPad" 
              defaultStatus="Dockable" 
              defaultPlacement="ProjectPad/bottom" />

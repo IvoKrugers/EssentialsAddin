@@ -8,6 +8,7 @@ namespace EssentialsAddin.Helpers
     {
         private const string SOLUTIONFILTER_KEY = "EssentialsAddin.SolutionFilter";
         private const string SOLUTIONEXPANDFILTER_KEY = "EssentialsAddin.SolutionExpandFilter";
+        private const string ONECLICKSHOWFILE_KEY = "EssentialsAddin.OneClickShowFile";
 
         private static char[] _delimiterChars = { ' ', ';', ':', '\t', '\n' };
 
@@ -51,5 +52,11 @@ namespace EssentialsAddin.Helpers
         public static string[] ExcludedExtensionsFromOneClick = { ".storyboard", ".xib" };
 
         public static string[] ExcludedExtensionsFromExpanding = { ".xaml.cs", ".designer.cs" };
+
+        public static bool OneClickShowFile
+        {
+            get => PropertyService.Get<bool>(ONECLICKSHOWFILE_KEY,true);
+            set => PropertyService.Set(ONECLICKSHOWFILE_KEY, value);
+        }
     }
 }

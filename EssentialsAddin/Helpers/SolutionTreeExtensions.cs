@@ -28,13 +28,21 @@ namespace EssentialsAddin.Helpers
                     {
                         var wso = node.DataItem as WorkspaceObject;
                         Debug.WriteLine($"{wso.Name} {wso}");
-                        foreach (var item in EssentialProperties.ExpandFilterArray)
+
+                        if (!string.IsNullOrWhiteSpace(EssentialProperties.ExpandFilter))
                         {
-                            if (wso.Name.ToLower().Contains(item))
+                            foreach (var item in EssentialProperties.ExpandFilterArray)
                             {
-                                ExpandCSharpProjectFiles(node);
-                                break;
+                                if (wso.Name.ToLower().Contains(item))
+                                {
+                                    ExpandCSharpProjectFiles(node);
+                                    break;
+                                }
                             }
+                        }
+                        else
+                        {
+                            ExpandCSharpProjectFiles(node);
                         }
                         continueLoop = node.MoveNext();
                     }
