@@ -152,7 +152,7 @@
                 <property name="MemberName" />
                 <property name="CanFocus">True</property>
                 <property name="Type">TextOnly</property>
-                <property name="Label" translatable="yes">Test</property>
+                <property name="Label" translatable="yes">Apply</property>
                 <property name="UseUnderline">True</property>
                 <property name="FocusOnClick">False</property>
                 <property name="Relief">Half</property>

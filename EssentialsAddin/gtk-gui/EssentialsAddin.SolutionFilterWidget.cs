@@ -135,7 +135,7 @@ namespace EssentialsAddin
 			this.collapseButton.UseUnderline = true;
 			this.collapseButton.FocusOnClick = false;
 			this.collapseButton.Relief = ((global::Gtk.ReliefStyle)(1));
-			this.collapseButton.Label = global::Mono.Unix.Catalog.GetString("Test");
+			this.collapseButton.Label = global::Mono.Unix.Catalog.GetString("Apply");
 			this.hbox3.Add(this.collapseButton);
 			global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.hbox3[this.collapseButton]));
 			w9.Position = 2;

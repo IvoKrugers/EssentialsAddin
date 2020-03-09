@@ -63,19 +63,25 @@ namespace EssentialsAddin.Helpers
                 if (node.HasChildren())
                 {
                     var continueLoop = node.MoveToFirstChild();
+                    var hasDependingChildren = false;
                     while (continueLoop)
                     {
-                        ExpandCSharpProjectFiles(node);
+                        if (node.DataItem is ProjectFile pf && !string.IsNullOrEmpty(pf.DependsOn))
+                            hasDependingChildren = true;
+                        else
+                            ExpandCSharpProjectFiles(node);
                         continueLoop = node.MoveNext();
                     }
                     node.MoveToParent();
+
+                    if (hasDependingChildren)
+                        node.ExpandToNode();
+
                     return;
                 }
 
                 if (typename != "CSharpProject")
-                {
                     node.ExpandToNode();
-                }
             }
         }
 

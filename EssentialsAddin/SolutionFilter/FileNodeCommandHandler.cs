@@ -14,8 +14,6 @@ namespace EssentialsAddin.SolutionFilter
         public override void ActivateItem()
         {
             base.ActivateItem();
-            //var aref = (ProjectFile)CurrentNode.DataItem;
-            //IdeApp.Workbench.OpenDocument(aref.FilePath, project: null);
         }
 
         // Single-Clicked
