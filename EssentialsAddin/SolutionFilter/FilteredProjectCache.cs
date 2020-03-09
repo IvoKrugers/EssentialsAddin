@@ -15,7 +15,7 @@ namespace EssentialsAddin.SolutionFilter
         private Dictionary<string, DateTime> _projectsDictionary = new Dictionary<string, DateTime>();
         private Dictionary<string, List<string>> _folderDictionary = new Dictionary<string, List<string>>();
 
-        private string _lastFilter=string.Empty;
+        private string _lastFilter = string.Empty;
 
         public void ScanProjectForFiles(Project project)
         {
@@ -30,14 +30,15 @@ namespace EssentialsAddin.SolutionFilter
 
             // check if cache is still current
             DateTime lastDate;
-            if (  _projectsDictionary.TryGetValue(project.Name, out lastDate))
+            if (_projectsDictionary.TryGetValue(project.Name, out lastDate))
             {
                 var d = DateTime.Now - lastDate;
                 if (d.TotalSeconds < 30)
                     return;
             }
             _projectsDictionary[project.Name] = DateTime.Now;
-            
+            var filterArray = EssentialProperties.SolutionFilterArray;
+
             // clear all entries related to project.
             ClearCacheOfProject(project);
 
@@ -49,17 +50,17 @@ namespace EssentialsAddin.SolutionFilter
                 if (!file.Visible || file.Flags.HasFlag(ProjectItemFlags.Hidden) || file.Subtype == Subtype.Directory)
                     continue;
 
-                if (file.Subtype != Subtype.Directory)
-                    path = file.IsLink ? project.BaseDirectory.Combine(file.ProjectVirtualPath) : file.FilePath;
+                path = file.IsLink ? project.BaseDirectory.Combine(file.ProjectVirtualPath) : file.FilePath;
 
-                foreach (var key in EssentialProperties.SolutionFilterArray)
+                foreach (var key in filterArray)
                 {
-                    if (file.ProjectVirtualPath.FileNameWithoutExtension.ToLower().Contains(key))
+                    if (file.ProjectVirtualPath.ToString().ToLower().Contains(key))
                     {
-                        // Found file that fits the filter
+                        // Found file of folder that fits the filter
                         var filename = file.ProjectVirtualPath.FileNameWithoutExtension.ToLower();
                         var folder = file.ProjectVirtualPath.ParentDirectory;
                         RegisterFileForFolder(project.Name, filename, folder);
+                        break;
                     }
                 }
             }
@@ -108,6 +109,25 @@ namespace EssentialsAddin.SolutionFilter
 
             return foldername;
         }
+
+        //private string RegisterFolder(string projectname, FilePath folder)
+        //{
+        //    if (folder == null || folder.IsEmpty)
+        //        return projectname;
+
+        //    // Enter recursion
+        //    var foldername = RegisterFolder(projectname, folder.ParentDirectory) + $"\\" + folder.FileName;
+
+        //    // Register file in dictionary
+        //    List<string> list;
+        //    if (!_folderDictionary.TryGetValue(foldername, out list))
+        //        list = new List<string> { filename };
+        //    else
+        //        list.Add(filename);
+        //    _folderDictionary[foldername] = list;
+
+        //    return foldername;
+        //}
 
         private string GetFoldername(ProjectFolder folder)
         {

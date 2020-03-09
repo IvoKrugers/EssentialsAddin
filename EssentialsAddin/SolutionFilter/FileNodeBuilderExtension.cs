@@ -58,7 +58,7 @@ namespace EssentialsAddin.SolutionFilter
                 var hide = true;
                 foreach (var key in filter)
                 {
-                    if (file.ProjectVirtualPath.FileNameWithoutExtension.ToLower().Contains(key))
+                    if (file.ProjectVirtualPath.ToString().ToLower().Contains(key))
                     {
                         hide = false;
                         break;
