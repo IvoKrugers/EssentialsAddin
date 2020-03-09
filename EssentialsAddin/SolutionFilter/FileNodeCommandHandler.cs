@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using EssentialsAddin.Helpers;
 using MonoDevelop.Ide;
 using MonoDevelop.Ide.Gui.Components;
 using MonoDevelop.Projects;
@@ -24,8 +25,9 @@ namespace EssentialsAddin
 
             var f = (ProjectFile)CurrentNode.DataItem;
             string ext = Path.GetExtension(f.FilePath);
-            if (FileNodeBuilderExtension.ExcludedExtensions.FindIndex((s) => s == ext) == -1)
+            if (EssentialProperties.ExcludedExtensionsFromOneClick.FindIndex((s) => s == ext) == -1)
             {
+                if (IdeApp.Workbench.ActiveDocument == null || IdeApp.Workbench.ActiveDocument.FileName != f.FilePath.FileName)
                 IdeApp.Workbench.OpenDocument(f.FilePath, project: null);
             }
         }

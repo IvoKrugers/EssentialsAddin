@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using EssentialsAddin.Helpers;
 using Microsoft.VisualStudio.Text.Editor.Commanding.Commands;
 using MonoDevelop.Core;
 using MonoDevelop.Ide.Gui.Components;
@@ -19,8 +20,6 @@ namespace EssentialsAddin
          = "=>";
 #endif
         public static string OneClickShowFileOption = "OneClickShowFile";
-
-        public static string[] ExcludedExtensions = { ".storyboard", ".xib" };
 
         private FilteredProjectCache _fileCache = new FilteredProjectCache();
 
@@ -120,30 +119,11 @@ namespace EssentialsAddin
             ProjectFile file = (ProjectFile)dataObject;
 
             var ext = Path.GetExtension(file.FilePath);
-            //var filename = Path.GetFileName(file.FilePath);
 
-            // Change node label if OneClick is active
-            if (treeBuilder.Options[OneClickShowFileOption] && ExcludedExtensions.FindIndex((s) => s == ext) == -1)
+            if (treeBuilder.Options[OneClickShowFileOption] &&  EssentialProperties.ExcludedExtensionsFromOneClick.FindIndex((s) => s == ext) == -1)
             {
                 nodeInfo.Label = string.Format("{0} {1}", Path.GetFileName(file.FilePath), OneClickChar);
             }
-
-
-
-            //var filter = Filter;
-            //if (filter.Length >= 0)
-            //{
-            //    var disableNode = true;
-            //    foreach (var key in filter)
-            //    {
-            //        if (file.ProjectVirtualPath.ToString().ToLower().Contains(key))
-            //        {
-            //            disableNode = false;
-            //            break;
-            //        }
-            //    }
-            //    nodeInfo.DisabledStyle = disableNode;
-            //}
         }
 
         public override Type CommandHandlerType
