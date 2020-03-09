@@ -29,24 +29,7 @@ namespace EssentialsAddin
 
         void StartListeningForWorkspaceChanges()
         {
-            //IdeApp.Workspace.SolutionUnloaded += (sender, e) => control.Clear();
-            //IdeApp.Workspace.SolutionLoaded += (sender, e) => control.ReloadProjects();
-            //IdeApp.Workspace.ItemAddedToSolution += (sender, e) => control.ReloadProjects();
-            //IdeApp.Workspace.ItemRemovedFromSolution += (sender, e) => control.ReloadProjects();
-            IdeApp.Workspace.LastWorkspaceItemClosed += (sender, e) => Debug.WriteLine("\t\tLASTWORKSPACEITEMCLOSED !!");
-            IdeApp.Workspace.WorkspaceItemClosed += (sender, e) => Debug.WriteLine("\t\tWorkspaceItemClosed !!");
-            IdeApp.Workspace.WorkspaceItemUnloaded += (sender, e) => Debug.WriteLine("\t\tWorkspaceItemUnloaded !!");
-            IdeApp.Workbench.DocumentClosed += (sender, e) =>
-            {
-                Debug.WriteLine("DocumentClosed!!");
-            };
-            IdeApp.Workbench.DocumentClosing += Workbench_DocumentClosing;
-        }
-
-        private Task Workbench_DocumentClosing(object o, DocumentCloseEventArgs e)
-        {
-            Debug.WriteLine("DocumentClosing!!");
-            return Task.CompletedTask;
+            IdeApp.Workbench.DocumentClosed += (sender, e) => control.OnDocumentClosed();
         }
     }
 }

@@ -47,6 +47,14 @@ namespace EssentialsAddin
         protected void oneClickCheckbutton_Toggled(object sender, EventArgs e)
         {
             EssentialProperties.OneClickShowFile = oneClickCheckbutton.Active;
+
+            //var pad = (SolutionPad)IdeApp.Workbench.Pads.SolutionPad.Content;
+            //if (pad == null)
+            //    return;
+
+            //pad.TreeView.CollapseTree();
+            //pad.TreeView.RefreshTree
+
             FilterSolutionPad();
         }
 
@@ -63,6 +71,7 @@ namespace EssentialsAddin
         protected void OnEditingDone(object sender, EventArgs e)
         {
         }
+
 
         #endregion
 
@@ -90,35 +99,38 @@ namespace EssentialsAddin
 
         private void FilterSolutionPad()
         {
-            IdeApp.Workbench.StatusBar.ShowMessage("Filtering...");
+            var ctx = IdeApp.Workbench.StatusBar.CreateContext();
 
-            EssentialProperties.SolutionFilter = filterEntry.Text;
-
-            if (string.IsNullOrEmpty(filterEntry.Text))
+            using (ctx)
             {
-                ExpandOnlyCSharpProjects();
-                return;
+                ctx.AutoPulse = true;
+                ctx.ShowMessage("Filtering...");
+                ctx.Pulse();
+
+                EssentialProperties.SolutionFilter = filterEntry.Text;
+
+                if (string.IsNullOrEmpty(filterEntry.Text))
+                {
+                    ExpandOnlyCSharpProjects();
+                    return;
+                }
+
+                var pad = (SolutionPad)IdeApp.Workbench.Pads.SolutionPad.Content;
+                if (pad == null)
+                    return;
+
+                EssentialProperties.IsRefreshingTree = true;
+                pad.TreeView.CollapseTree();
+                var root = pad.TreeView.GetRootNode();
+                if (root != null)
+                {
+                    root.Expanded = false;
+                    pad.TreeView.RefreshNode(root);
+                    root.Expanded = true;
+                    SolutionTreeExtensions.ExpandAll(root);
+                }
+                EssentialProperties.IsRefreshingTree = false;
             }
-
-            var pad = (SolutionPad)IdeApp.Workbench.Pads.SolutionPad.Content;
-            if (pad == null)
-                return;
-
-            pad.TreeView.CollapseTree();
-
-            var root = pad.TreeView.GetRootNode();
-            if (root != null)
-            {
-                root.Expanded = true;
-                var option = EssentialProperties.OneClickShowFile;
-                EssentialProperties.OneClickShowFile = false;
-                pad.TreeView.RefreshNode(root);
-
-                SolutionTreeExtensions.ExpandAll(root);
-
-                EssentialProperties.OneClickShowFile = option;
-            }
-
             IdeApp.Workbench.StatusBar.ShowReady();
         }
 
@@ -126,6 +138,14 @@ namespace EssentialsAddin
         {
             EssentialProperties.ExpandFilter = collapseEntry.Text;
             SolutionTreeExtensions.ExpandOnlyCSharpProjects(EssentialProperties.ExpandFilterArray);
+        }
+
+        public void OnDocumentClosed()
+        {
+            if (IdeApp.Workbench.Documents is null || IdeApp.Workbench.Documents.Count == 0)
+            {
+                ExpandOnlyCSharpProjects();
+            }
         }
     }
 }

@@ -47,6 +47,7 @@
               <packing>
                 <property name="Position">2</property>
                 <property name="AutoSize">True</property>
+                <property name="Padding">6</property>
               </packing>
             </child>
             <child>

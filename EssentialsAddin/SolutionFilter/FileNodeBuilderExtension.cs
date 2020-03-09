@@ -76,7 +76,7 @@ namespace EssentialsAddin.SolutionFilter
             if (project == null)
                 return false;
 
-            _fileCache.AddFilesForProject(project);
+            _fileCache.ScanProjectForFiles(project);
             return _fileCache.IsProjectFolderVisible(dataObject);
 
             // For big projects, a real HasChildNodes value is too slow to get
@@ -134,7 +134,7 @@ namespace EssentialsAddin.SolutionFilter
                 if (EssentialProperties.OneClickShowFile)
                     return typeof(FileNodeCommandHandler);
                 else
-                    return null;
+                    return base.CommandHandlerType;
             }
         }
     }

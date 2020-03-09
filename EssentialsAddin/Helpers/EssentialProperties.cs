@@ -58,5 +58,7 @@ namespace EssentialsAddin.Helpers
             get => PropertyService.Get<bool>(ONECLICKSHOWFILE_KEY,true);
             set => PropertyService.Set(ONECLICKSHOWFILE_KEY, value);
         }
+
+        public static bool IsRefreshingTree { get; set; }
     }
 }

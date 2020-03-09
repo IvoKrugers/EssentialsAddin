@@ -23,11 +23,14 @@ namespace EssentialsAddin.SolutionFilter
         {
             base.OnItemSelected();
 
+            if (EssentialProperties.IsRefreshingTree)
+                return;
+
             var f = (ProjectFile)CurrentNode.DataItem;
             string ext = Path.GetExtension(f.FilePath);
             if (EssentialProperties.ExcludedExtensionsFromOneClick.FindIndex((s) => s == ext) == -1)
             {
-                if (IdeApp.Workbench.ActiveDocument == null || IdeApp.Workbench.ActiveDocument.FileName != f.FilePath.FileName)
+                if (IdeApp.Workbench.ActiveDocument == null || IdeApp.Workbench.ActiveDocument.Name != f.FilePath.FileName)
                 IdeApp.Workbench.OpenDocument(f.FilePath, project: null);
             }
         }

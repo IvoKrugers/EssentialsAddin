@@ -61,6 +61,7 @@ namespace EssentialsAddin
 			this.hbox1.Add(this.filterEntry);
 			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.filterEntry]));
 			w2.Position = 2;
+			w2.Padding = ((uint)(6));
 			// Container child hbox1.Gtk.Box+BoxChild
 			this.button1 = new global::Gtk.Button();
 			this.button1.CanFocus = true;

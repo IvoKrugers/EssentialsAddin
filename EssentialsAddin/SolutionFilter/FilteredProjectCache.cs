@@ -17,7 +17,7 @@ namespace EssentialsAddin.SolutionFilter
 
         private string _lastFilter=string.Empty;
 
-        public void AddFilesForProject(Project project)
+        public void ScanProjectForFiles(Project project)
         {
             var filter = EssentialProperties.SolutionFilter;
             // check if cache is still current according to filter used
