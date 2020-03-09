@@ -111,14 +111,23 @@ namespace EssentialsAddin.Helpers
                             if (node.DataItem is Project proj)
                             {
                                 Debug.WriteLine($"{proj.Name} {proj}");
-
-                                foreach (var item in filter)
+                                if (filter.Length == 0)
                                 {
-                                    if (proj.Name.ToLower().Contains(item))
+                                    node.MoveToFirstChild();
+                                    node.ExpandToNode();
+                                    node.MoveToParent();
+                                }
+                                else
+                                {
+                                    foreach (var item in filter)
                                     {
-                                        node.MoveToFirstChild();
-                                        node.ExpandToNode();
-                                        node.MoveToParent();
+                                        if (proj.Name.ToLower().Contains(item))
+                                        {
+                                            node.MoveToFirstChild();
+                                            node.ExpandToNode();
+                                            node.MoveToParent();
+                                            break;
+                                        }
                                     }
                                 }
                             }
