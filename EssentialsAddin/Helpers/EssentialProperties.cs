@@ -33,7 +33,7 @@ namespace EssentialsAddin.Helpers
 
         public static string ExpandFilter
         {
-            get => PropertyService.Get<string>(SOLUTIONEXPANDFILTER_KEY, String.Empty);
+            get => PropertyService.Get<string>(SOLUTIONEXPANDFILTER_KEY, string.Empty);
             set => PropertyService.Set(SOLUTIONEXPANDFILTER_KEY, value.ToLower());
         }
 
@@ -49,7 +49,7 @@ namespace EssentialsAddin.Helpers
             }
         }
 
-        public static string[] ExcludedExtensionsFromOneClick = { ".storyboard", ".xib" };
+        public static string[] ExcludedExtensionsFromOneClick = { ".storyboard", ".xib", "png" };
 
         public static string[] ExcludedExtensionsFromExpanding = { ".xaml.cs", ".designer.cs" };
 
