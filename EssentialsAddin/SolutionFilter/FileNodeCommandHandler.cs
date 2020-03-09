@@ -26,12 +26,14 @@ namespace EssentialsAddin.SolutionFilter
             if (EssentialProperties.IsRefreshingTree)
                 return;
 
-            var f = (ProjectFile)CurrentNode.DataItem;
-            string ext = Path.GetExtension(f.FilePath);
-            if (EssentialProperties.ExcludedExtensionsFromOneClick.FindIndex((s) => s == ext) == -1)
+            if (CurrentNode.DataItem is ProjectFile f)
             {
-                if (IdeApp.Workbench.ActiveDocument == null || IdeApp.Workbench.ActiveDocument.Name != f.FilePath.FileName)
-                IdeApp.Workbench.OpenDocument(f.FilePath, project: null);
+                string ext = Path.GetExtension(f.FilePath);
+                if (EssentialProperties.ExcludedExtensionsFromOneClick.FindIndex((s) => s == ext) == -1)
+                {
+                    if (IdeApp.Workbench.ActiveDocument == null || IdeApp.Workbench.ActiveDocument.Name != f.FilePath.FileName)
+                        IdeApp.Workbench.OpenDocument(f.FilePath, project: null);
+                }
             }
         }
 
