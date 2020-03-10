@@ -59,13 +59,24 @@ namespace EssentialsAddin.SolutionFilter
                         // Found file of folder that fits the filter
                         var filename = file.ProjectVirtualPath.FileNameWithoutExtension.ToLower();
                         var folder = file.ProjectVirtualPath.ParentDirectory;
-                        RegisterFileForFolder(project.Name, filename, folder);
+
+                        if (folder == null || folder.IsEmpty) // Register a project's root file
+                        {
+                            var foldername = project.Name;
+                            List<string> list;
+                            if (!_folderDictionary.TryGetValue(foldername, out list))
+                                list = new List<string> { filename };
+                            else
+                                list.Add(filename);
+                            _folderDictionary[foldername] = list;
+                        }
+                        else
+                            RegisterFileForFolder(project.Name, filename, folder);
+
                         break;
                     }
                 }
             }
-
-            Debug.WriteLine(ToString());
         }
 
         private void ClearCacheOfProject(Project project)
@@ -91,6 +102,9 @@ namespace EssentialsAddin.SolutionFilter
             return str;
         }
 
+        /// <summary>
+        /// Recursive routine which registers an entry for each folder in the file's path 
+        /// </summary>
         private string RegisterFileForFolder(string projectname, string filename, FilePath folder)
         {
             if (folder == null || folder.IsEmpty)
@@ -110,25 +124,6 @@ namespace EssentialsAddin.SolutionFilter
             return foldername;
         }
 
-        //private string RegisterFolder(string projectname, FilePath folder)
-        //{
-        //    if (folder == null || folder.IsEmpty)
-        //        return projectname;
-
-        //    // Enter recursion
-        //    var foldername = RegisterFolder(projectname, folder.ParentDirectory) + $"\\" + folder.FileName;
-
-        //    // Register file in dictionary
-        //    List<string> list;
-        //    if (!_folderDictionary.TryGetValue(foldername, out list))
-        //        list = new List<string> { filename };
-        //    else
-        //        list.Add(filename);
-        //    _folderDictionary[foldername] = list;
-
-        //    return foldername;
-        //}
-
         private string GetFoldername(ProjectFolder folder)
         {
             // Enter recursion
@@ -144,6 +139,16 @@ namespace EssentialsAddin.SolutionFilter
             var key = GetFoldername(folder);
             List<string> list;
             return _folderDictionary.TryGetValue(key, out list) && list.Count > 0;
+        }
+        
+        public bool IsProjectVisible(Project project)
+        {
+            Debug.WriteLine(this.ToString());
+
+            var projectname = project.Name.ToLower();
+            var index = _folderDictionary.Keys.FindIndex((key) => key.ToLower().Contains(projectname));
+
+            return index != -1;
         }
     }
 }

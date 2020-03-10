@@ -9,15 +9,11 @@ namespace EssentialsAddin.SolutionFilter
         protected override void Run()
         {
             var pad = IdeApp.Workbench.GetPad<SolutionFilterPad>();
-            if (pad == null)
+            if (pad !=null)
             {
-                var fp = new SolutionFilterPad();
-                IdeApp.Workbench.AddPad(fp,
-                                        fp.Id,
-                                        "(Essentials) Solution Filter",
-                                        "ProjectPad.Bottom",
-                                        MonoDevelop.Components.Docking.DockItemStatus.Dockable,
-                                        Stock.Solution);
+                pad.Visible = true;
+                pad.IsOpenedAutomatically = true;
+                pad.BringToFront(true);
             }
         }
 

@@ -24,14 +24,14 @@ namespace EssentialsAddin.SolutionFilter
         {
             var canBuild =
                 typeof(ProjectFolder).IsAssignableFrom(dataType) ||
-                typeof(ProjectFile).IsAssignableFrom(dataType);
-            //Debug.WriteLine($"[CanBuildNode] {dataType}, canBuild: {canBuild}");
+                typeof(ProjectFile).IsAssignableFrom(dataType) ||
+                dataType.Name == "CSharpProject";
+            Debug.WriteLine($"[CanBuildNode] {dataType}, canBuild: {canBuild}");
             return canBuild;
         }
 
         public override void PrepareChildNodes(object dataObject)
         {
-            //Debug.WriteLine($"PrepareChildNodes {dataObject}");
             base.PrepareChildNodes(dataObject);
         }
 
@@ -40,9 +40,21 @@ namespace EssentialsAddin.SolutionFilter
             base.GetNodeAttributes(parentNode, dataObject, ref attributes);
 
             var filter = EssentialProperties.SolutionFilterArray;
-            if (dataObject is ProjectFolder pf && filter.Length > 0)
+
+            if (filter.Length == 0)
+                return;
+
+            if (dataObject is DotNetProject project)
             {
-                if (!HasChildNodesInFilter((ITreeBuilder)parentNode, pf))
+                if (!ProjectHasChildNodesInFilter(project))
+                {
+                    attributes = NodeAttributes.Hidden;
+                }
+            }
+
+            if (dataObject is ProjectFolder pf )
+            {
+                if (!ProjectFolderHasChildNodesInFilter((ITreeBuilder)parentNode, pf))
                 {
                     attributes = NodeAttributes.Hidden;
                 }
@@ -50,7 +62,7 @@ namespace EssentialsAddin.SolutionFilter
                 //Debug.WriteLine($"{txt} \tProjectFolder {pf.Path} ");
             }
 
-            if (dataObject is ProjectFile file && filter.Length > 0)
+            if (dataObject is ProjectFile file )
             {
                 var hide = true;
                 foreach (var key in filter)
@@ -66,7 +78,13 @@ namespace EssentialsAddin.SolutionFilter
             }
         }
 
-        public bool HasChildNodesInFilter(ITreeBuilder builder, ProjectFolder dataObject)
+        private bool ProjectHasChildNodesInFilter(Project project)
+        {
+            _fileCache.ScanProjectForFiles(project);
+            return _fileCache.IsProjectVisible(project);
+        }
+
+        private bool ProjectFolderHasChildNodesInFilter(ITreeBuilder builder, ProjectFolder dataObject)
         {
             Project project = builder.GetParentDataItem(typeof(Project), true) as Project;
             if (project == null)
