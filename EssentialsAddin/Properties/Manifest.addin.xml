@@ -16,6 +16,7 @@
     <Extension path="/MonoDevelop/Ide/Pads/ProjectPad">
 <!--        <PadOption id="OneClickShowFile" _label="(Essentials) Use one click to show file" defaultValue="true" />-->
         <NodeBuilder class="EssentialsAddin.SolutionFilter.FileNodeBuilderExtension" />
+         <NodeBuilder class="EssentialsAddin.SolutionFilter.SpecialNodeBuilderExtension" />
     </Extension>
     
     <!-- Main Tool Menu Entries	-->

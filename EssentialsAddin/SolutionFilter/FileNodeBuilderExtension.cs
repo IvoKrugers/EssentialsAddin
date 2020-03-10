@@ -1,10 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using EssentialsAddin.Helpers;
-using Microsoft.VisualStudio.Text.Editor.Commanding.Commands;
-using MonoDevelop.Core;
 using MonoDevelop.Ide.Gui.Components;
 using MonoDevelop.Ide.Gui.Pads.ProjectPad;
 using MonoDevelop.Projects;
@@ -49,8 +46,8 @@ namespace EssentialsAddin.SolutionFilter
                 {
                     attributes = NodeAttributes.Hidden;
                 }
-                var txt = attributes == NodeAttributes.Hidden ? "HIDE" : "SHOW";
-                Debug.WriteLine($"{txt} \tProjectFolder {pf.Path} ");
+                //var txt = attributes == NodeAttributes.Hidden ? "HIDE" : "SHOW";
+                //Debug.WriteLine($"{txt} \tProjectFolder {pf.Path} ");
             }
 
             if (dataObject is ProjectFile file && filter.Length > 0)
@@ -68,7 +65,6 @@ namespace EssentialsAddin.SolutionFilter
                     attributes = NodeAttributes.Hidden;
             }
         }
-       
 
         public bool HasChildNodesInFilter(ITreeBuilder builder, ProjectFolder dataObject)
         {
@@ -78,37 +74,6 @@ namespace EssentialsAddin.SolutionFilter
 
             _fileCache.ScanProjectForFiles(project);
             return _fileCache.IsProjectFolderVisible(dataObject);
-
-            // For big projects, a real HasChildNodes value is too slow to get
-            //if (project.Files.Count > 500)
-            //    return true;
-
-            //var folder = dataObject.Path;
-
-            //foreach (var file in project.Files)
-            //{
-            //    FilePath path;
-
-            //    if (!file.Visible || file.Flags.HasFlag(ProjectItemFlags.Hidden) || file.Subtype == Subtype.Directory)
-            //        continue;
-
-            //    if (file.Subtype != Subtype.Directory)
-            //        path = file.IsLink ? project.BaseDirectory.Combine(file.ProjectVirtualPath) : file.FilePath;
-            //    //else
-            //    //    path = file.FilePath;
-
-            //    if (path.IsChildPathOf(folder))
-            //    {
-            //        foreach (var key in _filter)
-            //        {
-            //            if (file.ProjectVirtualPath.FileNameWithoutExtension.ToLower().Contains(key))
-            //            {
-            //                return true;
-            //            }
-            //        }
-            //    }
-            //}
-            //return false;
         }
 
         public override void BuildNode(ITreeBuilder treeBuilder, object dataObject, NodeInfo nodeInfo)
@@ -120,7 +85,7 @@ namespace EssentialsAddin.SolutionFilter
 
             var ext = Path.GetExtension(file.FilePath);
 
-            if (EssentialProperties.OneClickShowFile &&  EssentialProperties.ExcludedExtensionsFromOneClick.FindIndex((s) => s == ext) == -1)
+            if (EssentialProperties.OneClickShowFile && EssentialProperties.ExcludedExtensionsFromOneClick.FindIndex((s) => s == ext) == -1)
             {
                 nodeInfo.Label = string.Format("{0} {1}", Path.GetFileName(file.FilePath), OneClickChar);
             }
