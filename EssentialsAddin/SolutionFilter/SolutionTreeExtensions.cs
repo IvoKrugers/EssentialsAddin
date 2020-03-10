@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Diagnostics;
+using Cairo;
+using EssentialsAddin.Helpers;
 using MonoDevelop.Ide;
 using MonoDevelop.Ide.Gui.Components;
 using MonoDevelop.Ide.Gui.Pads;
+using MonoDevelop.Ide.Gui.Pads.ProjectPad;
 using MonoDevelop.Projects;
 
-namespace EssentialsAddin.Helpers
+namespace EssentialsAddin.SolutionFilter
 {
     public static class SolutionTreeExtensions
     {
@@ -60,28 +63,30 @@ namespace EssentialsAddin.Helpers
 
             if (typename == "CSharpProject" || typename == "ProjectFolder" || typename == "ProjectFile")
             {
+
+                if (FilteredProjectCache.IsProjectItemExpanded(node.DataItem))
+                    node.ExpandToNode();
+
                 if (node.HasChildren())
                 {
                     var continueLoop = node.MoveToFirstChild();
-                    var hasDependingChildren = false;
+                    //var hasDependingChildren = false;
                     while (continueLoop)
                     {
-                        if (node.DataItem is ProjectFile pf && !string.IsNullOrEmpty(pf.DependsOn))
-                            hasDependingChildren = true;
-                        else
+                        if (!(node.DataItem is ProjectFile pf) || string.IsNullOrEmpty(pf.DependsOn))
                             ExpandCSharpProjectFiles(node);
                         continueLoop = node.MoveNext();
                     }
                     node.MoveToParent();
 
-                    if (hasDependingChildren)
-                        node.ExpandToNode();
+                    //if (hasDependingChildren)
+                    //    node.ExpandToNode();
 
                     return;
                 }
 
-                if (typename != "CSharpProject")
-                    node.ExpandToNode();
+                //if (typename == "ProjectFolder" && FilteredProjectCache.IsProjectFolderExpanded(node.DataItem as ProjectFolder))
+                //    node.ExpandToNode();
             }
         }
 

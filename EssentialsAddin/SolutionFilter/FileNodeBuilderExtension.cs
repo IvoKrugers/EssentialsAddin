@@ -18,15 +18,13 @@ namespace EssentialsAddin.SolutionFilter
 #endif
         public static string OneClickShowFileOption = "OneClickShowFile";
 
-        private FilteredProjectCache _fileCache = new FilteredProjectCache();
-
         public override bool CanBuildNode(Type dataType)
         {
             var canBuild =
                 typeof(ProjectFolder).IsAssignableFrom(dataType) ||
                 typeof(ProjectFile).IsAssignableFrom(dataType) ||
                 dataType.Name == "CSharpProject";
-            Debug.WriteLine($"[CanBuildNode] {dataType}, canBuild: {canBuild}");
+            //Debug.WriteLine($"[CanBuildNode] {dataType}, canBuild: {canBuild}");
             return canBuild;
         }
 
@@ -80,8 +78,8 @@ namespace EssentialsAddin.SolutionFilter
 
         private bool ProjectHasChildNodesInFilter(Project project)
         {
-            _fileCache.ScanProjectForFiles(project);
-            return _fileCache.IsProjectVisible(project);
+            FilteredProjectCache.ScanProjectForFiles(project);
+            return FilteredProjectCache.IsProjectItemVisible(project);
         }
 
         private bool ProjectFolderHasChildNodesInFilter(ITreeBuilder builder, ProjectFolder dataObject)
@@ -90,8 +88,8 @@ namespace EssentialsAddin.SolutionFilter
             if (project == null)
                 return false;
 
-            _fileCache.ScanProjectForFiles(project);
-            return _fileCache.IsProjectFolderVisible(dataObject);
+            FilteredProjectCache.ScanProjectForFiles(project);
+            return FilteredProjectCache.IsProjectItemVisible(dataObject);
         }
 
         public override void BuildNode(ITreeBuilder treeBuilder, object dataObject, NodeInfo nodeInfo)

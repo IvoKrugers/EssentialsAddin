@@ -16,6 +16,7 @@ namespace EssentialsAddin.SolutionFilter
                     dataType.Name == "GettingStartedNode" ||
                     dataType.Name == "DependenciesNode" ||
                     dataType.Name == "ProjectPackagesFolderNode";
+                    //||                    dataType.Name == "SolutionFolder";
 
             Debug.WriteLine($"[CanBuildNode] {dataType}, canBuild: {canBuild}");
             return canBuild;
