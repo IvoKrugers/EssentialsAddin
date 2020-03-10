@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using Cairo;
 using EssentialsAddin.Helpers;
-using Gdk;
 using MonoDevelop.Core;
 using MonoDevelop.Ide.Gui.Pads.ProjectPad;
 using MonoDevelop.Projects;
@@ -21,7 +18,6 @@ namespace EssentialsAddin.SolutionFilter
         }
 
         private static Dictionary<string, DateTime> _projectsDictionary = new Dictionary<string, DateTime>();
-        //private Dictionary<string, List<string>> _folderDictionary = new Dictionary<string, List<string>>();
         private static Dictionary<string, TreeItem> _treeDictionary = new Dictionary<string, TreeItem>();
 
         private static string _lastFilter = string.Empty;
@@ -36,7 +32,6 @@ namespace EssentialsAddin.SolutionFilter
                 if (_lastFilter != filter)
                 {
                     _projectsDictionary.Clear();
-                    //_folderDictionary.Clear();
                     _treeDictionary.Clear();
                     _lastFilter = filter;
                 }
@@ -86,21 +81,6 @@ namespace EssentialsAddin.SolutionFilter
                             var folder = file.ProjectVirtualPath.ParentDirectory;
                             RegisterFile(project.Name, filename, folder, filenameInFilter, filterArray);
 
-
-
-                            //if (folder == null || folder.IsEmpty) // Register a project's root file
-                            //{
-                            //    var foldername = project.Name;
-                            //    List<string> list;
-                            //    if (!_folderDictionary.TryGetValue(foldername, out list))
-                            //        list = new List<string> { filename };
-                            //    else
-                            //        list.Add(filename);
-                            //    _folderDictionary[foldername] = list;
-                            //}
-                            //else
-                            //    RegisterFileForFolder(project.Name, filename, folder);
-
                             break;
                         }
                     }
@@ -111,38 +91,11 @@ namespace EssentialsAddin.SolutionFilter
 
         private static void ClearCacheOfProject(Project project)
         {
-            //foreach (var s in _folderDictionary.Where(item => item.Key.StartsWith(project.Name)).ToList())
-            //{
-            //    _folderDictionary.Remove(s.Key);
-            //}
-
             foreach (var s in _treeDictionary.Where(item => item.Key.StartsWith(project.Name)).ToList())
             {
                 _treeDictionary.Remove(s.Key);
             }
         }
-
-        ///// <summary>
-        ///// Recursive routine which registers an entry for each folder in the file's path 
-        ///// </summary>
-        //private string RegisterFileForFolder(string projectname, string filename, FilePath folder)
-        //{
-        //    if (folder == null || folder.IsEmpty)
-        //        return projectname;
-
-        //    // Enter recursion
-        //    var foldername = RegisterFileForFolder(projectname, filename, folder.ParentDirectory) + $"\\" + folder.FileName;
-
-        //    // Register file in dictionary
-        //    List<string> list;
-        //    if (!_folderDictionary.TryGetValue(foldername, out list))
-        //        list = new List<string> { filename };
-        //    else
-        //        list.Add(filename);
-        //    _folderDictionary[foldername] = list;
-
-        //    return foldername;
-        //}
 
         /// <summary>
         /// Recursive routine which registers an entry for each folder in the file's path 
@@ -194,14 +147,13 @@ namespace EssentialsAddin.SolutionFilter
 
         private static string GetFoldername(ProjectFolder folder)
         {
-            // Enter recursion
             var parent = folder.Parent;
             if (parent is Project project)
                 return project.Name + "/" + folder.Name;
 
+            // Enter recursion
             return GetFoldername(parent as ProjectFolder) + $"/" + folder.Name;
         }
-
 
         private static string GetKeyFor(object dataObject)
         {
@@ -217,31 +169,6 @@ namespace EssentialsAddin.SolutionFilter
                     return string.Empty;
             }
         }
-
-        //    private static bool IsProjectFolderVisible(ProjectFolder folder)
-        //{
-        //    //var key = GetFoldername(folder);
-        //    //List<string> list;
-        //    //return _folderDictionary.TryGetValue(key, out list) && list.Count > 0;
-
-        //    var key = GetFoldername(folder);
-        //    return _treeDictionary.TryGetValue(key, out _);
-        //}
-
-        //private static bool IsProjectExpanded(ProjectFile file)
-        //{
-        //    var key = file.Project.Name + "\\" + file.ProjectVirtualPath.ToString();
-        //    TreeItem item;
-        //    return _treeDictionary.TryGetValue(key, out item) && item.IsExpanded;
-        //}
-
-        //private static bool IsProjectFolderExpanded(ProjectFolder folder)
-        //{
-        //    var key = GetFoldername(folder);
-        //    TreeItem item;
-        //    return _treeDictionary.TryGetValue(key, out item) && item.IsExpanded;
-        //}
-
 
         public static bool IsProjectItemVisible(object dataItem)
         {
@@ -273,26 +200,9 @@ namespace EssentialsAddin.SolutionFilter
             return false;
         }
 
-        //public static bool IsProjectVisible(Project project)
-        //{
-        //    var projectname = project.Name.ToLower();
-        //    var index = _treeDictionary.Keys.FindIndex((key) => key.ToLower().Contains(projectname));
-        //    return index != -1;
-        //}
-
         public static new string ToString()
         {
             var str = "";
-            //str += $"{{FilteredProjectCache}}\n";
-            //foreach (var item in _folderDictionary)
-            //{
-            //    str += $"\tFolder: {item.Key}\n";
-            //    foreach (var filename in item.Value)
-            //    {
-            //        str += $"\t\t=> {filename}\n";
-            //    }
-            //}
-
             var maxLength = 0;
 
             foreach (var item in _treeDictionary)
