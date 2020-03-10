@@ -94,6 +94,13 @@ namespace EssentialsAddin.SolutionFilter
 
         public override void BuildNode(ITreeBuilder treeBuilder, object dataObject, NodeInfo nodeInfo)
         {
+            if (!string.IsNullOrEmpty(EssentialProperties.SolutionFilter))
+            {
+                if (!FilteredProjectCache.IsProjectItemExpanded(dataObject))
+
+                    nodeInfo.DisabledStyle = true;
+            }
+
             if (!(dataObject is ProjectFile))
                 return;
 
