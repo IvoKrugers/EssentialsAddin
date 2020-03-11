@@ -1,10 +1,11 @@
 ﻿using System;
 using System.IO;
+using EssentialsAddin.Helpers;
 using MonoDevelop.Ide;
 using MonoDevelop.Ide.Gui.Components;
 using MonoDevelop.Projects;
 
-namespace EssentialsAddin
+namespace EssentialsAddin.SolutionFilter
 {
     public class FileNodeCommandHandler : NodeCommandHandler
     {
@@ -13,8 +14,6 @@ namespace EssentialsAddin
         public override void ActivateItem()
         {
             base.ActivateItem();
-            //var aref = (ProjectFile)CurrentNode.DataItem;
-            //IdeApp.Workbench.OpenDocument(aref.FilePath, project: null);
         }
 
         // Single-Clicked
@@ -22,11 +21,17 @@ namespace EssentialsAddin
         {
             base.OnItemSelected();
 
-            var f = (ProjectFile)CurrentNode.DataItem;
-            string ext = Path.GetExtension(f.FilePath);
-            if (FileNodeBuilderExtension.ExcludedExtensions.FindIndex((s) => s == ext) == -1)
+            if (EssentialProperties.IsRefreshingTree)
+                return;
+
+            if (CurrentNode.DataItem is ProjectFile f)
             {
-                IdeApp.Workbench.OpenDocument(f.FilePath, project: null);
+                string ext = Path.GetExtension(f.FilePath);
+                if (EssentialProperties.ExcludedExtensionsFromOneClick.FindIndex((s) => s == ext) == -1)
+                {
+                    if (IdeApp.Workbench.ActiveDocument == null || IdeApp.Workbench.ActiveDocument.Name != f.FilePath.FileName)
+                        IdeApp.Workbench.OpenDocument(f.FilePath, project: null);
+                }
             }
         }
 

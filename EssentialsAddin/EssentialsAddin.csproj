@@ -30,21 +30,23 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\AddinInfo.cs" />
-    <Compile Include="InsertDateHandler.cs" />
     <Compile Include="AddinCommands.cs" />
-    <Compile Include="ViewFileHandler.cs" />
-    <Compile Include="NewInstanceVSHandler.cs" />
-    <Compile Include="FileNodeBuilderExtension.cs" />
-    <Compile Include="FileNodeCommandHandler.cs" />
-    <Compile Include="downloaded.cs" />
     <Compile Include="gtk-gui\generated.cs" />
     <Compile Include="SolutionFilterWidget.cs" />
     <Compile Include="gtk-gui\EssentialsAddin.SolutionFilterWidget.cs" />
     <Compile Include="SolutionFilterPad.cs" />
-    <Compile Include="SolutionFilter\SolutionFilterPad.cs" />
-    <Compile Include="SolutionFilterPadMenuHandler.cs" />
-    <Compile Include="FilteredProjectCache.cs" />
-    <Compile Include="EssentialProperties.cs" />
+    <Compile Include="Helpers\EssentialProperties.cs" />
+    <Compile Include="SolutionFilter\FileNodeBuilderExtension.cs" />
+    <Compile Include="SolutionFilter\FileNodeCommandHandler.cs" />
+    <Compile Include="SolutionFilter\FilteredProjectCache.cs" />
+    <Compile Include="Other\NewInstanceVSHandler.cs" />
+    <Compile Include="Other\downloaded.cs" />
+    <Compile Include="Other\InsertDateHandler.cs" />
+    <Compile Include="Other\ViewFileHandler.cs" />
+    <Compile Include="Other\SolutionFilterPad.cs" />
+    <Compile Include="SolutionFilter\SolutionFilterPadMenuHandler.cs" />
+    <Compile Include="SolutionFilter\SpecialNodeBuilderExtension.cs" />
+    <Compile Include="SolutionFilter\SolutionTreeExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Manifest.addin.xml" />
@@ -54,6 +56,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="SolutionFilter\" />
+    <Folder Include="Helpers\" />
+    <Folder Include="Other\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

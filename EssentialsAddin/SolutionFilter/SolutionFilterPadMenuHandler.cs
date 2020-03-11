@@ -2,22 +2,18 @@
 using MonoDevelop.Ide;
 using MonoDevelop.Ide.Gui;
 
-namespace EssentialsAddin
+namespace EssentialsAddin.SolutionFilter
 {
     public class SolutionFilterPadMenuHandler : CommandHandler
     {
         protected override void Run()
         {
             var pad = IdeApp.Workbench.GetPad<SolutionFilterPad>();
-            if (pad == null)
+            if (pad !=null)
             {
-                var fp = new SolutionFilterPad();
-                IdeApp.Workbench.AddPad(fp,
-                                        fp.Id,
-                                        "(Essentials) Solution Filter",
-                                        "ProjectPad.Bottom",
-                                        MonoDevelop.Components.Docking.DockItemStatus.Dockable,
-                                        Stock.Solution);
+                pad.Visible = true;
+                pad.IsOpenedAutomatically = true;
+                pad.BringToFront(true);
             }
         }
 
