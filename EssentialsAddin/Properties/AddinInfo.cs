@@ -10,8 +10,10 @@ using Mono.Addins.Description;
 
 [assembly: AddinName("EssentialsAddin")]
 [assembly: AddinCategory("IDE extensions")]
-[assembly: AddinDescription("EssentialsAddin provides:\n "+
-    " - Solution tree filter\n" +
+[assembly: AddinDescription("EssentialsAddin provides:\n"+
+    " - Solution tree filtering\n" +
     " - One click to open file functionality. \n" +
-    " - Expand project filter when closing all projects")]
+    " - Expand project filter when closing all projects\n"+
+    "\n"+
+    "The filter pad can be opened from the Tools->Essentials->")]
 [assembly: AddinAuthor("Ivo Krugers")]
