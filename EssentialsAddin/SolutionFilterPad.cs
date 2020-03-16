@@ -1,21 +1,22 @@
-﻿using System.Diagnostics;
-using System.Threading.Tasks;
-using MonoDevelop.Components;
+﻿using MonoDevelop.Components;
 using MonoDevelop.Ide;
 using MonoDevelop.Ide.Gui;
-using MonoDevelop.Ide.Gui.Documents;
 
 namespace EssentialsAddin
 {
+    public static class Constants
+    {
+        public const string Version = "1.6.0";
+        public const  string SolutionPadId = "EssentialsAddin.SolutionFilterPad";
+    }
+
     public class SolutionFilterPad : PadContent
     {
         public override Control Control
             => control ?? (control = new SolutionFilterWidget());
         SolutionFilterWidget control;
 
-        public override string Id => "EssentialsAddin.SolutionFilterPad";
-
-        public static string PROPERTY_KEY = "EssentialsAddin.SolutionFilterPad.Filter";
+        public override string Id => Constants.SolutionPadId;
 
         protected override void Initialize(IPadWindow window)
         {
@@ -25,6 +26,8 @@ namespace EssentialsAddin
 
             //Debug.WriteLine($"Bundle path: {NSBundle.MainBundle.BundlePath}");
             //Debug.WriteLine($"Bundle Resource path: {NSBundle.MainBundle.ResourcePath}");
+
+            this.Window.Title = $"Essentials Pad {Constants.Version}";
         }
 
         void StartListeningForWorkspaceChanges()

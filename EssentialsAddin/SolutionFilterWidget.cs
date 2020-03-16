@@ -99,6 +99,10 @@ namespace EssentialsAddin
 
         private void FilterSolutionPad()
         {
+            var SolutionPad = (SolutionFilterPad)IdeApp.Workbench.Pads.Find((p) => p.Id == Constants.SolutionPadId).Content;
+            if (SolutionPad != null)
+                SolutionPad.Window.IsWorking=true;
+
             var ctx = IdeApp.Workbench.StatusBar.CreateContext();
 
             using (ctx)
@@ -132,12 +136,29 @@ namespace EssentialsAddin
                 EssentialProperties.IsRefreshingTree = false;
             }
             IdeApp.Workbench.StatusBar.ShowReady();
+            //if (SolutionPad != null)
+             //   SolutionPad.Window.IsWorking = false;
         }
 
         private void ExpandOnlyCSharpProjects()
         {
             EssentialProperties.ExpandFilter = collapseEntry.Text;
-            SolutionTreeExtensions.ExpandOnlyCSharpProjects(EssentialProperties.ExpandFilterArray);
+
+            var pad = (SolutionPad)IdeApp.Workbench.Pads.SolutionPad.Content;
+            if (pad == null)
+                return;
+
+            //EssentialProperties.IsRefreshingTree = true;
+            pad.TreeView.CollapseTree();
+            var root = pad.TreeView.GetRootNode();
+            if (root != null)
+            {
+            //    root.Expanded = false;
+              //  pad.TreeView.RefreshNode(root);
+                //root.Expanded = true;
+                SolutionTreeExtensions.ExpandOnlyCSharpProjects(root);
+            }
+            //EssentialProperties.IsRefreshingTree = false;
         }
 
         public void OnDocumentClosed()

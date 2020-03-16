@@ -5,7 +5,7 @@ using Mono.Addins.Description;
 [assembly: Addin(
 	"EssentialsAddin",
 	Namespace = "EssentialsAddin",
-	Version = "1.5.0"
+	Version = EssentialsAddin.Constants.Version
 )]
 
 [assembly: AddinName("EssentialsAddin")]
@@ -17,3 +17,6 @@ using Mono.Addins.Description;
     "\n"+
     "The filter pad can be opened from the Tools->Essentials->")]
 [assembly: AddinAuthor("Ivo Krugers")]
+
+[assembly: AddinDependency("::MonoDevelop.Core", MonoDevelop.BuildInfo.Version)]
+[assembly: AddinDependency("::MonoDevelop.Ide", MonoDevelop.BuildInfo.Version)]

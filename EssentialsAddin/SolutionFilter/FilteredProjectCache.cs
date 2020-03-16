@@ -60,28 +60,40 @@ namespace EssentialsAddin.SolutionFilter
 
                     path = file.IsLink ? project.BaseDirectory.Combine(file.ProjectVirtualPath) : file.FilePath;
 
-                    foreach (var key in filterArray)
+                    if (filterArray.Length > 0)
                     {
-
-                        if (file.ProjectVirtualPath.ToString().ToLower().Contains(key))
+                        foreach (var key in filterArray)
                         {
-                            // Found file of folder that fits the filter
-                            var filenameInFilter = false;
-                            var filenameToTest = file.FilePath.FileName.ToLower();
-                            foreach (var key1 in filterArray)
+
+                            if (file.ProjectVirtualPath.ToString().ToLower().Contains(key))
                             {
-                                if (filenameToTest.Contains(key1))
+
+                                if (file.FilePath.FileName == "StageProgressBar.designer.cs")
                                 {
-                                    filenameInFilter = true;
-                                    break;
+                                    Debug.WriteLine("BINGO !!");
                                 }
+
+                                // if this file depends on another, make sure that that parent file in the cache is marked as expanded too.
+
+
+                                // Found file or folder that fits the filter
+                                var filenameInFilter = false;
+                                var filenameToTest = file.FilePath.FileName.ToLower();
+                                foreach (var key1 in filterArray)
+                                {
+                                    if (filenameToTest.Contains(key1))
+                                    {
+                                        filenameInFilter = true;
+                                        break;
+                                    }
+                                }
+
+                                var filename = file.ProjectVirtualPath.FileName;
+                                var folder = file.ProjectVirtualPath.ParentDirectory;
+                                RegisterFile(project.Name, filename, folder, filenameInFilter, filterArray);
+
+                                break;
                             }
-
-                            var filename = file.ProjectVirtualPath.FileName;
-                            var folder = file.ProjectVirtualPath.ParentDirectory;
-                            RegisterFile(project.Name, filename, folder, filenameInFilter, filterArray);
-
-                            break;
                         }
                     }
                 }
