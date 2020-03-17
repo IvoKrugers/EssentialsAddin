@@ -8,9 +8,9 @@ using Mono.Addins.Description;
 	Version = EssentialsAddin.Constants.Version
 )]
 
-[assembly: AddinName("EssentialsAddin")]
+[assembly: AddinName("Essentials Addin")]
 [assembly: AddinCategory("IDE extensions")]
-[assembly: AddinDescription("EssentialsAddin provides:\n"+
+[assembly: AddinDescription("Essentials Addin provides:\n"+
     " - Solution tree filtering\n" +
     " - One click to open file functionality. \n" +
     " - Expand project filter when closing all projects\n"+

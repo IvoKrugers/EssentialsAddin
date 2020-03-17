@@ -47,6 +47,7 @@
     <Compile Include="SolutionFilter\SolutionFilterPadMenuHandler.cs" />
     <Compile Include="SolutionFilter\SpecialNodeBuilderExtension.cs" />
     <Compile Include="SolutionFilter\SolutionTreeExtensions.cs" />
+    <Compile Include="Constants.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Manifest.addin.xml" />
