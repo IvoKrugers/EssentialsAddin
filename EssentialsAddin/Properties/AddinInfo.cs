@@ -8,7 +8,7 @@ using Mono.Addins.Description;
 	Version = EssentialsAddin.Constants.Version
 )]
 
-[assembly: AddinName("Essentials Addin")]
+[assembly: AddinName("EssentialsAddin")]
 [assembly: AddinCategory("IDE extensions")]
 [assembly: AddinDescription("Essentials Addin provides:\n"+
     " - Solution tree filtering\n" +

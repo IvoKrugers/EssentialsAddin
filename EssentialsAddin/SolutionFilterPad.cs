@@ -4,7 +4,6 @@ using MonoDevelop.Ide.Gui;
 
 namespace EssentialsAddin
 {
-
     public class SolutionFilterPad : PadContent
     {
         public override Control Control

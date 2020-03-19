@@ -66,6 +66,7 @@ namespace EssentialsAddin
         protected void clearButton_Clicked(object sender, EventArgs e)
         {
             filterEntry.Text = "";
+            FilterSolutionPad();
         }
 
         protected void OnEditingDone(object sender, EventArgs e)
@@ -148,24 +149,24 @@ namespace EssentialsAddin
             if (pad == null)
                 return;
 
-            //EssentialProperties.IsRefreshingTree = true;
+            EssentialProperties.IsRefreshingTree = true;
             pad.TreeView.CollapseTree();
             var root = pad.TreeView.GetRootNode();
             if (root != null)
             {
-            //    root.Expanded = false;
-              //  pad.TreeView.RefreshNode(root);
-                //root.Expanded = true;
+                root.Expanded = false;
+                pad.TreeView.RefreshNode(root);
+                root.Expanded = true;
                 SolutionTreeExtensions.ExpandOnlyCSharpProjects(root);
             }
-            //EssentialProperties.IsRefreshingTree = false;
+            EssentialProperties.IsRefreshingTree = false;
         }
 
         public void OnDocumentClosed()
         {
             if (IdeApp.Workbench.Documents is null || IdeApp.Workbench.Documents.Count == 0)
             {
-                ExpandOnlyCSharpProjects();
+                FilterSolutionPad();
             }
         }
     }
