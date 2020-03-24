@@ -25,7 +25,6 @@ namespace EssentialsAddin.SolutionFilter
                 while (continueLoop)
                 {
                     var wso = node.DataItem as WorkspaceObject;
-                    Debug.WriteLine($"{wso.Name} {wso}");
 
                     if (node.DataItem is Project)
                     {
@@ -53,7 +52,6 @@ namespace EssentialsAddin.SolutionFilter
                     continueLoop = node.MoveNext();
                 }
                 node.MoveToParent();
-
             }
         }
 
@@ -61,10 +59,10 @@ namespace EssentialsAddin.SolutionFilter
         {
             if (node == null)
                 return;
-
+#if DEBUG
             if (node.DataItem is ProjectFile f)
             {
-                if (f.Name.ToLower().Contains("viewmodel"))
+                if (f.Name.ToLower().Contains("appstart.cs"))
                 {
                     Debug.WriteLine("BINGO !!");
                 }
@@ -77,7 +75,7 @@ namespace EssentialsAddin.SolutionFilter
                     Debug.WriteLine("BINGO !!");
                 }
             }
-
+#endif
             if (FilteredProjectCache.IsProjectItemExpanded(node.DataItem))
                 node.ExpandToNode();
 

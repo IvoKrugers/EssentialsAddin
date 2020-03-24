@@ -15,6 +15,7 @@ namespace EssentialsAddin.SolutionFilter
         {
             public FilePath ProjectVirtualPath;
             public bool IsExpanded;
+            public bool IsEnabled;
         }
 
         private static Dictionary<string, DateTime> _projectsDictionary = new Dictionary<string, DateTime>();
@@ -118,11 +119,13 @@ namespace EssentialsAddin.SolutionFilter
 
             // Register file
             var foldername = projectname + "/" + folder.ToString() + "/" + filename;
+            foldername = foldername.Replace("//", "/");
             TreeItem item;
             if (!_treeDictionary.TryGetValue(foldername, out item))
                 item = new TreeItem { ProjectVirtualPath = folder };
 
             item.IsExpanded = item.IsExpanded || filenameInFilter;
+            item.IsEnabled = item.IsEnabled || filenameInFilter;
             _treeDictionary[foldername] = item;
         }
 
@@ -142,6 +145,7 @@ namespace EssentialsAddin.SolutionFilter
             if (!_treeDictionary.TryGetValue(foldername, out item))
                 item = new TreeItem { ProjectVirtualPath = folder };
             item.IsExpanded = item.IsExpanded || filenameInFilter || IsFilePathExpanded(folder, filter);
+            item.IsEnabled = true;
             _treeDictionary[foldername] = item;
 
             return foldername;
@@ -196,6 +200,23 @@ namespace EssentialsAddin.SolutionFilter
             return false;
         }
 
+        public static bool IsProjectItemEnabled(object dataItem)
+        {
+            if (dataItem is ProjectFile || dataItem is ProjectFolder)
+            {
+                var key = GetKeyFor(dataItem);
+                TreeItem item;
+                if (!_treeDictionary.TryGetValue(key, out item))
+                    return false;
+                return item.IsEnabled;
+            }
+            else if (dataItem is Project project)
+            {
+                return true;
+            }
+            return false;
+        }
+
         public static bool IsProjectItemExpanded(object dataItem)
         {
             if (dataItem is ProjectFile || dataItem is ProjectFolder)
@@ -227,7 +248,7 @@ namespace EssentialsAddin.SolutionFilter
             str += $"\n{{FilteredProjectCache - TreeDictionary}}\n";
             foreach (var item in _treeDictionary)
             {
-                str += $"\t- {item.Key.PadRight(maxLength, '.')}\t=> IsExpanded: {item.Value.IsExpanded}\n";
+                str += $"\t- {item.Key.PadRight(maxLength, '.')}\t=> IsExpanded: {item.Value.IsExpanded}\t=> IsEnabled: {item.Value.IsEnabled}\n";
             }
             return str;
         }
