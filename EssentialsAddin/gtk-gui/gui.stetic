@@ -121,7 +121,7 @@
             <child>
               <widget class="Gtk.Label" id="label2">
                 <property name="MemberName" />
-                <property name="LabelProp" translatable="yes">Expand projects filter</property>
+                <property name="LabelProp" translatable="yes">Projects to Expand</property>
               </widget>
               <packing>
                 <property name="Position">0</property>

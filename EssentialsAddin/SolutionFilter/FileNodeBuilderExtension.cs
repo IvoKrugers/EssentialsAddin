@@ -24,7 +24,6 @@ namespace EssentialsAddin.SolutionFilter
                 typeof(ProjectFolder).IsAssignableFrom(dataType) ||
                 typeof(ProjectFile).IsAssignableFrom(dataType) ||
                 dataType.Name == "CSharpProject";
-            //Debug.WriteLine($"[CanBuildNode] {dataType}, canBuild: {canBuild}");
             return canBuild;
         }
 
@@ -38,7 +37,6 @@ namespace EssentialsAddin.SolutionFilter
             base.GetNodeAttributes(parentNode, dataObject, ref attributes);
 
             var filter = EssentialProperties.SolutionFilterArray;
-
             if (filter.Length == 0)
                 return;
 
@@ -62,16 +60,16 @@ namespace EssentialsAddin.SolutionFilter
 
             if (dataObject is ProjectFile file )
             {
-                var hide = true;
-                foreach (var key in filter)
-                {
-                    if (file.ProjectVirtualPath.ToString().ToLower().Contains(key))
-                    {
-                        hide = false;
-                        break;
-                    }
-                }
-                if (hide)
+                //var hide = true;
+                //foreach (var key in filter)
+                //{
+                //    if (file.ProjectVirtualPath.ToString().ToLower().Contains(key))
+                //    {
+                //        hide = false;
+                //        break;
+                //    }
+                //}
+                if (!FilteredProjectCache.IsProjectItemVisible(file))
                     attributes = NodeAttributes.Hidden;
             }
         }
@@ -96,7 +94,7 @@ namespace EssentialsAddin.SolutionFilter
         {
             if (!string.IsNullOrEmpty(EssentialProperties.SolutionFilter))
             {
-                if (!FilteredProjectCache.IsProjectItemExpanded(dataObject))
+                if (!FilteredProjectCache.IsProjectItemEnabled(dataObject))
 
                     nodeInfo.DisabledStyle = true;
             }

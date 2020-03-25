@@ -15,6 +15,7 @@ namespace EssentialsAddin.SolutionFilter
         {
             public FilePath ProjectVirtualPath;
             public bool IsExpanded;
+            public bool IsEnabled;
         }
 
         private static Dictionary<string, DateTime> _projectsDictionary = new Dictionary<string, DateTime>();
@@ -60,28 +61,40 @@ namespace EssentialsAddin.SolutionFilter
 
                     path = file.IsLink ? project.BaseDirectory.Combine(file.ProjectVirtualPath) : file.FilePath;
 
-                    foreach (var key in filterArray)
+                    if (filterArray.Length > 0)
                     {
-
-                        if (file.ProjectVirtualPath.ToString().ToLower().Contains(key))
+                        foreach (var key in filterArray)
                         {
-                            // Found file of folder that fits the filter
-                            var filenameInFilter = false;
-                            var filenameToTest = file.FilePath.FileName.ToLower();
-                            foreach (var key1 in filterArray)
+
+                            if (file.ProjectVirtualPath.ToString().ToLower().Contains(key))
                             {
-                                if (filenameToTest.Contains(key1))
+#if DEBUG
+                                if (file.FilePath.FileName == "StageProgressBar.designer.cs")
                                 {
-                                    filenameInFilter = true;
-                                    break;
+                                    Debug.WriteLine("BINGO !!");
                                 }
+#endif
+                                // if this file depends on another, make sure that that parent file in the cache is marked as expanded too.
+
+
+                                // Found file or folder that fits the filter
+                                var filenameInFilter = false;
+                                var filenameToTest = file.FilePath.FileName.ToLower();
+                                foreach (var key1 in filterArray)
+                                {
+                                    if (filenameToTest.Contains(key1))
+                                    {
+                                        filenameInFilter = true;
+                                        break;
+                                    }
+                                }
+
+                                var filename = file.ProjectVirtualPath.FileName;
+                                var folder = file.ProjectVirtualPath.ParentDirectory;
+                                RegisterFile(project.Name, filename, folder, filenameInFilter, filterArray);
+
+                                break;
                             }
-
-                            var filename = file.ProjectVirtualPath.FileName;
-                            var folder = file.ProjectVirtualPath.ParentDirectory;
-                            RegisterFile(project.Name, filename, folder, filenameInFilter, filterArray);
-
-                            break;
                         }
                     }
                 }
@@ -106,11 +119,13 @@ namespace EssentialsAddin.SolutionFilter
 
             // Register file
             var foldername = projectname + "/" + folder.ToString() + "/" + filename;
+            foldername = foldername.Replace("//", "/");
             TreeItem item;
             if (!_treeDictionary.TryGetValue(foldername, out item))
                 item = new TreeItem { ProjectVirtualPath = folder };
 
             item.IsExpanded = item.IsExpanded || filenameInFilter;
+            item.IsEnabled = item.IsEnabled || filenameInFilter;
             _treeDictionary[foldername] = item;
         }
 
@@ -124,12 +139,13 @@ namespace EssentialsAddin.SolutionFilter
 
             // Enter recursion
             var foldername = RegisterFileForFolder(projectname, filename, folder.ParentDirectory, filenameInFilter, filter) + $"/" + folder.FileName;
-
+            foldername = foldername.Replace("//", "/");
             // Register file in dictionary
             TreeItem item;
             if (!_treeDictionary.TryGetValue(foldername, out item))
                 item = new TreeItem { ProjectVirtualPath = folder };
             item.IsExpanded = item.IsExpanded || filenameInFilter || IsFilePathExpanded(folder, filter);
+            item.IsEnabled = true;
             _treeDictionary[foldername] = item;
 
             return foldername;
@@ -157,17 +173,24 @@ namespace EssentialsAddin.SolutionFilter
 
         private static string GetKeyFor(object dataObject)
         {
+            string key;
             switch (dataObject)
             {
                 case ProjectFile file:
-                    return file.Project.Name + "/" + file.ProjectVirtualPath.ToString();
+                    key= file.Project.Name + "/" + file.ProjectVirtualPath.ToString();
+                    break;
                 case ProjectFolder folder:
-                    return GetFoldername(folder);
+                    key= GetFoldername(folder);
+                    break;
                 case Project project:
-                    return project.Name;
+                    key= project.Name;
+                    break;
                 default:
-                    return string.Empty;
+                    key= string.Empty;
+                    break;
             }
+            key = key.Replace("//", "/");
+            return key;
         }
 
         public static bool IsProjectItemVisible(object dataItem)
@@ -180,6 +203,23 @@ namespace EssentialsAddin.SolutionFilter
             else if (dataItem is Project project)
             {
                 return _treeDictionary.Keys.FindIndex((key) => key.Contains(project.Name)) != -1;
+            }
+            return false;
+        }
+
+        public static bool IsProjectItemEnabled(object dataItem)
+        {
+            if (dataItem is ProjectFile || dataItem is ProjectFolder)
+            {
+                var key = GetKeyFor(dataItem);
+                TreeItem item;
+                if (!_treeDictionary.TryGetValue(key, out item))
+                    return false;
+                return item.IsEnabled;
+            }
+            else if (dataItem is Project project)
+            {
+                return true;
             }
             return false;
         }
@@ -215,7 +255,7 @@ namespace EssentialsAddin.SolutionFilter
             str += $"\n{{FilteredProjectCache - TreeDictionary}}\n";
             foreach (var item in _treeDictionary)
             {
-                str += $"\t- {item.Key.PadRight(maxLength, '.')}\t=> IsExpanded: {item.Value.IsExpanded}\n";
+                str += $"\t- {item.Key.PadRight(maxLength, '.')}\t=> IsExpanded: {item.Value.IsExpanded}\t=> IsEnabled: {item.Value.IsEnabled}\n";
             }
             return str;
         }

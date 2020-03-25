@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{06AAEAAA-1031-4096-BA41-394CACC5CC92}</ProjectGuid>
-    <ProjectTypeGuids>{86F6BF2A-E449-4B3E-813B-9ACC37E5545F};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <!--<ProjectTypeGuids>{86F6BF2A-E449-4B3E-813B-9ACC37E5545F};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>-->
     <OutputType>Library</OutputType>
     <RootNamespace>EssentialsAddin</RootNamespace>
     <AssemblyName>EssentialsAddin</AssemblyName>
@@ -47,6 +47,7 @@
     <Compile Include="SolutionFilter\SolutionFilterPadMenuHandler.cs" />
     <Compile Include="SolutionFilter\SpecialNodeBuilderExtension.cs" />
     <Compile Include="SolutionFilter\SolutionTreeExtensions.cs" />
+    <Compile Include="Constants.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Manifest.addin.xml" />

@@ -108,7 +108,7 @@ namespace EssentialsAddin
 			// Container child hbox3.Gtk.Box+BoxChild
 			this.label2 = new global::Gtk.Label();
 			this.label2.Name = "label2";
-			this.label2.LabelProp = global::Mono.Unix.Catalog.GetString("Expand projects filter");
+			this.label2.LabelProp = global::Mono.Unix.Catalog.GetString("Projects to Expand");
 			this.hbox3.Add(this.label2);
 			global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.hbox3[this.label2]));
 			w7.Position = 0;

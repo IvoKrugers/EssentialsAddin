@@ -1,10 +1,6 @@
-﻿using System;
-using System.Diagnostics;
-using Cairo;
+﻿using System.Diagnostics;
 using EssentialsAddin.Helpers;
-using MonoDevelop.Ide;
 using MonoDevelop.Ide.Gui.Components;
-using MonoDevelop.Ide.Gui.Pads;
 using MonoDevelop.Ide.Gui.Pads.ProjectPad;
 using MonoDevelop.Projects;
 
@@ -21,126 +17,132 @@ namespace EssentialsAddin.SolutionFilter
             if (typename == "Solution")
             {
                 node.ExpandToNode();
+            }
 
-                Debug.WriteLine($"\t{node.DataItem.GetType().FullName}\t{node.NodeName}");
-
-                if (node.HasChildren())
+            if (node.HasChildren())
+            {
+                var continueLoop = node.MoveToFirstChild();
+                while (continueLoop)
                 {
-                    var continueLoop = node.MoveToFirstChild();
-                    while (continueLoop)
-                    {
-                        var wso = node.DataItem as WorkspaceObject;
-                        Debug.WriteLine($"{wso.Name} {wso}");
+                    var wso = node.DataItem as WorkspaceObject;
 
+                    if (node.DataItem is Project)
+                    {
                         if (!string.IsNullOrWhiteSpace(EssentialProperties.ExpandFilter))
                         {
                             foreach (var item in EssentialProperties.ExpandFilterArray)
                             {
                                 if (wso.Name.ToLower().Contains(item))
                                 {
-                                    ExpandCSharpProjectFiles(node);
+                                    ExpandProjectFiles(node);
                                     break;
                                 }
                             }
                         }
                         else
                         {
-                            ExpandCSharpProjectFiles(node);
+                            ExpandProjectFiles(node);
                         }
-                        continueLoop = node.MoveNext();
                     }
-                    node.MoveToParent();
+                    else
+                    {
+                        ExpandAll(node);
+                    }
+
+                    continueLoop = node.MoveNext();
                 }
+                node.MoveToParent();
             }
         }
 
-        private static void ExpandCSharpProjectFiles(ITreeNavigator node)
+        private static void ExpandProjectFiles(ITreeNavigator node)
+        {
+            if (node == null)
+                return;
+#if DEBUG
+            if (node.DataItem is ProjectFile f)
+            {
+                if (f.Name.ToLower().Contains("appstart.cs"))
+                {
+                    Debug.WriteLine("BINGO !!");
+                }
+            }
+
+            if (node.DataItem is ProjectFolder folder)
+            {
+                if (folder.Name.ToLower().Contains("views"))
+                {
+                    Debug.WriteLine("BINGO !!");
+                }
+            }
+#endif
+            if (FilteredProjectCache.IsProjectItemExpanded(node.DataItem))
+            {
+                node.ExpandToNode();
+                node.Expanded = true;
+            }
+
+            if (node.HasChildren())
+            {
+                var continueLoop = node.MoveToFirstChild();
+                while (continueLoop)
+                {
+                    if (!(node.DataItem is ProjectFile pf) || string.IsNullOrEmpty(pf.DependsOn))
+                        ExpandProjectFiles(node);
+                    continueLoop = node.MoveNext();
+                }
+                node.MoveToParent();
+
+                return;
+            }
+        }
+
+        public static void ExpandOnlyCSharpProjects(ITreeNavigator node)
         {
             if (node == null)
                 return;
 
             var typename = node.DataItem.GetType().Name;
-
-            if (typename == "CSharpProject" || typename == "ProjectFolder" || typename == "ProjectFile")
+            if (typename == "Solution")
             {
-
-                if (FilteredProjectCache.IsProjectItemExpanded(node.DataItem))
-                    node.ExpandToNode();
-
-                if (node.HasChildren())
-                {
-                    var continueLoop = node.MoveToFirstChild();
-                    //var hasDependingChildren = false;
-                    while (continueLoop)
-                    {
-                        if (!(node.DataItem is ProjectFile pf) || string.IsNullOrEmpty(pf.DependsOn))
-                            ExpandCSharpProjectFiles(node);
-                        continueLoop = node.MoveNext();
-                    }
-                    node.MoveToParent();
-
-                    //if (hasDependingChildren)
-                    //    node.ExpandToNode();
-
-                    return;
-                }
-
-                //if (typename == "ProjectFolder" && FilteredProjectCache.IsProjectFolderExpanded(node.DataItem as ProjectFolder))
-                //    node.ExpandToNode();
+                node.ExpandToNode();
             }
-        }
 
-        public static void ExpandOnlyCSharpProjects(string[] filter)
-        {
-            var pad = (SolutionPad)IdeApp.Workbench.Pads.SolutionPad.Content;
-            if (pad == null)
-                return;
-
-            pad.TreeView.GrabFocus();
-            pad.TreeView.CollapseTree();
-
-            var node = pad.TreeView.GetRootNode();
-            if (node != null)
+            if (node.HasChildren())
             {
-                //node.Expanded = true;
-                pad.TreeView.RefreshNode(node);
-
-                var typename = node.DataItem.GetType().Name;
-                if (typename == "Solution")
+                var continueLoop = node.MoveToFirstChild();
+                while (continueLoop)
                 {
-                    if (node.HasChildren())
+                    if (node.DataItem is Project proj)
                     {
-                        var continueLoop = node.MoveToFirstChild();
-                        while (continueLoop)
+                        var filter = EssentialProperties.ExpandFilterArray;
+                        if (filter.Length == 0)
                         {
-                            if (node.DataItem is Project proj)
+                            node.MoveToFirstChild();
+                            node.ExpandToNode();
+                            node.MoveToParent();
+                        }
+                        else
+                        {
+                            foreach (var item in filter)
                             {
-                                Debug.WriteLine($"{proj.Name} {proj}");
-                                if (filter.Length == 0)
+                                if (proj.Name.ToLower().Contains(item))
                                 {
                                     node.MoveToFirstChild();
                                     node.ExpandToNode();
                                     node.MoveToParent();
-                                }
-                                else
-                                {
-                                    foreach (var item in filter)
-                                    {
-                                        if (proj.Name.ToLower().Contains(item))
-                                        {
-                                            node.MoveToFirstChild();
-                                            node.ExpandToNode();
-                                            node.MoveToParent();
-                                            break;
-                                        }
-                                    }
+                                    break;
                                 }
                             }
-                            continueLoop = node.MoveNext();
                         }
-                        node.MoveToParent();
                     }
+                    else
+                    {
+                        ExpandOnlyCSharpProjects(node);
+                    }
+                    continueLoop = node.MoveNext();
                 }
+                node.MoveToParent();
             }
         }
     }

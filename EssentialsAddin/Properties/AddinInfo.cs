@@ -5,15 +5,18 @@ using Mono.Addins.Description;
 [assembly: Addin(
 	"EssentialsAddin",
 	Namespace = "EssentialsAddin",
-	Version = "1.5.0"
+	Version = EssentialsAddin.Constants.Version
 )]
 
 [assembly: AddinName("EssentialsAddin")]
 [assembly: AddinCategory("IDE extensions")]
-[assembly: AddinDescription("EssentialsAddin provides:\n"+
+[assembly: AddinDescription("Essentials Addin provides:\n"+
     " - Solution tree filtering\n" +
     " - One click to open file functionality. \n" +
     " - Expand project filter when closing all projects\n"+
     "\n"+
     "The filter pad can be opened from the Tools->Essentials->")]
 [assembly: AddinAuthor("Ivo Krugers")]
+
+[assembly: AddinDependency("::MonoDevelop.Core", MonoDevelop.BuildInfo.Version)]
+[assembly: AddinDependency("::MonoDevelop.Ide", MonoDevelop.BuildInfo.Version)]
