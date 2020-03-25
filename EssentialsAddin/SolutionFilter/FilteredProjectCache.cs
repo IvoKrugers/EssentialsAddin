@@ -68,12 +68,12 @@ namespace EssentialsAddin.SolutionFilter
 
                             if (file.ProjectVirtualPath.ToString().ToLower().Contains(key))
                             {
-
+#if DEBUG
                                 if (file.FilePath.FileName == "StageProgressBar.designer.cs")
                                 {
                                     Debug.WriteLine("BINGO !!");
                                 }
-
+#endif
                                 // if this file depends on another, make sure that that parent file in the cache is marked as expanded too.
 
 
@@ -139,7 +139,7 @@ namespace EssentialsAddin.SolutionFilter
 
             // Enter recursion
             var foldername = RegisterFileForFolder(projectname, filename, folder.ParentDirectory, filenameInFilter, filter) + $"/" + folder.FileName;
-
+            foldername = foldername.Replace("//", "/");
             // Register file in dictionary
             TreeItem item;
             if (!_treeDictionary.TryGetValue(foldername, out item))
@@ -173,17 +173,24 @@ namespace EssentialsAddin.SolutionFilter
 
         private static string GetKeyFor(object dataObject)
         {
+            string key;
             switch (dataObject)
             {
                 case ProjectFile file:
-                    return file.Project.Name + "/" + file.ProjectVirtualPath.ToString();
+                    key= file.Project.Name + "/" + file.ProjectVirtualPath.ToString();
+                    break;
                 case ProjectFolder folder:
-                    return GetFoldername(folder);
+                    key= GetFoldername(folder);
+                    break;
                 case Project project:
-                    return project.Name;
+                    key= project.Name;
+                    break;
                 default:
-                    return string.Empty;
+                    key= string.Empty;
+                    break;
             }
+            key = key.Replace("//", "/");
+            return key;
         }
 
         public static bool IsProjectItemVisible(object dataItem)

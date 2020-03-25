@@ -77,7 +77,10 @@ namespace EssentialsAddin.SolutionFilter
             }
 #endif
             if (FilteredProjectCache.IsProjectItemExpanded(node.DataItem))
+            {
                 node.ExpandToNode();
+                node.Expanded = true;
+            }
 
             if (node.HasChildren())
             {

@@ -47,19 +47,26 @@ namespace EssentialsAddin
         protected void oneClickCheckbutton_Toggled(object sender, EventArgs e)
         {
             EssentialProperties.OneClickShowFile = oneClickCheckbutton.Active;
-
-            //var pad = (SolutionPad)IdeApp.Workbench.Pads.SolutionPad.Content;
-            //if (pad == null)
-            //    return;
-
-            //pad.TreeView.CollapseTree();
-            //pad.TreeView.RefreshTree
-
             FilterSolutionPad();
         }
 
         protected void collapseButton_Clicked(object sender, EventArgs e)
         {
+            var pad = (SolutionPad)IdeApp.Workbench.Pads.SolutionPad.Content;
+            if (pad != null)
+            {
+                EssentialProperties.IsRefreshingTree = true;
+                pad.TreeView.CollapseTree();
+                var root = pad.TreeView.GetRootNode();
+                if (root != null)
+                {
+                    root.Expanded = false;
+                    pad.TreeView.RefreshNode(root);
+                    root.Expanded = true;
+                    SolutionTreeExtensions.ExpandAll(root);
+                }
+                EssentialProperties.IsRefreshingTree = false;
+            }
             ExpandOnlyCSharpProjects();
         }
 
@@ -102,7 +109,7 @@ namespace EssentialsAddin
         {
             var SolutionPad = (SolutionFilterPad)IdeApp.Workbench.Pads.Find((p) => p.Id == Constants.SolutionPadId).Content;
             if (SolutionPad != null)
-                SolutionPad.Window.IsWorking=true;
+                SolutionPad.Window.IsWorking = true;
 
             var ctx = IdeApp.Workbench.StatusBar.CreateContext();
 
@@ -138,7 +145,7 @@ namespace EssentialsAddin
             }
             IdeApp.Workbench.StatusBar.ShowReady();
             //if (SolutionPad != null)
-             //   SolutionPad.Window.IsWorking = false;
+            //   SolutionPad.Window.IsWorking = false;
         }
 
         private void ExpandOnlyCSharpProjects()
