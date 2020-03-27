@@ -1,0 +1,7 @@
+﻿<AddinProject appVersion="6.0">
+    <Project platforms="Mac">
+        <AddinFile>EssentialsAddin/bin/Release/EssentialsAddin.dll</AddinFile>
+        <BuildFile>EssentialsAddin.sln</BuildFile>
+        <BuildConfiguration>Release</BuildConfiguration>
+    </Project>
+</AddinProject>
