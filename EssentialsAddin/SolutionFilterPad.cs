@@ -26,7 +26,7 @@ namespace EssentialsAddin
 
         void StartListeningForWorkspaceChanges()
         {
-            IdeApp.Workbench.DocumentClosed += (sender, e) => control.OnDocumentClosed();
+            //IdeApp.Workbench.DocumentClosed += (sender, e) => control.OnDocumentClosed();
         }
     }
 }

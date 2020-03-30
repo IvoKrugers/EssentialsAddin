@@ -13,7 +13,7 @@ using Mono.Addins.Description;
 [assembly: AddinDescription("Essentials Addin provides:\n"+
     " - Solution tree filtering\n" +
     " - One click to open file functionality. \n" +
-    " - Expand project filter when closing all projects\n"+
+    " - Filter project to Expand\n"+
     "\n"+
     "The filter pad can be opened from the Tools->Essentials->")]
 [assembly: AddinAuthor("Ivo Krugers")]
