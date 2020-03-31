@@ -5,7 +5,7 @@ An extension for Visual studio for Mac.
 
 ## Solution tree filtering
 
-The addin adds an pad to the view->pads menu and tools->Essentials menu. Once opened it allow the developer to filter the solution tree by filename or foldername, like the xcode filter, and allows multiple keywords. These keywords can be of course parcial. It is not necessary to write them out in full.
+The addin adds an pad to the view->pads menu and tools->Essentials menu. Once opened it allows the developer to filter the solution tree by filename or foldername, like the xcode filter, and allows multiple keywords. These keywords can be of course parcial. It is not necessary to write them out in full.
 
 ![Opening and filtering the solution tree.](/Art/Demo1_low_640.gif)
 
