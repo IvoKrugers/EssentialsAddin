@@ -19,7 +19,7 @@ As a developer I got annoyed at VS4Mac for all of that double clicking a file on
 
 ## Projects to expand
 
-Is your filtering still showing a lot of solutiontree entries, mayby you can filter the project that you only car about. Like if you're only working on iOS, you only want to see the core and iOS projects. Then specify: "core ios" and hit apply or change the tree filter.
+Is your filtering still showing a lot of solutiontree entries, mayby you can filter those projects that you only care about. Like if you're only working on iOS, you only want to see the core and iOS projects. Then specify: "core ios" and hit apply or change the tree filter.
 
 
 ## Installation
