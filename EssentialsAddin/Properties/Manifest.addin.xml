@@ -11,8 +11,9 @@
 		<Command id = "EssentialsAddin.AddinCommands.NewInstanceVS"     
 				_label = "Open New Instance VS" defaultHandler = "EssentialsAddin.NewInstanceVSHandler"/>-->
 		<Command id = "EssentialsAddin.AddinCommands.ShowSolutionFilterPad"     
-				_label = "Show Solution Filter Pad" defaultHandler = "EssentialsAddin.SolutionFilter.SolutionFilterPadMenuHandler"/>
+				_label = "Open solution filter Pad" defaultHandler = "EssentialsAddin.SolutionFilter.SolutionFilterPadMenuHandler"/>
     </Extension>
+    
     <Extension path="/MonoDevelop/Ide/Pads/ProjectPad">
 <!--        <PadOption id="OneClickShowFile" _label="(Essentials) Use one click to show file" defaultValue="true" />-->
         <NodeBuilder class="EssentialsAddin.SolutionFilter.FileNodeBuilderExtension" />
@@ -21,11 +22,13 @@
     
     <!-- Main Tool Menu Entries	-->
     <Extension path="/MonoDevelop/Ide/MainMenu/Tools">
-        <ItemSet _label="Essentials">
-            <CommandItem id="EssentialsAddin.AddinCommands.ShowSolutionFilterPad" />
-            <SeparatorItem />
-            <LinkItem _label="Developer's LinkedIn" link="https://www.linkedin.com/in/ikrugers/" />
+        <SeparatorItem id="EssentialsSeparator" _label="Essentials" />
+        <CommandItem id="EssentialsAddin.AddinCommands.ShowSolutionFilterPad" />
+        <ItemSet _label="Links">
+        <LinkItem _label="https://github.com/IvoKrugers/EssentialsAddin/" link="https://github.com/IvoKrugers/EssentialsAddin/" />
+        <LinkItem _label="https://www.linkedin.com/in/ikrugers/" link="https://www.linkedin.com/in/ikrugers/" />
         </ItemSet>
+        <SeparatorItem id="EssentialsSeparator" />
     </Extension>
     <!-- copy/pasting code from https://github.com/colbylwilliams/DefaultDesigner-->
     <!--<Extension
