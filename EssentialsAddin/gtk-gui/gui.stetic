@@ -101,15 +101,15 @@
               <placeholder />
             </child>
             <child>
-              <widget class="Gtk.Button" id="CheckForUpdateButton">
+              <widget class="Gtk.Button" id="newReleaseAvailableButton">
                 <property name="MemberName" />
                 <property name="Visible">False</property>
                 <property name="CanFocus">True</property>
                 <property name="Type">TextOnly</property>
-                <property name="Label" translatable="yes">Check for update</property>
+                <property name="Label" translatable="yes">A new release is available</property>
                 <property name="UseUnderline">True</property>
                 <property name="Relief">Half</property>
-                <signal name="Clicked" handler="CheckForUpdate_Clicked" />
+                <signal name="Clicked" handler="NewReleaseAvailableButton_Clicked" />
               </widget>
               <packing>
                 <property name="Position">2</property>

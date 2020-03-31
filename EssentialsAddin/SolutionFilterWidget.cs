@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using EssentialsAddin.Helpers;
+using EssentialsAddin.Services;
 using EssentialsAddin.SolutionFilter;
 using MonoDevelop.Core;
 using MonoDevelop.Ide;
@@ -13,6 +14,9 @@ namespace EssentialsAddin
     public partial class SolutionFilterWidget : Gtk.Bin
     {
         private Timer timer;
+
+        private ReleaseService _releaseService = new ReleaseService();
+
 
         public SolutionFilterWidget()
         {
@@ -36,9 +40,10 @@ namespace EssentialsAddin
 
             filterEntry.Text = EssentialProperties.SolutionFilter;
             collapseEntry.Text = EssentialProperties.ExpandFilter;
-#if DEBUG
-            CheckForUpdateButton.Visible = true;
-#endif
+
+            newReleaseAvailableButton.SetBackgroundColor(Xwt.Drawing.Colors.DarkRed);
+            newReleaseAvailableButton.Visible = false;
+            CheckForNewRelease();
         }
 
         #region Events
@@ -181,9 +186,30 @@ namespace EssentialsAddin
             }
         }
 
-        protected void CheckForUpdate_Clicked(object sender, EventArgs e)
+        private async void CheckForNewRelease()
         {
-            this.SetBackgroundColor(Xwt.Drawing.Color.FromName("Red"));
+            if (await _releaseService.CheckForNewRelease())
+            {
+                newReleaseAvailableButton.Visible = true;
+            }
+            else
+            {
+                newReleaseAvailableButton.Visible = false;
+            }
+        }
+
+        protected void NewReleaseAvailableButton_Clicked(object sender, EventArgs e)
+        {
+            var url = _releaseService.LatestRelease.Url.OriginalString;
+            try
+            {
+                System.Diagnostics.Process.Start(url);
+            }
+            catch (Exception)
+            {
+                string msg = $"Could not open the url {url}";
+                MonoDevelop.Ide.MessageService.ShowError(((Gtk.Widget)sender).Toplevel as Gtk.Window, msg);
+            }
         }
     }
 }

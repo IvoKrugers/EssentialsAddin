@@ -18,7 +18,7 @@ namespace EssentialsAddin
 
 		private global::Gtk.CheckButton oneClickCheckbutton;
 
-		private global::Gtk.Button CheckForUpdateButton;
+		private global::Gtk.Button newReleaseAvailableButton;
 
 		private global::Gtk.HBox hbox3;
 
@@ -99,14 +99,14 @@ namespace EssentialsAddin
 			global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.hbox2[this.oneClickCheckbutton]));
 			w5.Position = 0;
 			// Container child hbox2.Gtk.Box+BoxChild
-			this.CheckForUpdateButton = new global::Gtk.Button();
-			this.CheckForUpdateButton.CanFocus = true;
-			this.CheckForUpdateButton.Name = "CheckForUpdateButton";
-			this.CheckForUpdateButton.UseUnderline = true;
-			this.CheckForUpdateButton.Relief = ((global::Gtk.ReliefStyle)(1));
-			this.CheckForUpdateButton.Label = global::Mono.Unix.Catalog.GetString("Check for update");
-			this.hbox2.Add(this.CheckForUpdateButton);
-			global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.hbox2[this.CheckForUpdateButton]));
+			this.newReleaseAvailableButton = new global::Gtk.Button();
+			this.newReleaseAvailableButton.CanFocus = true;
+			this.newReleaseAvailableButton.Name = "newReleaseAvailableButton";
+			this.newReleaseAvailableButton.UseUnderline = true;
+			this.newReleaseAvailableButton.Relief = ((global::Gtk.ReliefStyle)(1));
+			this.newReleaseAvailableButton.Label = global::Mono.Unix.Catalog.GetString("A new release is available");
+			this.hbox2.Add(this.newReleaseAvailableButton);
+			global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.hbox2[this.newReleaseAvailableButton]));
 			w6.Position = 2;
 			w6.Expand = false;
 			w6.Fill = false;
@@ -167,13 +167,13 @@ namespace EssentialsAddin
 			{
 				this.Child.ShowAll();
 			}
-			this.CheckForUpdateButton.Hide();
+			this.newReleaseAvailableButton.Hide();
 			this.Show();
 			this.filterEntry.Changed += new global::System.EventHandler(this.OnFilterEntryChanged);
 			this.filterEntry.EditingDone += new global::System.EventHandler(this.OnEditingDone);
 			this.button1.Clicked += new global::System.EventHandler(this.clearButton_Clicked);
 			this.oneClickCheckbutton.Toggled += new global::System.EventHandler(this.oneClickCheckbutton_Toggled);
-			this.CheckForUpdateButton.Clicked += new global::System.EventHandler(this.CheckForUpdate_Clicked);
+			this.newReleaseAvailableButton.Clicked += new global::System.EventHandler(this.NewReleaseAvailableButton_Clicked);
 			this.collapseButton.Clicked += new global::System.EventHandler(this.collapseButton_Clicked);
 		}
 	}
