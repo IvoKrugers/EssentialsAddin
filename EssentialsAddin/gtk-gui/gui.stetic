@@ -101,7 +101,23 @@
               <placeholder />
             </child>
             <child>
-              <placeholder />
+              <widget class="Gtk.Button" id="CheckForUpdateButton">
+                <property name="MemberName" />
+                <property name="Visible">False</property>
+                <property name="CanFocus">True</property>
+                <property name="Type">TextOnly</property>
+                <property name="Label" translatable="yes">Check for update</property>
+                <property name="UseUnderline">True</property>
+                <property name="Relief">Half</property>
+                <signal name="Clicked" handler="CheckForUpdate_Clicked" />
+              </widget>
+              <packing>
+                <property name="Position">2</property>
+                <property name="AutoSize">True</property>
+                <property name="Expand">False</property>
+                <property name="Fill">False</property>
+                <property name="Padding">2</property>
+              </packing>
             </child>
           </widget>
           <packing>

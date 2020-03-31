@@ -5,6 +5,7 @@ using EssentialsAddin.SolutionFilter;
 using MonoDevelop.Core;
 using MonoDevelop.Ide;
 using MonoDevelop.Ide.Gui.Pads;
+using Xwt.GtkBackend;
 
 namespace EssentialsAddin
 {
@@ -35,6 +36,9 @@ namespace EssentialsAddin
 
             filterEntry.Text = EssentialProperties.SolutionFilter;
             collapseEntry.Text = EssentialProperties.ExpandFilter;
+#if DEBUG
+            CheckForUpdateButton.Visible = true;
+#endif
         }
 
         #region Events
@@ -175,6 +179,11 @@ namespace EssentialsAddin
             {
                 FilterSolutionPad();
             }
+        }
+
+        protected void CheckForUpdate_Clicked(object sender, EventArgs e)
+        {
+            this.SetBackgroundColor(Xwt.Drawing.Color.FromName("Red"));
         }
     }
 }

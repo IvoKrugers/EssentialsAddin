@@ -22,11 +22,11 @@
     
     <!-- Main Tool Menu Entries	-->
     <Extension path="/MonoDevelop/Ide/MainMenu/Tools">
-        <SeparatorItem id="EssentialsSeparator" _label="Essentials" />
+        <SeparatorItem id="EssentialsSeparator" _label="Essentials Addin" />
         <CommandItem id="EssentialsAddin.AddinCommands.ShowSolutionFilterPad" />
         <ItemSet _label="Links">
-        <LinkItem _label="https://github.com/IvoKrugers/EssentialsAddin/" link="https://github.com/IvoKrugers/EssentialsAddin/" />
-        <LinkItem _label="https://www.linkedin.com/in/ikrugers/" link="https://www.linkedin.com/in/ikrugers/" />
+            <LinkItem _label="Github (https://github.com/IvoKrugers/EssentialsAddin)" link="https://github.com/IvoKrugers/EssentialsAddin/" />
+            <LinkItem _label="LinkedIn (https://www.linkedin.com/in/ikrugers/)" link="https://www.linkedin.com/in/ikrugers/" />
         </ItemSet>
         <SeparatorItem id="EssentialsSeparator" />
     </Extension>

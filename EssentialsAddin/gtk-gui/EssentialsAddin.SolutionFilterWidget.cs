@@ -18,6 +18,8 @@ namespace EssentialsAddin
 
 		private global::Gtk.CheckButton oneClickCheckbutton;
 
+		private global::Gtk.Button CheckForUpdateButton;
+
 		private global::Gtk.HBox hbox3;
 
 		private global::Gtk.Label label2;
@@ -96,11 +98,24 @@ namespace EssentialsAddin
 			this.hbox2.Add(this.oneClickCheckbutton);
 			global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.hbox2[this.oneClickCheckbutton]));
 			w5.Position = 0;
-			this.vbox1.Add(this.hbox2);
-			global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.hbox2]));
-			w6.Position = 1;
+			// Container child hbox2.Gtk.Box+BoxChild
+			this.CheckForUpdateButton = new global::Gtk.Button();
+			this.CheckForUpdateButton.CanFocus = true;
+			this.CheckForUpdateButton.Name = "CheckForUpdateButton";
+			this.CheckForUpdateButton.UseUnderline = true;
+			this.CheckForUpdateButton.Relief = ((global::Gtk.ReliefStyle)(1));
+			this.CheckForUpdateButton.Label = global::Mono.Unix.Catalog.GetString("Check for update");
+			this.hbox2.Add(this.CheckForUpdateButton);
+			global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.hbox2[this.CheckForUpdateButton]));
+			w6.Position = 2;
 			w6.Expand = false;
 			w6.Fill = false;
+			w6.Padding = ((uint)(2));
+			this.vbox1.Add(this.hbox2);
+			global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.hbox2]));
+			w7.Position = 1;
+			w7.Expand = false;
+			w7.Fill = false;
 			// Container child vbox1.Gtk.Box+BoxChild
 			this.hbox3 = new global::Gtk.HBox();
 			this.hbox3.Name = "hbox3";
@@ -110,11 +125,11 @@ namespace EssentialsAddin
 			this.label2.Name = "label2";
 			this.label2.LabelProp = global::Mono.Unix.Catalog.GetString("Projects to Expand");
 			this.hbox3.Add(this.label2);
-			global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.hbox3[this.label2]));
-			w7.Position = 0;
-			w7.Expand = false;
-			w7.Fill = false;
-			w7.Padding = ((uint)(6));
+			global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.hbox3[this.label2]));
+			w8.Position = 0;
+			w8.Expand = false;
+			w8.Fill = false;
+			w8.Padding = ((uint)(6));
 			// Container child hbox3.Gtk.Box+BoxChild
 			this.collapseEntry = new global::Gtk.Entry();
 			this.collapseEntry.TooltipMarkup = "Separate by space, colon, semicolon";
@@ -125,9 +140,9 @@ namespace EssentialsAddin
 			this.collapseEntry.HasFrame = false;
 			this.collapseEntry.InvisibleChar = '●';
 			this.hbox3.Add(this.collapseEntry);
-			global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.hbox3[this.collapseEntry]));
-			w8.Position = 1;
-			w8.Padding = ((uint)(6));
+			global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.hbox3[this.collapseEntry]));
+			w9.Position = 1;
+			w9.Padding = ((uint)(6));
 			// Container child hbox3.Gtk.Box+BoxChild
 			this.collapseButton = new global::Gtk.Button();
 			this.collapseButton.CanFocus = true;
@@ -137,26 +152,28 @@ namespace EssentialsAddin
 			this.collapseButton.Relief = ((global::Gtk.ReliefStyle)(1));
 			this.collapseButton.Label = global::Mono.Unix.Catalog.GetString("Apply");
 			this.hbox3.Add(this.collapseButton);
-			global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.hbox3[this.collapseButton]));
-			w9.Position = 2;
-			w9.Expand = false;
-			w9.Fill = false;
-			w9.Padding = ((uint)(2));
-			this.vbox1.Add(this.hbox3);
-			global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.hbox3]));
-			w10.Position = 3;
+			global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.hbox3[this.collapseButton]));
+			w10.Position = 2;
 			w10.Expand = false;
 			w10.Fill = false;
+			w10.Padding = ((uint)(2));
+			this.vbox1.Add(this.hbox3);
+			global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.hbox3]));
+			w11.Position = 3;
+			w11.Expand = false;
+			w11.Fill = false;
 			this.Add(this.vbox1);
 			if ((this.Child != null))
 			{
 				this.Child.ShowAll();
 			}
+			this.CheckForUpdateButton.Hide();
 			this.Show();
 			this.filterEntry.Changed += new global::System.EventHandler(this.OnFilterEntryChanged);
 			this.filterEntry.EditingDone += new global::System.EventHandler(this.OnEditingDone);
 			this.button1.Clicked += new global::System.EventHandler(this.clearButton_Clicked);
 			this.oneClickCheckbutton.Toggled += new global::System.EventHandler(this.oneClickCheckbutton_Toggled);
+			this.CheckForUpdateButton.Clicked += new global::System.EventHandler(this.CheckForUpdate_Clicked);
 			this.collapseButton.Clicked += new global::System.EventHandler(this.collapseButton_Clicked);
 		}
 	}
