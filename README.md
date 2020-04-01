@@ -33,4 +33,4 @@ The filter pad can be opened from the Tools->Essentials or View->Pads menu
 
 ## License
 
-This project is licensed under the MIT License - [full details](LICENSE.md).
+This project is licensed under the MIT License - [full details](LICENSE).
