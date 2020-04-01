@@ -23,9 +23,17 @@ Is your filtering still showing a lot of solutiontree entries, mayby you can fil
 
 
 ## Installation
-Installation still has to be done by the "Install from File" functionality in `Preferences -> Extensions`. Releases are found [here](/Releases)
-After installing from file in the extension manager, close Visual studio and re-open it.
+
+1. Download `.mpack` file from [Releases](https://github.com/IvoKrugers/EssentialsAddin/releases)
+
+2. Go to the Extension manager via menu `Preferences -> Extensions` and use the "Install from File" button to install
+
+3. Close Visual studio and re-open it.
+
 The filter pad can be opened from the `Tools -> Essentials` or `View -> Pads` menu
+
+If you have a previous version installed, uninstall it first, close Visual studio and re-open the app before installing the new version.
+
 
 ## Authors
 
