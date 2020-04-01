@@ -26,3 +26,11 @@ Is your filtering still showing a lot of solutiontree entries, mayby you can fil
 Installation still has to be done by the install from file functionality in Preferences->Extensions.
 After installing from file in the extension manager, close Visual studio and re-open it.
 The filter pad can be opened from the Tools->Essentials or View->Pads menu
+
+## Authors
+
+**Ivo Krugers** - Author
+
+## License
+
+This project is licensed under the MIT License - [full details](LICENSE.md).
