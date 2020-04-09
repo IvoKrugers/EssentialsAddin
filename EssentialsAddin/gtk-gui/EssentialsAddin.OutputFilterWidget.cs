@@ -35,6 +35,7 @@ namespace EssentialsAddin
 			// Container child hbox1.Gtk.Box+BoxChild
 			this.filterLabel = new global::Gtk.Label();
 			this.filterLabel.Name = "filterLabel";
+			this.filterLabel.Xpad = 2;
 			this.filterLabel.LabelProp = global::Mono.Unix.Catalog.GetString("Filter");
 			this.hbox1.Add(this.filterLabel);
 			global::Gtk.Box.BoxChild w1 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.filterLabel]));
@@ -78,6 +79,7 @@ namespace EssentialsAddin
 			this.textview1 = new global::Gtk.TextView();
 			this.textview1.CanFocus = true;
 			this.textview1.Name = "textview1";
+			this.textview1.LeftMargin = 2;
 			this.GtkScrolledWindow.Add(this.textview1);
 			this.vbox1.Add(this.GtkScrolledWindow);
 			global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.GtkScrolledWindow]));
