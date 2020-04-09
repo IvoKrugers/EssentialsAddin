@@ -2,7 +2,8 @@
 {
     public static class Constants
     {
-        public const string Version = "1.6.5";
-        public const string SolutionPadId = "EssentialsAddin.SolutionFilterPad";
+        public const string Version = "1.7.0";
+        public const string SolutionFilterPadId = "EssentialsAddin.SolutionFilterPad";
+        public const string OutputFilterPadId = "EssentialsAddin.OutputFilterPad";
     }
 }

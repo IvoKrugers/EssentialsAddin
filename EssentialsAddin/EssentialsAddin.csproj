@@ -50,6 +50,9 @@
     <Compile Include="Constants.cs" />
     <Compile Include="Services\Release.cs" />
     <Compile Include="Services\ReleaseService.cs" />
+    <Compile Include="OutputFilterWidget.cs" />
+    <Compile Include="gtk-gui\EssentialsAddin.OutputFilterWidget.cs" />
+    <Compile Include="OutputFilterPad.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Manifest.addin.xml" />

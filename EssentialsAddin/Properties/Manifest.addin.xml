@@ -68,9 +68,14 @@
 	</SolutionPad>-->
     <Extension path="/MonoDevelop/Ide/Pads">
         <Pad id="EssentialsAddin.SolutionFilterPad" 
-             _label="Essentials Pad (x.x.x)" 
+             _label="Solution Filter (x.x.x)" 
              class="EssentialsAddin.SolutionFilterPad" 
              defaultStatus="Dockable" 
              defaultPlacement="ProjectPad/bottom" />
+         <Pad id="EssentialsAddin.OutputFilterPad" 
+             _label="Output Filter (x.x.x)" 
+             class="EssentialsAddin.OutputFilterPad" 
+             defaultStatus="Dockable" 
+             defaultPlacement="OutputPad/Right" />
     </Extension>
 </ExtensionModel>

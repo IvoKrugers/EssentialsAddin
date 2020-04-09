@@ -116,7 +116,7 @@ namespace EssentialsAddin
 
         private void FilterSolutionPad()
         {
-            var SolutionPad = (SolutionFilterPad)IdeApp.Workbench.Pads.Find((p) => p.Id == Constants.SolutionPadId).Content;
+            var SolutionPad = (SolutionFilterPad)IdeApp.Workbench.Pads.Find((p) => p.Id == Constants.SolutionFilterPadId).Content;
             if (SolutionPad != null)
                 SolutionPad.Window.IsWorking = true;
 
