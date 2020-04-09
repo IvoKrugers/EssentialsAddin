@@ -19,7 +19,7 @@ namespace EssentialsAddin
             //Debug.WriteLine($"Bundle path: {NSBundle.MainBundle.BundlePath}");
             //Debug.WriteLine($"Bundle Resource path: {NSBundle.MainBundle.ResourcePath}");
 
-            this.Window.Title = $"Solution Filter ({Constants.Version})";
+            //this.Window.Title = $"Solution Filter ({Constants.Version})";
         }
 
         void StartListeningForWorkspaceChanges()

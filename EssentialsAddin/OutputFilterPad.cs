@@ -13,7 +13,7 @@ namespace EssentialsAddin
         protected override void Initialize(IPadWindow window)
         {
             base.Initialize(window);
-            this.Window.Title = $"Output Filter ({Constants.Version})";
+            //this.Window.Title = $"Output Filter ({Constants.Version})";
         }
     }
 }
