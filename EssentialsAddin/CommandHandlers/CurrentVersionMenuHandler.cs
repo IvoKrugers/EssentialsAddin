@@ -19,6 +19,7 @@ namespace EssentialsAddin.CommandHandlers
         {
             info.Enabled = false;//IdeApp.Workbench.ActiveDocument?.Editor != null;
             info.Text = $"Essentials Addin ({Constants.Version})";
+            //info.Icon = MonoDevelop.Ide.Gui.Stock.MonoDevelop;
         }
     }
 

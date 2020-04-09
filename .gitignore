@@ -5,3 +5,7 @@ packages
 .vs
 .mfractor
 *.mpack
+EssentialsAddin.Lib/bin
+EssentialsAddin.Lib/obj
+EssentialsAddin.Unitttests/bin
+EssentialsAddin.Unitttests/obj

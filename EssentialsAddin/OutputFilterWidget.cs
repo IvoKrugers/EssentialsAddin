@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using EssentialsAddin.Helpers;
+using EssentialsAddin.Lib;
 using GLib;
 using Gtk;
 using MonoDevelop.Core;
@@ -10,6 +11,7 @@ using MonoDevelop.Core.ProgressMonitoring;
 using MonoDevelop.Ide;
 using MonoDevelop.Ide.Gui;
 using MonoDevelop.Ide.Gui.Components;
+using MonoDevelop.Ide.TypeSystem;
 using static MonoDevelop.Ide.Gui.Components.LogView;
 
 namespace EssentialsAddin
@@ -65,7 +67,7 @@ namespace EssentialsAddin
         {
             //var outprogmon = IdeServices.ProgressMonitorManager.GetOutputProgressMonitor("MonoDevelop.Ide.ApplicationOutput", GettextCatalog.GetString("Application Output"), MonoDevelop.Ide.Gui.Stock.MessageLog, false, false);
 
-           // var text = outprogmon.Console.Debug(.ReadToEnd();
+            // var text = outprogmon.Console.Debug(.ReadToEnd();
             //Debug.WriteLine(text);
 
             filterEntry.Text = string.Empty;
@@ -119,7 +121,7 @@ namespace EssentialsAddin
         }
 
 
-        private TextIter _lastEndIter ;
+        private TextIter _lastEndIter;
         private string _text;
 
         private string CopyConsoleOutput()
@@ -142,8 +144,8 @@ namespace EssentialsAddin
                                     var tv = (LogTextView)c.Children[0];
 
                                     //https://stackoverflow.com/questions/27547425/how-do-i-cut-copy-paste-and-select-all-in-a-textview-control
-                                   
-                                    var sb = GetDebugTextFromBuffer(tv.Buffer);
+
+                                    var sb = tv.Buffer.GetDebugTextFromBuffer();
                                     _text = sb.ToString();
                                     _lastEndIter = tv.Buffer.EndIter;
 
@@ -161,26 +163,33 @@ namespace EssentialsAddin
             return string.Empty;
         }
 
-        private StringBuilder GetDebugTextFromBuffer(TextBuffer buffer)
-        {
-            TextTag debugTag = new TextTag("TheDebugTagToBe");
-            buffer.TagTable.Foreach(t => { if (t.Name == "debug") { debugTag = t; } });
+        //private StringBuilder GetDebugTextFromBuffer(TextBuffer buffer)
+        //{
+        //    TextTag debugTag = new TextTag("TheDebugTagToBe");
+        //    buffer.TagTable.Foreach(t => { if (t.Name == "debug") { debugTag = t; } });
 
-            var sb = new StringBuilder();
-            var tagIter = buffer.StartIter;
-            while (tagIter.ForwardToTagToggle(debugTag))
-            {
-                var startIter = tagIter;
-                var stopIter =buffer.EndIter;
-                if (tagIter.ForwardToTagToggle(debugTag))
-                    stopIter = tagIter;
-                sb.AppendLine(buffer.GetText(startIter, stopIter, false));
+        //    var sb = new StringBuilder();
+        //    var tagIter = buffer.StartIter;
+        //    while (true)
+        //    {
+        //        if (!tagIter.IsStart || !tagIter.BeginsTag(debugTag))
+        //        {
+        //            if (!tagIter.ForwardToTagToggle(debugTag))
+        //                break;
+        //        }
 
-                if (tagIter.IsEnd)
-                    break;
-            }
-            return sb;
-        }
+        //        var startIter = tagIter;
+        //        var stopIter = buffer.EndIter;
+        //        if (tagIter.ForwardToTagToggle(debugTag))
+        //            stopIter = tagIter;
+
+        //        sb.AppendLine(buffer.GetText(startIter, stopIter, false));
+
+        //        if (tagIter.IsEnd)
+        //            break;
+        //    }
+        //    return sb;
+        //}
 
         protected void FilterEntry_Changed(object sender, EventArgs e)
         {
