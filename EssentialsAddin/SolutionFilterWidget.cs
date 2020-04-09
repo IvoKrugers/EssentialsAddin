@@ -191,6 +191,7 @@ namespace EssentialsAddin
             if (await _releaseService.CheckForNewRelease())
             {
                 newReleaseAvailableButton.Visible = true;
+                newReleaseAvailableButton.Label = $"Release {_releaseService.LatestRelease.TagName} available";
             }
             else
             {
