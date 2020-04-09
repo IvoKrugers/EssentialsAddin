@@ -219,6 +219,7 @@
               <widget class="Gtk.Label" id="filterLabel">
                 <property name="MemberName" />
                 <property name="LabelProp" translatable="yes">Filter</property>
+                <signal name="ButtonPressEvent" handler="FilterLabel_ButtonPress" />
               </widget>
               <packing>
                 <property name="Position">0</property>

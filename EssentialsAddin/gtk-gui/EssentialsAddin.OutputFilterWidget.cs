@@ -88,6 +88,7 @@ namespace EssentialsAddin
 				this.Child.ShowAll();
 			}
 			this.Show();
+			this.filterLabel.ButtonPressEvent += new global::Gtk.ButtonPressEventHandler(this.FilterLabel_ButtonPress);
 			this.filterEntry.Changed += new global::System.EventHandler(this.FilterEntry_Changed);
 			this.clearButton.Clicked += new global::System.EventHandler(this.ClearButton_Clicked);
 		}

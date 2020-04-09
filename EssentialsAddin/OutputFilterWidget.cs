@@ -196,15 +196,22 @@ namespace EssentialsAddin
             var lines = text.Split("\n".ToCharArray());
             var result = new StringBuilder();
 
-            foreach (string line in lines)
+            if (string.IsNullOrEmpty(EssentialProperties.ConsoleFilter))
             {
-                var searchLine = line.ToLowerInvariant();
-                foreach (var key in filter)
+                result.Append(text);
+            }
+            else
+            {
+                foreach (string line in lines)
                 {
-                    if (searchLine.Contains(key.ToLowerInvariant()))
+                    var searchLine = line.ToLowerInvariant();
+                    foreach (var key in filter)
                     {
-                        result.AppendLine(line);
-                        break;
+                        if (searchLine.Contains(key.ToLowerInvariant()))
+                        {
+                            result.AppendLine(line);
+                            break;
+                        }
                     }
                 }
             }
@@ -218,6 +225,10 @@ namespace EssentialsAddin
             it.LineOffset = 0;
             buffer.MoveMark(endMark, it);
             textview1.ScrollToMark(endMark, 0, false, 0, 0);
+        }
+
+        protected void FilterLabel_ButtonPress(object o, ButtonPressEventArgs args)
+        {
         }
     }
 }
