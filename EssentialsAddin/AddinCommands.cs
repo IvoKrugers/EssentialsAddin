@@ -9,5 +9,6 @@ namespace EssentialsAddin
 		ShowProperties,
 		NewInstanceVS,
 		ShowSolutionFilterPad,
+		ShowAppOutputFilterPad
 	}
 }

@@ -11,11 +11,12 @@ using Mono.Addins.Description;
 [assembly: AddinName("EssentialsAddin")]
 [assembly: AddinCategory("IDE extensions")]
 [assembly: AddinDescription("Essentials Addin provides:\n"+
-    " - Solution tree filtering\n" +
+    " - Solution tree filtering (Pad)\n" +
     " - One click to open file functionality. \n" +
     " - Filter project to Expand\n"+
-    "\n"+
-    "The filter pad can be opened from the Tools->Essentials->")]
+    " - Filter Application Output in a new Pad\n" +
+    "\n" +
+    "The pads can be opened from the Tools -> Essentials")]
 [assembly: AddinAuthor("Ivo Krugers")]
 
 [assembly: AddinDependency("::MonoDevelop.Core", MonoDevelop.BuildInfo.Version)]

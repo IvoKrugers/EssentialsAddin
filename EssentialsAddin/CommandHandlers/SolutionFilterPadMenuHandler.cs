@@ -2,7 +2,7 @@
 using MonoDevelop.Ide;
 using MonoDevelop.Ide.Gui;
 
-namespace EssentialsAddin.SolutionFilter
+namespace EssentialsAddin.CommandHandlers
 {
     public class SolutionFilterPadMenuHandler : CommandHandler
     {
