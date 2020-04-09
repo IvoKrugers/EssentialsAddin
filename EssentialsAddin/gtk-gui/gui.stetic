@@ -218,7 +218,7 @@
             <child>
               <widget class="Gtk.Label" id="filterLabel">
                 <property name="MemberName" />
-                <property name="Xpad">2</property>
+                <property name="Xpad">10</property>
                 <property name="LabelProp" translatable="yes">Filter</property>
                 <signal name="ButtonPressEvent" handler="FilterLabel_ButtonPress" />
               </widget>
@@ -279,8 +279,8 @@
                 <property name="MemberName" />
                 <property name="CanFocus">True</property>
                 <property name="ShowScrollbars">True</property>
-                <property name="Text" translatable="yes" />
-                <property name="LeftMargin">2</property>
+                <property name="Text" />
+                <property name="LeftMargin">10</property>
               </widget>
             </child>
           </widget>
