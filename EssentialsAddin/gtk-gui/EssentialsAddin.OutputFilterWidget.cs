@@ -12,7 +12,7 @@ namespace EssentialsAddin
 
 		private global::Gtk.Entry filterEntry;
 
-		private global::Gtk.Button clearButton;
+		private global::Gtk.Button updateButton;
 
 		private global::Gtk.ScrolledWindow GtkScrolledWindow;
 
@@ -53,14 +53,14 @@ namespace EssentialsAddin
 			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.filterEntry]));
 			w2.Position = 1;
 			// Container child hbox1.Gtk.Box+BoxChild
-			this.clearButton = new global::Gtk.Button();
-			this.clearButton.CanFocus = true;
-			this.clearButton.Name = "clearButton";
-			this.clearButton.UseUnderline = true;
-			this.clearButton.Relief = ((global::Gtk.ReliefStyle)(1));
-			this.clearButton.Label = global::Mono.Unix.Catalog.GetString("Clear");
-			this.hbox1.Add(this.clearButton);
-			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.clearButton]));
+			this.updateButton = new global::Gtk.Button();
+			this.updateButton.CanFocus = true;
+			this.updateButton.Name = "updateButton";
+			this.updateButton.UseUnderline = true;
+			this.updateButton.Relief = ((global::Gtk.ReliefStyle)(1));
+			this.updateButton.Label = global::Mono.Unix.Catalog.GetString("Update");
+			this.hbox1.Add(this.updateButton);
+			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.updateButton]));
 			w3.Position = 2;
 			w3.Expand = false;
 			w3.Fill = false;
@@ -90,7 +90,7 @@ namespace EssentialsAddin
 			this.Show();
 			this.filterLabel.ButtonPressEvent += new global::Gtk.ButtonPressEventHandler(this.FilterLabel_ButtonPress);
 			this.filterEntry.Changed += new global::System.EventHandler(this.FilterEntry_Changed);
-			this.clearButton.Clicked += new global::System.EventHandler(this.ClearButton_Clicked);
+			this.updateButton.Clicked += new global::System.EventHandler(this.UpdateButton_Clicked);
 		}
 	}
 }

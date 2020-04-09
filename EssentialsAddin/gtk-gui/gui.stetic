@@ -218,6 +218,7 @@
             <child>
               <widget class="Gtk.Label" id="filterLabel">
                 <property name="MemberName" />
+                <property name="Xpad">2</property>
                 <property name="LabelProp" translatable="yes">Filter</property>
                 <signal name="ButtonPressEvent" handler="FilterLabel_ButtonPress" />
               </widget>
@@ -244,14 +245,14 @@
               </packing>
             </child>
             <child>
-              <widget class="Gtk.Button" id="clearButton">
+              <widget class="Gtk.Button" id="updateButton">
                 <property name="MemberName" />
                 <property name="CanFocus">True</property>
                 <property name="Type">TextOnly</property>
-                <property name="Label" translatable="yes">Clear</property>
+                <property name="Label" translatable="yes">Update</property>
                 <property name="UseUnderline">True</property>
                 <property name="Relief">Half</property>
-                <signal name="Clicked" handler="ClearButton_Clicked" />
+                <signal name="Clicked" handler="UpdateButton_Clicked" />
               </widget>
               <packing>
                 <property name="Position">2</property>
@@ -279,6 +280,7 @@
                 <property name="CanFocus">True</property>
                 <property name="ShowScrollbars">True</property>
                 <property name="Text" translatable="yes" />
+                <property name="LeftMargin">2</property>
               </widget>
             </child>
           </widget>

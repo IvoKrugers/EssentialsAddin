@@ -230,5 +230,10 @@ namespace EssentialsAddin
         protected void FilterLabel_ButtonPress(object o, ButtonPressEventArgs args)
         {
         }
+
+        protected void UpdateButton_Clicked(object sender, EventArgs e)
+        {
+            FilterConsoleOuput();
+        }
     }
 }
