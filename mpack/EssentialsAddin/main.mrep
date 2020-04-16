@@ -1,23 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Repository xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Addin>
-    <Url>EssentialsAddin.Essentials Addin_1.7.4.mpack</Url>
+    <Url>EssentialsAddin.EssentialsAddin_1.7.4.mpack</Url>
     <Addin>
-      <Id>Essentials Addin</Id>
+      <Id>EssentialsAddin</Id>
       <Namespace>EssentialsAddin</Namespace>
-      <Name>EssentialsAddin</Name>
+      <Name>Essentials Addin</Name>
       <Version>1.7.4</Version>
       <BaseVersion />
       <Author>Ivo Krugers</Author>
-      <Copyright />
-      <Url />
-      <Description>Essentials Addin provides:
- - Solution tree filtering (Pad)
- - One click to open file functionality. 
- - Filter project to Expand
- - Filter Application Output in a new Pad
-
-The pads can be opened from the Tools -&gt; Essentials</Description>
+      <Copyright>Ivo Krugers</Copyright>
+      <Url>https://github.com/IvoKrugers/EssentialsAddin</Url>
+      <Description>Essentials Addin provides several pads and other functionalities. 
+        Funtionality summary: 
+         - Solution tree filtering (Pad)
+         - One click to open file functionality. 
+         - Filter project to Expand
+         - Filter Application Output in a new Pad
+        
+        The pads can be opened from the View-Pads or Tools menu.
+        
+        by Ivo Krugers</Description>
       <Category>IDE extensions</Category>
       <Dependencies>
         <AddinDependency>
@@ -31,7 +34,22 @@ The pads can be opened from the Tools -&gt; Essentials</Description>
       </Dependencies>
       <OptionalDependencies />
       <Properties>
-        <Property name="DownloadSize">47942</Property>
+        <Property name="Name">Essentials Addin</Property>
+        <Property name="Description">Essentials Addin provides several pads and other functionalities. 
+        Funtionality summary: 
+         - Solution tree filtering (Pad)
+         - One click to open file functionality. 
+         - Filter project to Expand
+         - Filter Application Output in a new Pad
+        
+        The pads can be opened from the View-Pads or Tools menu.
+        
+        by Ivo Krugers</Property>
+        <Property name="Author">Ivo Krugers</Property>
+        <Property name="Copyright">Ivo Krugers</Property>
+        <Property name="Url">https://github.com/IvoKrugers/EssentialsAddin</Property>
+        <Property name="UpdateRank">Important</Property>
+        <Property name="DownloadSize">47745</Property>
       </Properties>
     </Addin>
   </Addin>
