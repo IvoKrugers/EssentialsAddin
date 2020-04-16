@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Repository xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Repository>
+  <Name>EssentialsAddin by Ivo Krugers</Name>
     <Url>root.mrep</Url>
     <LastModified>2020-04-16T09:44:36.6186707+02:00</LastModified>
   </Repository>
