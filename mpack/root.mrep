@@ -35,39 +35,4 @@ The pads can be opened from the Tools -&gt; Essentials</Description>
       </Properties>
     </Addin>
   </Addin>
-  <Addin>
-    <Url>EssentialsAddin.EssentialsAddin_1.7.2.mpack</Url>
-    <Addin>
-      <Id>EssentialsAddin</Id>
-      <Namespace>EssentialsAddin</Namespace>
-      <Name>EssentialsAddin</Name>
-      <Version>1.7.2</Version>
-      <BaseVersion />
-      <Author>Ivo Krugers</Author>
-      <Copyright />
-      <Url />
-      <Description>Essentials Addin provides:
- - Solution tree filtering (Pad)
- - One click to open file functionality. 
- - Filter project to Expand
- - Filter Application Output in a new Pad
-
-The pads can be opened from the Tools -&gt; Essentials</Description>
-      <Category>IDE extensions</Category>
-      <Dependencies>
-        <AddinDependency>
-          <AddinId>::MonoDevelop.Core</AddinId>
-          <Version>8.5.2</Version>
-        </AddinDependency>
-        <AddinDependency>
-          <AddinId>::MonoDevelop.Ide</AddinId>
-          <Version>8.5.2</Version>
-        </AddinDependency>
-      </Dependencies>
-      <OptionalDependencies />
-      <Properties>
-        <Property name="DownloadSize">45718</Property>
-      </Properties>
-    </Addin>
-  </Addin>
 </Repository>
