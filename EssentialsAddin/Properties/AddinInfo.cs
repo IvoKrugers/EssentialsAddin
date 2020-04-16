@@ -3,7 +3,7 @@ using Mono.Addins;
 using Mono.Addins.Description;
 
 [assembly: Addin(
-	"EssentialsAddin",
+	"Essentials Addin",
 	Namespace = "EssentialsAddin",
 	Version = EssentialsAddin.Constants.Version
 )]
