@@ -8,7 +8,7 @@ namespace EssentialsAddin.Lib
 {
     public static class TextBufferExtensions
     {
-        public static StringBuilder GetDebugTextFromBuffer(this TextBuffer buffer)
+        public static string GetDebugTextFromBuffer(this TextBuffer buffer)
         {
             TextTag debugTag = new TextTag("TheDebugTagToBe");
             buffer.TagTable.Foreach(t => { if (t.Name == "debug") { debugTag = t; } });
@@ -16,7 +16,7 @@ namespace EssentialsAddin.Lib
             return GetTextFromBuffer(buffer, debugTag);
         }
 
-        internal static StringBuilder GetTextFromBuffer(TextBuffer buffer, TextTag textTag)
+        internal static string GetTextFromBuffer(TextBuffer buffer, TextTag textTag)
         {
             var sb = new StringBuilder();
             var tagIter = buffer.StartIter;
@@ -38,7 +38,7 @@ namespace EssentialsAddin.Lib
                 if (tagIter.IsEnd)
                     break;
             }
-            return sb;
+            return sb.ToString();
         }
     }
 }

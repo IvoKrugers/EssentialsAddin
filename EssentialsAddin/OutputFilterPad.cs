@@ -1,4 +1,5 @@
 ﻿using MonoDevelop.Components;
+using MonoDevelop.Ide;
 using MonoDevelop.Ide.Gui;
 
 namespace EssentialsAddin
@@ -14,6 +15,8 @@ namespace EssentialsAddin
         {
             base.Initialize(window);
             //this.Window.Title = $"Output Filter ({Constants.Version})";
+
+            //var rpm = IdeApp.Workbench.ProgressMonitors.GetRunProgressMonitor();
         }
     }
 }
