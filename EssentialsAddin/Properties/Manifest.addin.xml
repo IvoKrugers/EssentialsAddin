@@ -2,15 +2,15 @@
     <Header>
         <Name>Essentials Addin</Name>
         <Description>Essentials Addin provides several pads and other functionalities. 
-        Funtionality summary: 
-         - Solution tree filtering (Pad)
-         - One click to open file functionality. 
-         - Filter project to Expand
-         - Filter Application Output in a new Pad
-        
-        The pads can be opened from the View-Pads or Tools menu.
-        
-        by Ivo Krugers</Description>
+Funtionality summary: 
+ - Solution tree filtering (Pad)
+ - One click to open file functionality. 
+ - Filter project to Expand
+ - Filter Application Output in a new Pad
+
+The pads can be opened from the View-Pads or Tools menu.
+
+by Ivo Krugers</Description>
         <Author>Ivo Krugers</Author>
         <Copyright>Ivo Krugers</Copyright>
         <Url>https://github.com/IvoKrugers/EssentialsAddin</Url>

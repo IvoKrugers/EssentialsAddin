@@ -12,15 +12,15 @@
       <Copyright>Ivo Krugers</Copyright>
       <Url>https://github.com/IvoKrugers/EssentialsAddin</Url>
       <Description>Essentials Addin provides several pads and other functionalities. 
-        Funtionality summary: 
-         - Solution tree filtering (Pad)
-         - One click to open file functionality. 
-         - Filter project to Expand
-         - Filter Application Output in a new Pad
-        
-        The pads can be opened from the View-Pads or Tools menu.
-        
-        by Ivo Krugers</Description>
+Funtionality summary: 
+ - Solution tree filtering (Pad)
+ - One click to open file functionality. 
+ - Filter project to Expand
+ - Filter Application Output in a new Pad
+
+The pads can be opened from the View-Pads or Tools menu.
+
+by Ivo Krugers</Description>
       <Category>IDE extensions</Category>
       <Dependencies>
         <AddinDependency>
@@ -36,20 +36,20 @@
       <Properties>
         <Property name="Name">Essentials Addin</Property>
         <Property name="Description">Essentials Addin provides several pads and other functionalities. 
-        Funtionality summary: 
-         - Solution tree filtering (Pad)
-         - One click to open file functionality. 
-         - Filter project to Expand
-         - Filter Application Output in a new Pad
-        
-        The pads can be opened from the View-Pads or Tools menu.
-        
-        by Ivo Krugers</Property>
+Funtionality summary: 
+ - Solution tree filtering (Pad)
+ - One click to open file functionality. 
+ - Filter project to Expand
+ - Filter Application Output in a new Pad
+
+The pads can be opened from the View-Pads or Tools menu.
+
+by Ivo Krugers</Property>
         <Property name="Author">Ivo Krugers</Property>
         <Property name="Copyright">Ivo Krugers</Property>
         <Property name="Url">https://github.com/IvoKrugers/EssentialsAddin</Property>
         <Property name="UpdateRank">Important</Property>
-        <Property name="DownloadSize">47745</Property>
+        <Property name="DownloadSize">47706</Property>
       </Properties>
     </Addin>
   </Addin>
