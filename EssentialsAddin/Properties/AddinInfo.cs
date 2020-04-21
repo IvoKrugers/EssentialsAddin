@@ -10,7 +10,7 @@ using Mono.Addins.Description;
 
 [assembly: AddinName("Essentials Addin")]
 [assembly: AddinCategory("IDE extensions")]
-[assembly: AddinDescription("Essentials Addin provides several pads and other functionalities. \n"+
+[assembly: AddinDescription("Essentials Addin provides several pads and other functionalities. \n\n"+
 "Funtionality summary: \n"+
 " - Solution tree filtering (Pad)\n" +
 " - One click to open file functionality. \n" +
