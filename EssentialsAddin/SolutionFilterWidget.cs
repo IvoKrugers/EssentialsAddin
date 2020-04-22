@@ -95,7 +95,7 @@ namespace EssentialsAddin
         private void StartTimer()
         {
             StopTimer();
-            timer = new Timer(OnTimerElapsed, null, 2000, Timeout.Infinite); // dueTime in miliseconds
+            timer = new Timer(OnTimerElapsed, null, 1000, Timeout.Infinite); // dueTime in miliseconds
         }
 
         private void StopTimer()
