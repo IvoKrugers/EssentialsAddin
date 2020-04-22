@@ -135,7 +135,6 @@ namespace EssentialsAddin
 			this.collapseEntry.TooltipMarkup = "Separate by space, colon, semicolon";
 			this.collapseEntry.CanFocus = true;
 			this.collapseEntry.Name = "collapseEntry";
-			this.collapseEntry.Text = global::Mono.Unix.Catalog.GetString("core;ios");
 			this.collapseEntry.IsEditable = true;
 			this.collapseEntry.HasFrame = false;
 			this.collapseEntry.InvisibleChar = '●';
