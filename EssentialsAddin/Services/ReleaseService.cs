@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Security.Policy;
 using System.Threading.Tasks;
+using EssentialsAddin.Models;
 using Newtonsoft.Json;
 
 namespace EssentialsAddin.Services

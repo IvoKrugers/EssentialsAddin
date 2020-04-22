@@ -47,7 +47,6 @@
     <Compile Include="SolutionFilter\SpecialNodeBuilderExtension.cs" />
     <Compile Include="SolutionFilter\SolutionTreeExtensions.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="Services\Release.cs" />
     <Compile Include="Services\ReleaseService.cs" />
     <Compile Include="OutputFilterWidget.cs" />
     <Compile Include="gtk-gui\EssentialsAddin.OutputFilterWidget.cs" />
@@ -55,6 +54,7 @@
     <Compile Include="CommandHandlers\SolutionFilterPadMenuHandler.cs" />
     <Compile Include="CommandHandlers\AppOutputFilterPadMenuHandler.cs" />
     <Compile Include="CommandHandlers\CurrentVersionMenuHandler.cs" />
+    <Compile Include="Models\Release.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Manifest.addin.xml" />
@@ -68,6 +68,7 @@
     <Folder Include="Other\" />
     <Folder Include="Services\" />
     <Folder Include="CommandHandlers\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
