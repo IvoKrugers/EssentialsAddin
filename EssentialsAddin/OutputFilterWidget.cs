@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 using EssentialsAddin.Helpers;
-using EssentialsAddin.Lib;
 using GLib;
 using Gtk;
 using MonoDevelop.Core;
@@ -13,6 +12,7 @@ using MonoDevelop.Ide;
 using MonoDevelop.Ide.Gui;
 using MonoDevelop.Ide.Gui.Components;
 using MonoDevelop.Ide.TypeSystem;
+using EssentialsAddin.Helpers;
 using static MonoDevelop.Ide.Gui.Components.LogView;
 
 namespace EssentialsAddin

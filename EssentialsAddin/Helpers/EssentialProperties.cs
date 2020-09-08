@@ -50,7 +50,7 @@ namespace EssentialsAddin.Helpers
             }
         }
 
-        public static string[] ExcludedExtensionsFromOneClick = { ".storyboard", ".xib", "png" };
+        public static string[] ExcludedExtensionsFromOneClick = { ".storyboard", ".xib", ".png", ".ttf" };
 
         public static string[] ExcludedExtensionsFromExpanding = { ".xaml.cs", ".designer.cs" };
 

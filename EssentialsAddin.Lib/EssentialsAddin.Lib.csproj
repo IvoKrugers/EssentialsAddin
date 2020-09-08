@@ -7,15 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="gtk-sharp">
-      <HintPath>..\..\..\..\..\Library\Frameworks\Mono.framework\Versions\6.8.0\lib\mono\gac\gtk-sharp\2.12.0.0__35e10195dab3c99f\gtk-sharp.dll</HintPath>
-    </Reference>
     <Reference Include="gdk-sharp">
       <HintPath>..\..\..\..\..\Library\Frameworks\Mono.framework\Versions\6.8.0\lib\mono\gac\gdk-sharp\2.12.0.0__35e10195dab3c99f\gdk-sharp.dll</HintPath>
     </Reference>
-    <Reference Include="glib-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
-<Reference Include="glib-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" >
-<HintPath>..\..\..\..\..\Library\Frameworks\Mono.framework\Versions\6.8.0\lib\mono\gac\glib-sharp\2.12.0.0__35e10195dab3c99f\glib-sharp.dll</HintPath>
-</Reference>
+  
+    <Reference Include="glib-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+        <HintPath>..\..\..\..\..\Library\Frameworks\Mono.framework\Versions\6.8.0\lib\mono\gac\glib-sharp\2.12.0.0__35e10195dab3c99f\glib-sharp.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>

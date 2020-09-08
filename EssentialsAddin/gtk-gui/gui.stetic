@@ -5,8 +5,7 @@
     <target-gtk-version>2.12</target-gtk-version>
   </configuration>
   <import>
-    <widget-library name="../../EssentialsAddin.Lib/bin/Release/netstandard2.0/EssentialsAddin.Lib.dll" />
-    <widget-library name="../bin/Release/EssentialsAddin.dll" internal="true" />
+    <widget-library name="../bin/Debug/EssentialsAddin.dll" internal="true" />
   </import>
   <widget class="Gtk.Bin" id="EssentialsAddin.SolutionFilterWidget" design-size="454 165">
     <property name="MemberName" />

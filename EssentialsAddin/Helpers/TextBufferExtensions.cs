@@ -1,10 +1,9 @@
 ﻿using System.Text;
 using Gtk;
-using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("EssentialsAddin.Unitttests")]
+//[assembly: InternalsVisibleTo("EssentialsAddin.Unitttests")]
 
-namespace EssentialsAddin.Lib
+namespace EssentialsAddin.Helpers
 {
     public static class TextBufferExtensions
     {
@@ -16,7 +15,7 @@ namespace EssentialsAddin.Lib
             return GetTextFromBuffer(buffer, debugTag);
         }
 
-        internal static string GetTextFromBuffer(TextBuffer buffer, TextTag textTag)
+        public static string GetTextFromBuffer(TextBuffer buffer, TextTag textTag)
         {
             var sb = new StringBuilder();
             var tagIter = buffer.StartIter;

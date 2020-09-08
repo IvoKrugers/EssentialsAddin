@@ -55,6 +55,7 @@
     <Compile Include="CommandHandlers\AppOutputFilterPadMenuHandler.cs" />
     <Compile Include="CommandHandlers\CurrentVersionMenuHandler.cs" />
     <Compile Include="Models\Release.cs" />
+    <Compile Include="Helpers\TextBufferExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Manifest.addin.xml" />
@@ -76,7 +77,6 @@
   <ItemGroup>
     <Reference Include="Mono.Posix" />
     <Reference Include="gtk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
-    <Reference Include="gdk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <Reference Include="System.Net.Http.Extensions">
       <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Extensions.dll</HintPath>
     </Reference>
@@ -85,12 +85,7 @@
     </Reference>
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.WebRequest" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\EssentialsAddin.Lib\EssentialsAddin.Lib.csproj">
-      <Project>{8BECCA94-FBC6-4F83-AFBC-1FBBB3A8A914}</Project>
-      <Name>EssentialsAddin.Lib</Name>
-    </ProjectReference>
+    <Reference Include="gdk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MonoDevelop.Addins.0.4.7\build\MonoDevelop.Addins.targets" Condition="Exists('..\packages\MonoDevelop.Addins.0.4.7\build\MonoDevelop.Addins.targets')" />
