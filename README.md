@@ -22,6 +22,7 @@ As a developer I got annoyed at VS4Mac for all of that double clicking a file on
 Is your filtering still showing a lot of solutiontree entries, mayby you can filter those projects that you only care about. Like if you're only working on iOS, you only want to see the core and iOS projects. Then specify: `core ios` and hit apply or change the tree filter.
 
 
+<!--
 ## Installation
 
 1. Download `.mpack` file from [Releases](https://github.com/IvoKrugers/EssentialsAddin/releases)
@@ -33,11 +34,26 @@ Is your filtering still showing a lot of solutiontree entries, mayby you can fil
 The filter pad can be opened from the `Tools -> Essentials` or `View -> Pads` menu
 
 If you have a previous version installed, uninstall it first, close Visual studio and re-open the app before installing the new version.
+-->
 
+## Installation
+
+1. Open Visual Studio Extension Repository Manager via `Visual Studio -> Extensions... -> Gallery -> Repositories Dropdown -> Manage Repositories`.
+
+2. Add `https://raw.githubusercontent.com/IvoKrugers/EssentialsAddin/master/mpack/main.mrep` to your repository sources.
+
+3. Back in extension manager, you should now be able to see all the extensions available for installation.
+
+**Note:** Installing an extension might require a restart of Visual Studio for Mac.
+
+Any future updates to installed extensions should show up in the `Updates` tab of the Extension Manager.
 
 ## Authors
 
 **Ivo Krugers** - Author
+
+## Thanks
+[Arthur Demanuele](https://github.com/ademanuele) for extension repo example
 
 ## License
 

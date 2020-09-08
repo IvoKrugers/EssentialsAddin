@@ -3,6 +3,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EssentialsAddin", "EssentialsAddin\EssentialsAddin.csproj", "{06AAEAAA-1031-4096-BA41-394CACC5CC92}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EssentialsAddin.Unitttests", "EssentialsAddin.Unitttests\EssentialsAddin.Unitttests.csproj", "{F5B2B011-8011-464E-A81B-332A58EC7449}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EssentialsAddin.Lib", "EssentialsAddin.Lib\EssentialsAddin.Lib.csproj", "{8BECCA94-FBC6-4F83-AFBC-1FBBB3A8A914}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +17,14 @@ Global
 		{06AAEAAA-1031-4096-BA41-394CACC5CC92}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06AAEAAA-1031-4096-BA41-394CACC5CC92}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{06AAEAAA-1031-4096-BA41-394CACC5CC92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5B2B011-8011-464E-A81B-332A58EC7449}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5B2B011-8011-464E-A81B-332A58EC7449}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5B2B011-8011-464E-A81B-332A58EC7449}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5B2B011-8011-464E-A81B-332A58EC7449}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BECCA94-FBC6-4F83-AFBC-1FBBB3A8A914}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BECCA94-FBC6-4F83-AFBC-1FBBB3A8A914}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BECCA94-FBC6-4F83-AFBC-1FBBB3A8A914}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BECCA94-FBC6-4F83-AFBC-1FBBB3A8A914}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		version = 1.2

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Net.Http;
+using System.Security.Policy;
 using System.Threading.Tasks;
+using EssentialsAddin.Models;
 using Newtonsoft.Json;
 
 namespace EssentialsAddin.Services
@@ -37,6 +39,10 @@ namespace EssentialsAddin.Services
                     return JsonConvert.DeserializeObject<Release>(result, Converter.Settings);
                 }
             }
+        }
+        private async Task GetLatestReleaseFromAddinRepo()
+        {
+            var uri = new Uri("https://raw.githubusercontent.com/IvoKrugers/EssentialsAddin/develop/mpack/EssentialsAddin/main.mrep");
         }
 
         public async Task<bool> CheckForNewRelease()

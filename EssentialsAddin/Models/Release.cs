@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace EssentialsAddin.Services
+namespace EssentialsAddin.Models
 {
     public partial class Release
     {

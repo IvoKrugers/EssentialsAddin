@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Repository xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>EssentialsAddin Repo (Ivo Krugers)</Name>
+  <Repository>
+    <Url>EssentialsAddin/main.mrep</Url>
+    <LastModified>2020-09-08T09:51:37.9794302+02:00</LastModified>
+  </Repository>
+</Repository>

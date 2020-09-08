@@ -95,7 +95,7 @@ namespace EssentialsAddin
         private void StartTimer()
         {
             StopTimer();
-            timer = new Timer(OnTimerElapsed, null, 2000, Timeout.Infinite); // dueTime in miliseconds
+            timer = new Timer(OnTimerElapsed, null, 1000, Timeout.Infinite); // dueTime in miliseconds
         }
 
         private void StopTimer()
@@ -116,7 +116,7 @@ namespace EssentialsAddin
 
         private void FilterSolutionPad()
         {
-            var SolutionPad = (SolutionFilterPad)IdeApp.Workbench.Pads.Find((p) => p.Id == Constants.SolutionPadId).Content;
+            var SolutionPad = (SolutionFilterPad)IdeApp.Workbench.Pads.Find((p) => p.Id == Constants.SolutionFilterPadId).Content;
             if (SolutionPad != null)
                 SolutionPad.Window.IsWorking = true;
 
@@ -191,6 +191,7 @@ namespace EssentialsAddin
             if (await _releaseService.CheckForNewRelease())
             {
                 newReleaseAvailableButton.Visible = true;
+                newReleaseAvailableButton.Label = $"Release {_releaseService.LatestRelease.TagName} available";
             }
             else
             {
