@@ -96,7 +96,7 @@ namespace EssentialsAddin.SolutionFilter
             {
                 if (!FilteredProjectCache.IsProjectItemEnabled(dataObject))
 
-                    nodeInfo.DisabledStyle = true;
+                    nodeInfo.Style = NodeInfo.LabelStyle.Disabled;
             }
 
             if (!(dataObject is ProjectFile))

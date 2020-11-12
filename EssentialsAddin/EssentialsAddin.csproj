@@ -56,6 +56,7 @@
     <Compile Include="CommandHandlers\CurrentVersionMenuHandler.cs" />
     <Compile Include="Models\Release.cs" />
     <Compile Include="Helpers\TextBufferExtensions.cs" />
+    <Compile Include="Helpers\SolutionPadExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Manifest.addin.xml" />
