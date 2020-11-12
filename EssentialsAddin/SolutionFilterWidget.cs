@@ -3,8 +3,10 @@ using System.Threading;
 using EssentialsAddin.Helpers;
 using EssentialsAddin.Services;
 using EssentialsAddin.SolutionFilter;
+using Gtk;
 using MonoDevelop.Core;
 using MonoDevelop.Ide;
+using MonoDevelop.Ide.Gui.Components;
 using MonoDevelop.Ide.Gui.Pads;
 using Xwt.GtkBackend;
 
@@ -31,8 +33,10 @@ namespace EssentialsAddin
             if (pad == null)
                 return;
 
-            pad.TreeView.GrabFocus();
-            var root = pad.TreeView.GetRootNode();
+            
+            pad.Control.GrabFocus();
+            var root = pad.GetRootNode();
+
             if (root != null)
             {
                 oneClickCheckbutton.Active = root.Options[FileNodeBuilderExtension.OneClickShowFileOption];
@@ -65,12 +69,12 @@ namespace EssentialsAddin
             if (pad != null)
             {
                 EssentialProperties.IsRefreshingTree = true;
-                pad.TreeView.CollapseTree();
-                var root = pad.TreeView.GetRootNode();
+                pad.CollapseTree();
+                var root = pad.GetRootNode();
                 if (root != null)
                 {
                     root.Expanded = false;
-                    pad.TreeView.RefreshNode(root);
+                    pad.GetTreeView().RefreshNode(root);
                     root.Expanded = true;
                     SolutionTreeExtensions.ExpandAll(root);
                 }
@@ -95,7 +99,7 @@ namespace EssentialsAddin
         private void StartTimer()
         {
             StopTimer();
-            timer = new Timer(OnTimerElapsed, null, 1000, Timeout.Infinite); // dueTime in miliseconds
+            timer = new Timer(OnTimerElapsed, null, 1000, System.Threading.Timeout.Infinite); // dueTime in miliseconds
         }
 
         private void StopTimer()
@@ -104,7 +108,7 @@ namespace EssentialsAddin
             timer = null;
         }
 
-        object refreshLock = new Object();
+        object refreshLock = new object();
         private void OnTimerElapsed(object state)
         {
             lock (refreshLock)
@@ -141,12 +145,12 @@ namespace EssentialsAddin
                     return;
 
                 EssentialProperties.IsRefreshingTree = true;
-                pad.TreeView.CollapseTree();
-                var root = pad.TreeView.GetRootNode();
+                pad.CollapseTree();
+                var root = pad.GetRootNode();
                 if (root != null)
                 {
                     root.Expanded = false;
-                    pad.TreeView.RefreshNode(root);
+                    pad.GetTreeView().RefreshNode(root);
                     root.Expanded = true;
                     SolutionTreeExtensions.ExpandAll(root);
                 }
@@ -166,12 +170,12 @@ namespace EssentialsAddin
                 return;
 
             EssentialProperties.IsRefreshingTree = true;
-            pad.TreeView.CollapseTree();
-            var root = pad.TreeView.GetRootNode();
+            pad.CollapseTree();
+            var root = pad.GetRootNode();
             if (root != null)
             {
                 root.Expanded = false;
-                pad.TreeView.RefreshNode(root);
+                pad.GetTreeView().RefreshNode(root);
                 root.Expanded = true;
                 SolutionTreeExtensions.ExpandOnlyCSharpProjects(root);
             }
