@@ -1,4 +1,5 @@
-﻿using MonoDevelop.Components;
+﻿using EssentialsAddin.Helpers;
+using MonoDevelop.Components;
 using MonoDevelop.Ide;
 using MonoDevelop.Ide.Gui;
 
@@ -20,11 +21,26 @@ namespace EssentialsAddin
             //Debug.WriteLine($"Bundle Resource path: {NSBundle.MainBundle.ResourcePath}");
 
             //this.Window.Title = $"Solution Filter ({Constants.Version})";
+            Initialize();
         }
 
         void StartListeningForWorkspaceChanges()
         {
             //IdeApp.Workbench.DocumentClosed += (sender, e) => control.OnDocumentClosed();
+
+            //IdeApp.Workspace.SolutionUnloaded += (sender, e) => control.Clear();
+            IdeApp.Workspace.SolutionLoaded += (sender, e) => Initialize();
+
+            //IdeApp.Workspace.ItemAddedToSolution += (sender, e) => control.ReloadProjects();
+            //IdeApp.Workspace.ItemRemovedFromSolution += (sender, e) => control.ReloadProjects();
+
+            IdeApp.Workspace.CurrentSelectedSolutionChanged += (sender, e) => Initialize();
+        }
+
+        private void Initialize()
+        {
+            PropertyService.Instance.Init(IdeApp.Workspace.CurrentSelectedSolution);
+            ((SolutionFilterWidget)Control).LoadProperties();
         }
     }
 }

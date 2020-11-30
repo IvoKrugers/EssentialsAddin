@@ -34,20 +34,27 @@ namespace EssentialsAddin
                 return;
 
             
-            pad.Control.GrabFocus();
-            var root = pad.GetRootNode();
+            //pad.Control.GrabFocus();
+            //var root = pad.GetRootNode();
 
-            if (root != null)
-            {
-                oneClickCheckbutton.Active = root.Options[FileNodeBuilderExtension.OneClickShowFileOption];
-            }
+            //if (root != null)
+            //{
+            //    oneClickCheckbutton.Active = root.Options[FileNodeBuilderExtension.OneClickShowFileOption];
+            //}
 
-            filterEntry.Text = EssentialProperties.SolutionFilter;
-            collapseEntry.Text = EssentialProperties.ExpandFilter;
+            //filterEntry.Text = EssentialProperties.SolutionFilter;
+            //collapseEntry.Text = EssentialProperties.ExpandFilter;
 
             newReleaseAvailableButton.SetBackgroundColor(Xwt.Drawing.Colors.DarkRed);
             newReleaseAvailableButton.Visible = false;
             CheckForNewRelease();
+        }
+
+        public void LoadProperties()
+        {
+            oneClickCheckbutton.Active = EssentialProperties.OneClickShowFile;
+            filterEntry.Text = EssentialProperties.SolutionFilter;
+            collapseEntry.Text = EssentialProperties.ExpandFilter;
         }
 
         #region Events
