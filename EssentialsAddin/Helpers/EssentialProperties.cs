@@ -1,6 +1,4 @@
 ﻿using System;
-using MonoDevelop.Core;
-using MonoDevelop.Core.Collections;
 
 namespace EssentialsAddin.Helpers
 {
@@ -15,8 +13,8 @@ namespace EssentialsAddin.Helpers
 
         public static string SolutionFilter
         {
-            get => PropertyService.Get<string>(SOLUTIONFILTER_KEY, String.Empty);
-            set => PropertyService.Set(SOLUTIONFILTER_KEY, value.ToLower());
+            get => PropertyService.Instance.Get(SOLUTIONFILTER_KEY, String.Empty);
+            set => PropertyService.Instance.Set(SOLUTIONFILTER_KEY, value.ToLower());
         }
 
         public static string[] SolutionFilterArray
@@ -34,8 +32,8 @@ namespace EssentialsAddin.Helpers
 
         public static string ExpandFilter
         {
-            get => PropertyService.Get<string>(SOLUTIONEXPANDFILTER_KEY, string.Empty);
-            set => PropertyService.Set(SOLUTIONEXPANDFILTER_KEY, value.ToLower());
+            get => PropertyService.Instance.Get(SOLUTIONEXPANDFILTER_KEY, string.Empty);
+            set => PropertyService.Instance.Set(SOLUTIONEXPANDFILTER_KEY, value.ToLower());
         }
 
         public static string[] ExpandFilterArray
@@ -56,16 +54,16 @@ namespace EssentialsAddin.Helpers
 
         public static bool OneClickShowFile
         {
-            get => PropertyService.Get<bool>(ONECLICKSHOWFILE_KEY,true);
-            set => PropertyService.Set(ONECLICKSHOWFILE_KEY, value);
+            get => PropertyService.Instance.Get(ONECLICKSHOWFILE_KEY, true);
+            set => PropertyService.Instance.Set(ONECLICKSHOWFILE_KEY, value);
         }
 
         public static bool IsRefreshingTree { get; set; }
 
         public static string ConsoleFilter
         {
-            get => PropertyService.Get<string>(CONSOLEFILTER_KEY, string.Empty);
-            set => PropertyService.Set(CONSOLEFILTER_KEY, value.ToLower());
+            get => PropertyService.Instance.Get(CONSOLEFILTER_KEY, string.Empty);
+            set => PropertyService.Instance.Set(CONSOLEFILTER_KEY, value.ToLower());
         }
 
         public static string[] ConsoleFilterArray
@@ -79,6 +77,5 @@ namespace EssentialsAddin.Helpers
                 return filterText.Split(_delimiterChars);
             }
         }
-
     }
 }
