@@ -21,6 +21,7 @@ namespace EssentialsAddin
             //Debug.WriteLine($"Bundle Resource path: {NSBundle.MainBundle.ResourcePath}");
 
             //this.Window.Title = $"Solution Filter ({Constants.Version})";
+            Initialize();
         }
 
         void StartListeningForWorkspaceChanges()
@@ -39,7 +40,7 @@ namespace EssentialsAddin
         private void Initialize()
         {
             PropertyService.Instance.Init(IdeApp.Workspace.CurrentSelectedSolution);
-            control.LoadProperties();
+            ((SolutionFilterWidget)Control).LoadProperties();
         }
     }
 }
