@@ -74,6 +74,8 @@ namespace EssentialsAddin.SolutionFilter
                                     Debug.WriteLine("BINGO !!");
                                 }
 #endif
+
+
                                 // if this file depends on another, make sure that that parent file in the cache is marked as expanded too.
 
 
@@ -177,16 +179,16 @@ namespace EssentialsAddin.SolutionFilter
             switch (dataObject)
             {
                 case ProjectFile file:
-                    key= file.Project.Name + "/" + file.ProjectVirtualPath.ToString();
+                    key = file.Project.Name + "/" + file.ProjectVirtualPath.ToString();
                     break;
                 case ProjectFolder folder:
-                    key= GetFoldername(folder);
+                    key = GetFoldername(folder);
                     break;
                 case Project project:
-                    key= project.Name;
+                    key = project.Name;
                     break;
                 default:
-                    key= string.Empty;
+                    key = string.Empty;
                     break;
             }
             key = key.Replace("//", "/");
@@ -230,6 +232,10 @@ namespace EssentialsAddin.SolutionFilter
             {
                 var key = GetKeyFor(dataItem);
                 TreeItem item;
+
+                if (dataItem is ProjectFile pf && pf.DependentChildren.Where(f => f.FilePath.FileName.EndsWith(".designer.cs")).Any())
+                    return false;
+
                 var found = _treeDictionary.TryGetValue(key, out item);
                 return found && item.IsExpanded;
             }
