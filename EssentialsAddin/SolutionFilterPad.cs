@@ -26,13 +26,14 @@ namespace EssentialsAddin
 
         void StartListeningForWorkspaceChanges()
         {
-            //IdeApp.Workbench.DocumentClosed += (sender, e) => control.OnDocumentClosed();
+            IdeApp.Workbench.DocumentClosed += (sender, e) => control.FilterSolutionTreeDelayed();
+            IdeApp.Workbench.DocumentOpened += (sender, e) => control.FilterSolutionTreeDelayed();
 
             //IdeApp.Workspace.SolutionUnloaded += (sender, e) => control.Clear();
             IdeApp.Workspace.SolutionLoaded += (sender, e) => Initialize();
 
-            //IdeApp.Workspace.ItemAddedToSolution += (sender, e) => control.ReloadProjects();
-            //IdeApp.Workspace.ItemRemovedFromSolution += (sender, e) => control.ReloadProjects();
+            IdeApp.Workspace.ItemAddedToSolution += (sender, e) => control.FilterSolutionTreeDelayed();
+            IdeApp.Workspace.ItemRemovedFromSolution += (sender, e) => control.FilterSolutionTreeDelayed();
 
             IdeApp.Workspace.CurrentSelectedSolutionChanged += (sender, e) => Initialize();
         }

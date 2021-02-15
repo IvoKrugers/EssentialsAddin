@@ -6,6 +6,7 @@ using EssentialsAddin.SolutionFilter;
 using Gtk;
 using MonoDevelop.Core;
 using MonoDevelop.Ide;
+using MonoDevelop.Ide.Gui;
 using MonoDevelop.Ide.Gui.Components;
 using MonoDevelop.Ide.Gui.Pads;
 using Xwt.GtkBackend;
@@ -102,6 +103,29 @@ namespace EssentialsAddin
 
 
         #endregion
+
+        public void DocumentClosed(Document document)
+        {
+            //if (!FileInFilter(file))
+            //{
+            //    StartTimer();
+            //    SelectNodeForSelectedDocument();
+            //}
+        }
+        public void DocumentOpened(Document document)
+        {
+            //if (!FileInFilter(file))
+            //{
+            //    StartTimer();
+            //    SelectNodeForSelectedDocument();
+            //}
+        }
+
+        //private void SelectNodeForSelectedDocument(Document document)
+        //{
+
+        //}
+       
 
         private void StartTimer()
         {
