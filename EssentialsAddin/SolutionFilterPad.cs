@@ -26,14 +26,20 @@ namespace EssentialsAddin
 
         void StartListeningForWorkspaceChanges()
         {
-            IdeApp.Workbench.DocumentClosed += (sender, e) => control.FilterSolutionTreeDelayed();
-            IdeApp.Workbench.DocumentOpened += (sender, e) => control.FilterSolutionTreeDelayed();
-
+            IdeApp.Workbench.DocumentClosed += (sender, e) => control.DocumentClosed(e.Document);
+            IdeApp.Workbench.DocumentOpened += (sender, e) => control.DocumentOpened(e.Document);
+            IdeApp.Workbench.ActiveDocumentChanged += (sender, e) =>
+            {
+                if (e.Document == null)
+                    EssentialProperties.ClearOpenDocuments();
+                else
+                    control.DocumentOpened(e.Document);
+            };
             //IdeApp.Workspace.SolutionUnloaded += (sender, e) => control.Clear();
             IdeApp.Workspace.SolutionLoaded += (sender, e) => Initialize();
 
-            IdeApp.Workspace.ItemAddedToSolution += (sender, e) => control.FilterSolutionTreeDelayed();
-            IdeApp.Workspace.ItemRemovedFromSolution += (sender, e) => control.FilterSolutionTreeDelayed();
+            //IdeApp.Workspace.ItemAddedToSolution += (sender, e) => control.FilterSolutionTreeDelayed();
+            //IdeApp.Workspace.ItemRemovedFromSolution += (sender, e) => control.FilterSolutionTreeDelayed();
 
             IdeApp.Workspace.CurrentSelectedSolutionChanged += (sender, e) => Initialize();
         }
