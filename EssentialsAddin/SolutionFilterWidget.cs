@@ -5,7 +5,6 @@ using EssentialsAddin.Services;
 using EssentialsAddin.SolutionFilter;
 using MonoDevelop.Core;
 using MonoDevelop.Ide;
-using MonoDevelop.Ide.Gui;
 using MonoDevelop.Ide.Gui.Pads;
 using Xwt.GtkBackend;
 
@@ -79,24 +78,6 @@ namespace EssentialsAddin
         {
             filterEntry.Text = "";
             FilterSolutionPad();
-        }
-
-        protected void OnEditingDone(object sender, EventArgs e)
-        {
-        }
-
-        public void DocumentClosed(Document document)
-        {
-            Console.WriteLine($"Document closed {document.FilePath.FullPath}");
-            EssentialProperties.RemoveOpenDocument(document);
-        }
-
-        public void DocumentOpened(Document document)
-        {
-            Console.WriteLine($"Document opened {document.FilePath.FullPath}");
-
-            if (EssentialProperties.AddOpenDocument(document))
-                StartTimer();
         }
 
         private void StartTimer()

@@ -26,7 +26,6 @@ namespace EssentialsAddin.Helpers
             OpenDocuments = new List<string>();
         }
 
-
         public static bool AddOpenDocument(MonoDevelop.Ide.Gui.Document document)
         {
             var path = document.FilePath.FullPath;

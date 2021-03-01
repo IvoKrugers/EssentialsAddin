@@ -6,7 +6,8 @@
 Funtionality summary: 
  - Solution tree filtering (Pad)
  - One click to open file functionality. 
- - Filter project to Expand
+ - Filter project to Expand.
+ - Take into account pinned tabs when filtering solution tree
  - Filter Application Output in a new Pad
 
 The pads can be opened from the View-Pads or Tools menu.
