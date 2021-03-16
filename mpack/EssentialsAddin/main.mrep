@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Repository xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Addin>
-    <Url>EssentialsAddin.EssentialsAddin_1.7.9.mpack</Url>
+    <Url>EssentialsAddin.EssentialsAddin_1.7.11.mpack</Url>
     <Addin>
       <Id>EssentialsAddin</Id>
       <Namespace>EssentialsAddin</Namespace>
       <Name>Essentials Addin</Name>
-      <Version>1.7.9</Version>
+      <Version>1.7.11</Version>
       <BaseVersion />
       <Author>Ivo Krugers</Author>
       <Copyright>Ivo Krugers</Copyright>
@@ -16,7 +16,8 @@
 Funtionality summary: 
  - Solution tree filtering (Pad)
  - One click to open file functionality. 
- - Filter project to Expand
+ - Filter project to Expand.
+ - Take into account pinned tabs when filtering solution tree
  - Filter Application Output in a new Pad
 
 The pads can be opened from the View-Pads or Tools menu.
@@ -26,11 +27,11 @@ by Ivo Krugers</Description>
       <Dependencies>
         <AddinDependency>
           <AddinId>::MonoDevelop.Core</AddinId>
-          <Version>8.8.7</Version>
+          <Version>8.8.10</Version>
         </AddinDependency>
         <AddinDependency>
           <AddinId>::MonoDevelop.Ide</AddinId>
-          <Version>8.8.7</Version>
+          <Version>8.8.10</Version>
         </AddinDependency>
       </Dependencies>
       <OptionalDependencies />
@@ -41,7 +42,8 @@ by Ivo Krugers</Description>
 Funtionality summary: 
  - Solution tree filtering (Pad)
  - One click to open file functionality. 
- - Filter project to Expand
+ - Filter project to Expand.
+ - Take into account pinned tabs when filtering solution tree
  - Filter Application Output in a new Pad
 
 The pads can be opened from the View-Pads or Tools menu.
@@ -51,7 +53,7 @@ by Ivo Krugers</Property>
         <Property name="Copyright">Ivo Krugers</Property>
         <Property name="Url">https://github.com/IvoKrugers/EssentialsAddin</Property>
         <Property name="UpdateRank">Important</Property>
-        <Property name="DownloadSize">47058</Property>
+        <Property name="DownloadSize">47985</Property>
       </Properties>
     </Addin>
   </Addin>

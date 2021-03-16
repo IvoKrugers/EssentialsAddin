@@ -14,7 +14,9 @@ using Mono.Addins.Description;
 "Funtionality summary: \n"+
 " - Solution tree filtering (Pad)\n" +
 " - One click to open file functionality. \n" +
-" - Filter project to Expand\n"+
+" - Filter project to Expand.\n"+
+" - Take into account pinned tabs when filtering solution tree.\n" +
+"\n" +
 " - Filter Application Output in a new Pad\n" +
 "\n" +
 "The pads can be opened from the View-Pads or Tools menu.\n\nby Ivo Krugers")]

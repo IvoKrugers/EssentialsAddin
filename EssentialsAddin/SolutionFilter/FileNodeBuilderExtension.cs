@@ -12,9 +12,9 @@ namespace EssentialsAddin.SolutionFilter
     {
         private readonly string OneClickChar
 #if DEBUG
-         = "-->";
+         = "-->>";
 #else
-         = "=>";
+         = "-->";
 #endif
         public static string OneClickShowFileOption = "OneClickShowFile";
 

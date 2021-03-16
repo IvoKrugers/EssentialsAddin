@@ -1,4 +1,6 @@
-﻿using EssentialsAddin.Helpers;
+﻿using System.Collections;
+using System.Diagnostics;
+using EssentialsAddin.Helpers;
 using MonoDevelop.Components;
 using MonoDevelop.Ide;
 using MonoDevelop.Ide.Gui;
@@ -26,15 +28,41 @@ namespace EssentialsAddin
 
         void StartListeningForWorkspaceChanges()
         {
-            //IdeApp.Workbench.DocumentClosed += (sender, e) => control.OnDocumentClosed();
+            IdeApp.Workbench.ActiveDocumentChanged += (sender, e) =>
+            {
+                try
+                {
+                    EssentialProperties.ClearOpenDocuments();
 
-            //IdeApp.Workspace.SolutionUnloaded += (sender, e) => control.Clear();
+                    var activeWorkbenchWindowProp = sender.GetType().GetProperty("ActiveWorkbenchWindow");
+                    object activeWorkbenchWindow = activeWorkbenchWindowProp.GetValue(sender, null);
+
+                    var tabControlProp = activeWorkbenchWindow.GetType().GetProperty("TabControl");
+                    object tabControl = tabControlProp.GetValue(activeWorkbenchWindow, null);
+
+                    var tabsProp = tabControl.GetType().GetProperty("Tabs");
+                    object tabs = tabsProp.GetValue(tabControl, null);
+
+                    var index = 0;
+                    foreach (var tab in (IList)tabs)
+                    {
+                        var isPinnedProp = tab.GetType().GetProperty("IsPinned");
+                        bool isPinned = (bool)isPinnedProp.GetValue(tab, null);
+                        if (isPinned)
+                            EssentialProperties.AddOpenDocument(IdeApp.Workbench.Documents[index]);
+                        index++;
+                    }
+                }
+                catch (System.Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                    Debugger.Break();
+                }
+            };
+
             IdeApp.Workspace.SolutionLoaded += (sender, e) => Initialize();
-
-            //IdeApp.Workspace.ItemAddedToSolution += (sender, e) => control.ReloadProjects();
-            //IdeApp.Workspace.ItemRemovedFromSolution += (sender, e) => control.ReloadProjects();
-
             IdeApp.Workspace.CurrentSelectedSolutionChanged += (sender, e) => Initialize();
+            
         }
 
         private void Initialize()

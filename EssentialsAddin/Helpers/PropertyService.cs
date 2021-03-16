@@ -71,7 +71,7 @@ namespace EssentialsAddin.Helpers
         {
             using (StreamWriter writer = File.CreateText(_filePath))
             {
-               _serializer.Serialize(writer, _properties);
+                _serializer.Serialize(writer, _properties);
             }
         }
 

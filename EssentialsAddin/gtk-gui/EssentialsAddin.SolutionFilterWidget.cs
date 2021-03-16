@@ -169,7 +169,6 @@ namespace EssentialsAddin
 			this.newReleaseAvailableButton.Hide();
 			this.Show();
 			this.filterEntry.Changed += new global::System.EventHandler(this.OnFilterEntryChanged);
-			this.filterEntry.EditingDone += new global::System.EventHandler(this.OnEditingDone);
 			this.button1.Clicked += new global::System.EventHandler(this.clearButton_Clicked);
 			this.oneClickCheckbutton.Toggled += new global::System.EventHandler(this.oneClickCheckbutton_Toggled);
 			this.newReleaseAvailableButton.Clicked += new global::System.EventHandler(this.NewReleaseAvailableButton_Clicked);

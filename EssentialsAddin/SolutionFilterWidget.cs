@@ -3,10 +3,8 @@ using System.Threading;
 using EssentialsAddin.Helpers;
 using EssentialsAddin.Services;
 using EssentialsAddin.SolutionFilter;
-using Gtk;
 using MonoDevelop.Core;
 using MonoDevelop.Ide;
-using MonoDevelop.Ide.Gui.Components;
 using MonoDevelop.Ide.Gui.Pads;
 using Xwt.GtkBackend;
 
@@ -33,18 +31,6 @@ namespace EssentialsAddin
             if (pad == null)
                 return;
 
-            
-            //pad.Control.GrabFocus();
-            //var root = pad.GetRootNode();
-
-            //if (root != null)
-            //{
-            //    oneClickCheckbutton.Active = root.Options[FileNodeBuilderExtension.OneClickShowFileOption];
-            //}
-
-            //filterEntry.Text = EssentialProperties.SolutionFilter;
-            //collapseEntry.Text = EssentialProperties.ExpandFilter;
-
             newReleaseAvailableButton.SetBackgroundColor(Xwt.Drawing.Colors.DarkRed);
             newReleaseAvailableButton.Visible = false;
             CheckForNewRelease();
@@ -56,8 +42,6 @@ namespace EssentialsAddin
             filterEntry.Text = EssentialProperties.SolutionFilter;
             collapseEntry.Text = EssentialProperties.ExpandFilter;
         }
-
-        #region Events
 
         protected void OnFilterEntryChanged(object sender, EventArgs e)
         {
@@ -95,13 +79,6 @@ namespace EssentialsAddin
             filterEntry.Text = "";
             FilterSolutionPad();
         }
-
-        protected void OnEditingDone(object sender, EventArgs e)
-        {
-        }
-
-
-        #endregion
 
         private void StartTimer()
         {
