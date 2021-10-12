@@ -42,7 +42,9 @@ If you have a previous version installed, uninstall it first, close Visual studi
 ## Updates
 
 That filter Pad will show you a button when an update of this addin is availabe. Clicking it will take you to the release on github.
+
 ![The update button](/Art/UpdateButton.png)
+
 This is still quite anonying to install and I was not able to create an account at [https://addins.monodevelop.com](https://addins.monodevelop.com). So I created a repo of my own. Follow the instructions in the next section to make the update process easier. 
 
 ## Installation
