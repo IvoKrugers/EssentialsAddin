@@ -72,10 +72,15 @@ namespace EssentialsAddin.Helpers
             get
             {
                 var filterText = SolutionFilter;
-                //filterText = "items".ToLower();
-                if (string.IsNullOrEmpty(filterText))
+                if (string.IsNullOrWhiteSpace(filterText))
                     return new string[0];
 
+                filterText = filterText.Trim();
+                while (filterText.IndexOf("  ") >= 0)
+                {
+                    filterText = filterText.Replace("  ", " ");
+                }
+                
                 return filterText.Split(_delimiterChars);
             }
         }
