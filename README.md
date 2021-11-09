@@ -59,6 +59,15 @@ This is still quite anonying to install and I was not able to create an account 
 
 Any future updates to installed extensions should show up in the `Updates` tab of the Extension Manager.
 
+<!--
+## Terminal
+
+Wanna install it from commandline? Dowload the mpack file and run the following instruction in the Terminal app.
+
+```"/Applications/Visual Studio (Preview).app/Contents/MacOS/vstool" setup install ~/Downloads/EssentialsAddin.EssentialsAddin_1.7.13.mpack ```
+
+Please make sure the location and filename of the dowloaded mpack file are correctly put in the instruction.
+-->
 ## Authors
 
 **Ivo Krugers** - Author
