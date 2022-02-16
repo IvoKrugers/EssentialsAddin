@@ -3,6 +3,7 @@ using System.Threading;
 using EssentialsAddin.Helpers;
 using EssentialsAddin.Services;
 using EssentialsAddin.SolutionFilter;
+using Gtk;
 using MonoDevelop.Core;
 using MonoDevelop.Ide;
 using MonoDevelop.Ide.Gui.Pads;
@@ -17,6 +18,8 @@ namespace EssentialsAddin
 
         private ReleaseService _releaseService = new ReleaseService();
 
+        public string FilterText => filterEntry.Text;
+        public string ExpandText => collapseEntry.Text;
 
         public SolutionFilterWidget()
         {
@@ -34,6 +37,7 @@ namespace EssentialsAddin
             newReleaseAvailableButton.SetBackgroundColor(Xwt.Drawing.Colors.DarkRed);
             newReleaseAvailableButton.Visible = false;
             CheckForNewRelease();
+            
         }
 
         public void LoadProperties()
@@ -41,6 +45,21 @@ namespace EssentialsAddin
             oneClickCheckbutton.Active = EssentialProperties.OneClickShowFile;
             filterEntry.Text = EssentialProperties.SolutionFilter;
             collapseEntry.Text = EssentialProperties.ExpandFilter;
+
+            if (Settings.KeyThemeName == "Mac")
+            {
+                //this.filterEntry.SetBackgroundColor(Xwt.Drawing.Colors.DarkGray);
+                //this.collapseEntry.SetForegroundColor(Xwt.Drawing.Colors.DarkGray);
+
+                //this.ModifyFg(StateType.Normal, new Gdk.Color(0x60, 0, 0));
+                //this.ModifyBg(StateType.Normal, new Gdk.Color(0x60, 0, 0));
+                //vbox1.ModifyBg(StateType.Normal, new Gdk.Color(0x60, 0, 0));
+            }
+        }
+
+        private void gtk_widget_override_background_color()
+        {
+            throw new NotImplementedException();
         }
 
         protected void OnFilterEntryChanged(object sender, EventArgs e)
@@ -80,7 +99,7 @@ namespace EssentialsAddin
             FilterSolutionPad();
         }
 
-        private void StartTimer()
+        internal void StartTimer()
         {
             StopTimer();
             timer = new Timer(OnTimerElapsed, null, 1000, System.Threading.Timeout.Infinite); // dueTime in miliseconds

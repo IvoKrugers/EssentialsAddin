@@ -12,10 +12,13 @@ using Mono.Addins.Description;
 [assembly: AddinCategory("IDE extensions")]
 [assembly: AddinDescription("Essentials Addin provides several pads and other functionalities. \n\n"+
 "Funtionality summary: \n"+
-" - Solution tree filtering (Pad)\n" +
+" - Solution Tree filtering (Pad)\n" +
 " - One click to open file functionality. \n" +
 " - Filter project to Expand.\n"+
 " - Take into account pinned tabs when filtering solution tree.\n" +
+" - Pin files in Solution Tree via Context Menu\n" +
+" - Store filter and pinned files per git branch\n" +
+
 "\n" +
 " - Filter Application Output in a new Pad\n" +
 "\n" +

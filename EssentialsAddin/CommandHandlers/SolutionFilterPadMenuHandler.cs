@@ -1,6 +1,5 @@
 ﻿using MonoDevelop.Components.Commands;
 using MonoDevelop.Ide;
-using MonoDevelop.Ide.Gui;
 
 namespace EssentialsAddin.CommandHandlers
 {
@@ -9,7 +8,7 @@ namespace EssentialsAddin.CommandHandlers
         protected override void Run()
         {
             var pad = IdeApp.Workbench.GetPad<SolutionFilterPad>();
-            if (pad !=null)
+            if (pad != null)
             {
                 pad.Visible = true;
                 pad.IsOpenedAutomatically = true;
@@ -19,7 +18,7 @@ namespace EssentialsAddin.CommandHandlers
 
         protected override void Update(CommandInfo info)
         {
-            info.Enabled = true;//IdeApp.Workbench.ActiveDocument?.Editor != null;
+            info.Enabled = true;
         }
     }
 }

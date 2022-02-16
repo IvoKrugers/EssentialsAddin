@@ -3,17 +3,29 @@ using System.IO;
 using EssentialsAddin.Helpers;
 using MonoDevelop.Ide;
 using MonoDevelop.Ide.Gui.Components;
+using MonoDevelop.Ide.Gui.Pads;
 using MonoDevelop.Projects;
 
 namespace EssentialsAddin.SolutionFilter
 {
-    public class FileNodeCommandHandler : NodeCommandHandler
+    public class FileNodeNodeCommandHandler : NodeCommandHandler
     {
-
         // Double-Clicked
         public override void ActivateItem()
         {
             base.ActivateItem();
+            if (CurrentNode.DataItem is ProjectFile f)
+            {
+                if (EssentialProperties.IsPinned(f))
+                    EssentialProperties.RemovePinnedDocument(f);
+                else
+                    EssentialProperties.AddPinnedDocument(f);
+
+                var pad = (SolutionPad)IdeApp.Workbench.Pads.SolutionPad.Content;
+                if (pad == null)
+                    return;
+                pad.RefreshSelectedNode();
+            }
         }
 
         // Single-Clicked

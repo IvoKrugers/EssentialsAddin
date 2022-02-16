@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using EssentialsAddin.Helpers;
+using Gtk;
 using MonoDevelop.Ide.Gui.Components;
 using MonoDevelop.Ide.Gui.Pads.ProjectPad;
 using MonoDevelop.Projects;
@@ -54,21 +55,10 @@ namespace EssentialsAddin.SolutionFilter
                 {
                     attributes = NodeAttributes.Hidden;
                 }
-                //var txt = attributes == NodeAttributes.Hidden ? "HIDE" : "SHOW";
-                //Debug.WriteLine($"{txt} \tProjectFolder {pf.Path} ");
             }
 
             if (dataObject is ProjectFile file )
             {
-                //var hide = true;
-                //foreach (var key in filter)
-                //{
-                //    if (file.ProjectVirtualPath.ToString().ToLower().Contains(key))
-                //    {
-                //        hide = false;
-                //        break;
-                //    }
-                //}
                 if (!FilteredProjectCache.IsProjectItemVisible(file))
                     attributes = NodeAttributes.Hidden;
             }
@@ -95,7 +85,6 @@ namespace EssentialsAddin.SolutionFilter
             if (!string.IsNullOrEmpty(EssentialProperties.SolutionFilter))
             {
                 if (!FilteredProjectCache.IsProjectItemEnabled(dataObject))
-
                     nodeInfo.Style = NodeInfo.LabelStyle.Disabled;
             }
 
@@ -106,9 +95,12 @@ namespace EssentialsAddin.SolutionFilter
 
             var ext = Path.GetExtension(file.FilePath);
 
-            if (EssentialProperties.OneClickShowFile && EssentialProperties.ExcludedExtensionsFromOneClick.FindIndex((s) => s == ext) == -1)
+            var isObjectPinned = EssentialProperties.IsPinned(file);
+            var addOneClickText = EssentialProperties.OneClickShowFile && EssentialProperties.ExcludedExtensionsFromOneClick.FindIndex((s) => s == ext) == -1;
+
+            if (isObjectPinned || addOneClickText)
             {
-                nodeInfo.Label = string.Format("{0} {1}", Path.GetFileName(file.FilePath), OneClickChar);
+                nodeInfo.Label = $"{Path.GetFileName(file.FilePath)}{(isObjectPinned ? " [Pin]" : "")}{(addOneClickText ? $" {OneClickChar}" : "")}";
             }
         }
 
@@ -118,7 +110,7 @@ namespace EssentialsAddin.SolutionFilter
             {
                 //if (Context.GetTreeBuilder().Options[OneClickShowFileOption])
                 if (EssentialProperties.OneClickShowFile)
-                    return typeof(FileNodeCommandHandler);
+                    return typeof(FileNodeNodeCommandHandler);
                 else
                     return base.CommandHandlerType;
             }

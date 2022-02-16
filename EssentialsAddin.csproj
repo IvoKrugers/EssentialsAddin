@@ -59,6 +59,7 @@
     <Folder Include="SolutionFilter\" />
     <Folder Include="Helpers\" />
     <Folder Include="Other\" />
+    <Folder Include="GitHub\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

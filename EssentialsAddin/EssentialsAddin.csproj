@@ -37,7 +37,7 @@
     <Compile Include="SolutionFilterPad.cs" />
     <Compile Include="Helpers\EssentialProperties.cs" />
     <Compile Include="SolutionFilter\FileNodeBuilderExtension.cs" />
-    <Compile Include="SolutionFilter\FileNodeCommandHandler.cs" />
+    <Compile Include="SolutionFilter\FileNodeNodeCommandHandler.cs" />
     <Compile Include="SolutionFilter\FilteredProjectCache.cs" />
     <Compile Include="Other\NewInstanceVSHandler.cs" />
     <Compile Include="Other\downloaded.cs" />
@@ -58,6 +58,12 @@
     <Compile Include="Helpers\TextBufferExtensions.cs" />
     <Compile Include="Helpers\SolutionPadExtensions.cs" />
     <Compile Include="Helpers\PropertyService.cs" />
+    <Compile Include="GitHub\GitConfigFile.cs" />
+    <Compile Include="GitHub\GitHelper.cs" />
+    <Compile Include="GitHub\GitConfigSection.cs" />
+    <Compile Include="CommandHandlers\TestHandler.cs" />
+    <Compile Include="SolutionFilter\FileNodeContextMenuPinCommandHandler.cs" />
+    <Compile Include="SolutionFilter\FileNodeContextMenuUnPinAllCommandHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Manifest.addin.xml" />

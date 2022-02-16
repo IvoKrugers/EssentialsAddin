@@ -1,70 +1,118 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using EssentialsAddin.GitHub;
 using Microsoft.VisualStudio.Utilities.Internal;
 
 namespace EssentialsAddin.Helpers
 {
     public static class EssentialProperties
     {
-        private const string SOLUTIONFILTER_KEY = "EssentialsAddin.SolutionFilter";
-        private const string SOLUTIONOPENDOCUMENTS_KEY = "EssentialsAddin.SolutionOpenDocuments";
-        private const string SOLUTIONEXPANDFILTER_KEY = "EssentialsAddin.SolutionExpandFilter";
-        private const string ONECLICKSHOWFILE_KEY = "EssentialsAddin.OneClickShowFile";
-        private const string CONSOLEFILTER_KEY = "EssentialsAddin.ConsoleFilter";
+        private const string SOLUTIONFILTER_KEY = "SolutionFilter";
+        private const string SOLUTIONPINNEDDOCUMENTS_KEY = "SolutionPinnedDocuments";
+        private const string SOLUTIONEXPANDFILTER_KEY = "SolutionExpandFilter";
+        private const string ONECLICKSHOWFILE_KEY = "OneClickShowFile";
+        private const string CONSOLEFILTER_KEY = "ConsoleFilter";
 
         private static char[] _delimiterChars = { ' ', ';', ':', '\t', '\n' };
 
+        public static bool Initialized => PropertyService.Instance.Initialized;
+
         public static string SolutionFilter
         {
-            get => PropertyService.Instance.Get(SOLUTIONFILTER_KEY, String.Empty);
-            set => PropertyService.Instance.Set(SOLUTIONFILTER_KEY, value.ToLower());
+            get => Get(SOLUTIONFILTER_KEY, String.Empty);
+            set => Set(SOLUTIONFILTER_KEY, value.ToLower());
         }
 
-        public static void ClearOpenDocuments()
+        public static void ClearPinnedDocuments()
         {
-            OpenDocuments = new List<string>();
+            PinnedDocuments = new List<string>();
         }
 
-        public static bool AddOpenDocument(MonoDevelop.Ide.Gui.Document document)
-        {
-            var path = document.FilePath.FullPath;
-            var filenames = OpenDocuments;
+        public static bool AddPinnedDocument(MonoDevelop.Ide.Gui.Document document)
+        => AddPinnedDocument(document.FilePath.FullPath);
 
-            if (!filenames.Contains(path))
+        public static bool AddPinnedDocument(MonoDevelop.Projects.ProjectFile projectFile)
+        => AddPinnedDocument(projectFile.FilePath.FullPath);
+
+        private static bool AddPinnedDocument(string fullFilePath)
+        {
+            var filenames = PinnedDocuments;
+
+            if (!filenames.Contains(fullFilePath))
             {
-                filenames.Add(path);
-                OpenDocuments = filenames;
+                filenames.Add(fullFilePath);
+                PinnedDocuments = filenames;
                 return true;
             }
             return false;
         }
 
-        public static bool RemoveOpenDocument(MonoDevelop.Ide.Gui.Document document)
-        {
-            var path = document.FilePath.FullPath;
-            var filenames = OpenDocuments;
+        public static bool RemovePinnedDocument(MonoDevelop.Ide.Gui.Document document)
+         => RemovePinnedDocument(document.FilePath.FullPath);
 
-            if (filenames.Contains(path))
+        public static bool RemovePinnedDocument(MonoDevelop.Projects.ProjectFile projectFile)
+        => RemovePinnedDocument(projectFile.FilePath.FullPath);
+
+        private static bool RemovePinnedDocument(string fullFilePath)
+        {
+            var filenames = PinnedDocuments;
+
+            if (filenames.Contains(fullFilePath))
             {
-                filenames.Remove(path);
-                OpenDocuments = filenames;
+                filenames.Remove(fullFilePath);
+                PinnedDocuments = filenames;
                 return true;
             }
             return false;
         }
 
-        public static List<string> OpenDocuments
+        public static List<string> PinnedDocuments
         {
             get
             {
-                var commaSepString = PropertyService.Instance.Get(SOLUTIONOPENDOCUMENTS_KEY, "");
+                var commaSepString = Get(SOLUTIONPINNEDDOCUMENTS_KEY, "");
                 if (string.IsNullOrEmpty(commaSepString))
                     return new List<string>();
                 char[] _delimiter = { ',' };
                 return commaSepString.Split(_delimiter).ToList();
             }
-            set => PropertyService.Instance.Set(SOLUTIONOPENDOCUMENTS_KEY, value.Join(","));
+            set => Set(SOLUTIONPINNEDDOCUMENTS_KEY, value.Join(","));
+        }
+
+        public static bool IsPinned(MonoDevelop.Projects.ProjectFile projectFile)
+        => PinnedDocuments.Contains(projectFile.FilePath.FullPath);
+            
+
+        private static string BranchnameToKey(string branchName)
+        {
+            return branchName.Trim()
+                            .Replace("  ", " ")
+                            .Replace(" ", "-")
+                            .Replace("/", "_");
+        }
+
+        private static string ConcatGitBranchName(string key)
+        {
+            var branchName = GitHelper.GetCurrentBranch() ?? "";
+            branchName = BranchnameToKey(branchName);
+
+            return $"{key}{(string.IsNullOrEmpty(branchName) ? "" : $"_{ branchName}")}";
+        }
+
+        private static void Set(string key, string value)
+        {
+            PropertyService.Instance.Set(ConcatGitBranchName(key), value);
+            PropertyService.Instance.Set(key, value);
+        }
+
+        private static string Get(string key, string defaultValue)
+        {
+            var result = PropertyService.Instance.Get(ConcatGitBranchName(key), defaultValue);
+            if (result == defaultValue)
+                result = PropertyService.Instance.Get(key, defaultValue);
+            return result;
         }
 
         public static string[] SolutionFilterArray
@@ -80,15 +128,15 @@ namespace EssentialsAddin.Helpers
                 {
                     filterText = filterText.Replace("  ", " ");
                 }
-                
+
                 return filterText.Split(_delimiterChars);
             }
         }
 
         public static string ExpandFilter
         {
-            get => PropertyService.Instance.Get(SOLUTIONEXPANDFILTER_KEY, string.Empty);
-            set => PropertyService.Instance.Set(SOLUTIONEXPANDFILTER_KEY, value.ToLower());
+            get => Get(SOLUTIONEXPANDFILTER_KEY, string.Empty);
+            set => Set(SOLUTIONEXPANDFILTER_KEY, value.ToLower());
         }
 
         public static string[] ExpandFilterArray
@@ -117,8 +165,8 @@ namespace EssentialsAddin.Helpers
 
         public static string ConsoleFilter
         {
-            get => PropertyService.Instance.Get(CONSOLEFILTER_KEY, string.Empty);
-            set => PropertyService.Instance.Set(CONSOLEFILTER_KEY, value.ToLower());
+            get => Get(CONSOLEFILTER_KEY, string.Empty);
+            set => Set(CONSOLEFILTER_KEY, value.ToLower());
         }
 
         public static string[] ConsoleFilterArray
@@ -131,6 +179,22 @@ namespace EssentialsAddin.Helpers
 
                 return filterText.Split(_delimiterChars);
             }
+        }
+
+        public static void PurgeProperties()
+        {
+            var keys = PropertyService.Instance.GetAllKeys() ?? new List<string>();
+            var branches = GitHelper.GetLocalBranches() ?? new List<string>();
+            branches = branches.Select(b => BranchnameToKey(b)).ToList();
+
+            foreach (var key in keys)
+            {
+                if (branches.FirstOrDefault(b => key.Contains(b)) is null)
+                {
+                    PropertyService.Instance.RemoveKey(key);
+                }
+            }
+            PropertyService.Instance.WriteProperties();
         }
     }
 }

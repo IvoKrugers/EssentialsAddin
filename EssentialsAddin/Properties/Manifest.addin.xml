@@ -1,69 +1,86 @@
-﻿<Addin id = "com.ivokrugers.essentialsaddin">
-    <Header>
-        <Name>Essentials Addin</Name>
-        <Description>Essentials Addin provides several pads and other functionalities. 
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Addin id="com.ivokrugers.essentialsaddin">
+	<Header>
+		<Name>Essentials Addin</Name>
+		<Description>Essentials Addin provides several pads and other functionalities. 
             
 Funtionality summary: 
  - Solution tree filtering (Pad)
  - One click to open file functionality. 
  - Filter project to Expand.
  - Take into account pinned tabs when filtering solution tree
+ - Pin files in Solution Tree via Context Menu
+ - Store filter and pinned files per git branch
+
  - Filter Application Output in a new Pad
 
 The pads can be opened from the View-Pads or Tools menu.
 
 by Ivo Krugers</Description>
-        <Author>Ivo Krugers</Author>
-        <Copyright>Ivo Krugers</Copyright>
-        <Url>https://github.com/IvoKrugers/EssentialsAddin</Url>
-        <UpdateRank>Important</UpdateRank>
-    </Header>
-    
-    <Extension path="/MonoDevelop/Ide/Commands">
-        <Command id = "EssentialsAddin.AddinCommands.ShowSolutionFilterPad" 
-                 _label = "Solution filter Pad" 
-                 defaultHandler = "EssentialsAddin.CommandHandlers.SolutionFilterPadMenuHandler"/>
-        
-        <Command id = "EssentialsAddin.AddinCommands.ShowAppOutputFilterPad" 
-                 _label = "Filtered Application Output Pad" 
-                 defaultHandler = "EssentialsAddin.CommandHandlers.AppOutputFilterPadMenuHandler"/>
-        
-        <Command id = "EssentialsAddin.AddinCommands.CurrentVersion" 
-                 _label = "Essentials (x.x.x)" 
-                 defaultHandler = "EssentialsAddin.CommandHandlers.CurrentVersionMenuHandler"/>
+		<Author>Ivo Krugers</Author>
+		<Copyright>Ivo Krugers</Copyright>
+		<Url>https://github.com/IvoKrugers/EssentialsAddin</Url>
+		<UpdateRank>Important</UpdateRank>
+	</Header>
+
+	<!-- Commands -->
+	<Extension path="/MonoDevelop/Ide/Commands">
+		<Command id="EssentialsAddin.AddinCommands.ShowSolutionFilterPad"
+				_label="Solution Filter Pad" defaultHandler="EssentialsAddin.CommandHandlers.SolutionFilterPadMenuHandler" />
+		<Command id="EssentialsAddin.AddinCommands.ShowAppOutputFilterPad"
+				_label="Output Filter Pad" defaultHandler="EssentialsAddin.CommandHandlers.AppOutputFilterPadMenuHandler" />
+		<Command id="EssentialsAddin.AddinCommands.CurrentVersion"
+				_label="Essentials (x.x.x)" defaultHandler="EssentialsAddin.CommandHandlers.CurrentVersionMenuHandler" />
+		<Command id="EssentialsAddin.AddinCommands.TEST"
+				_label="TEST" defaultHandler="EssentialsAddin.CommandHandlers.TestHandler" />
+        <Command id = "EssentialsAddin.SolutionFilter.FileNodeContextMenuPin"
+				_label = "pin/unpin" defaultHandler="EssentialsAddin.SolutionFilter.FileNodeContextMenuPinCommandHandler"/>
+		<Command id = "EssentialsAddin.SolutionFilter.FileNodeContextMenuUnPinAll"
+				_label = "Reset pinned documents" defaultHandler="EssentialsAddin.SolutionFilter.FileNodeContextMenuUnPinAllCommandHandler"/>
+	</Extension>
+
+	<!-- ProjectPad NodeBuilders -->
+	<Extension path="/MonoDevelop/Ide/Pads/ProjectPad">
+		<NodeBuilder class="EssentialsAddin.SolutionFilter.FileNodeBuilderExtension" />
+		<NodeBuilder class="EssentialsAddin.SolutionFilter.SpecialNodeBuilderExtension" />
+	</Extension>
+
+	<!-- ProjectPad Node ContextMenu Entries -->
+	<Extension path = "/MonoDevelop/Ide/ContextMenu/ProjectPad">
+		<Condition id="ItemType" value="MonoDevelop.Projects.ProjectFile">
+            <CommandItem id = "EssentialsAddin.SolutionFilter.FileNodeContextMenuPin"/>
+			<CommandItem id = "EssentialsAddin.SolutionFilter.FileNodeContextMenuUnPinAll"/>
+        </Condition>
+		<Condition id="ItemType" value="Solution">
+            <CommandItem id = "EssentialsAddin.SolutionFilter.FileNodeContextMenuUnPinAll"/>
+        </Condition>
+		<Condition id="ItemType" value="Project">
+            <CommandItem id = "EssentialsAddin.SolutionFilter.FileNodeContextMenuUnPinAll"/>
+        </Condition>
+		<Condition id="ItemType" value="Folder">
+            <CommandItem id = "EssentialsAddin.SolutionFilter.FileNodeContextMenuUnPinAll"/>
+        </Condition>
     </Extension>
-    
-    <Extension path="/MonoDevelop/Ide/Pads/ProjectPad">
-        <NodeBuilder class="EssentialsAddin.SolutionFilter.FileNodeBuilderExtension" />
-        <NodeBuilder class="EssentialsAddin.SolutionFilter.SpecialNodeBuilderExtension" />
-    </Extension>
-    
-    <!-- Main Tool Menu Entries -->
-    <Extension path="/MonoDevelop/Ide/MainMenu/Tools">
-        <SeparatorItem id="EssentialsSeparator" />
-        <CommandItem id="EssentialsAddin.AddinCommands.CurrentVersion" />
-        <ItemSet _label="Links">
-            <LinkItem _label="Github (https://github.com/IvoKrugers/EssentialsAddin)" link="https://github.com/IvoKrugers/EssentialsAddin/" />
-            <LinkItem _label="LinkedIn (https://www.linkedin.com/in/ikrugers/)" link="https://www.linkedin.com/in/ikrugers/" />
-        </ItemSet>
-        <CommandItem id="EssentialsAddin.AddinCommands.ShowSolutionFilterPad" />
-        <CommandItem id="EssentialsAddin.AddinCommands.ShowAppOutputFilterPad" />
-        <SeparatorItem id="EssentialsSeparator2" />
-    </Extension>
-     
-    <Extension path="/MonoDevelop/Ide/Pads">
-        
-        <Pad id="EssentialsAddin.SolutionFilterPad" 
-             _label="Solution Filter" 
-             class="EssentialsAddin.SolutionFilterPad" 
-             defaultStatus="Dockable" 
-             defaultPlacement="ProjectPad/bottom" />
-        
-         <Pad id="EssentialsAddin.OutputFilterPad" 
-             _label="Filtered Application Output" 
-             class="EssentialsAddin.OutputFilterPad" 
-             defaultStatus="Dockable" 
-             defaultPlacement="OutputPad/Right" />
-        
-    </Extension>
+
+	<!-- Main Tool Menu Entries -->
+	<Extension path="/MonoDevelop/Ide/MainMenu/Tools">
+		<SeparatorItem id="EssentialsSeparator" />
+		<CommandItem id="EssentialsAddin.AddinCommands.CurrentVersion" />
+		<ItemSet _label="Links">
+			<LinkItem _label="Github (https://github.com/IvoKrugers/EssentialsAddin)" link="https://github.com/IvoKrugers/EssentialsAddin/" />
+			<LinkItem _label="LinkedIn (https://www.linkedin.com/in/ikrugers/)" link="https://www.linkedin.com/in/ikrugers/" />
+		</ItemSet>
+		<ItemSet _label="Pads">
+			<CommandItem id="EssentialsAddin.AddinCommands.ShowSolutionFilterPad" />
+			<CommandItem id="EssentialsAddin.AddinCommands.ShowAppOutputFilterPad" />
+		</ItemSet>
+		<CommandItem id="EssentialsAddin.AddinCommands.TEST" />
+		<SeparatorItem id="EssentialsSeparator2" />
+	</Extension>
+
+	<!-- Pads -->
+	<Extension path="/MonoDevelop/Ide/Pads">
+		<Pad id="EssentialsAddin.SolutionFilterPad" _label="Solution Filter" class="EssentialsAddin.SolutionFilterPad" defaultStatus="Dockable" defaultPlacement="ProjectPad/bottom" />
+		<Pad id="EssentialsAddin.OutputFilterPad" _label="Filtered Application Output" class="EssentialsAddin.OutputFilterPad" defaultStatus="Dockable" defaultPlacement="OutputPad/Right" />
+	</Extension>
 </Addin>

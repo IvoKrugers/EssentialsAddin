@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Linq;
 using EssentialsAddin.Helpers;
 using MonoDevelop.Core;
-using MonoDevelop.Ide;
 using MonoDevelop.Ide.Gui.Pads.ProjectPad;
 using MonoDevelop.Projects;
 
@@ -48,7 +47,7 @@ namespace EssentialsAddin.SolutionFilter
                 }
                 _projectsDictionary[project.Name] = DateTime.Now;
                 var filterArray = EssentialProperties.SolutionFilterArray;
-                var openDocuments = EssentialProperties.OpenDocuments;
+                var pinnedDocuments = EssentialProperties.PinnedDocuments;
 
                 // clear all entries related to project.
                 ClearCacheOfProject(project);
@@ -58,9 +57,9 @@ namespace EssentialsAddin.SolutionFilter
                 {
                     FilePath path;
 
-                    //If the file is opened in the Workbench, add it to the cache.
-                    if (filterArray.Count() > 0 && openDocuments.Contains(file.FilePath))
-                        RegisterFile(project.Name, file.ProjectVirtualPath.FileName, file.ProjectVirtualPath.ParentDirectory, true, filterArray);
+                    //If the file is pinned in the Workbench, add it to the cache.
+                    if (filterArray.Count() > 0 && pinnedDocuments.Contains(file.FilePath))
+                        RegisterFile(project.Name, file.ProjectVirtualPath.FileName, file.ProjectVirtualPath.ParentDirectory, true, filterArray, true);
 
                     if (!file.Visible || file.Flags.HasFlag(ProjectItemFlags.Hidden) || file.Subtype == Subtype.Directory)
                         continue;
@@ -121,7 +120,7 @@ namespace EssentialsAddin.SolutionFilter
         /// <summary>
         /// Recursive routine which registers an entry for each folder in the file's path 
         /// </summary>
-        private static void RegisterFile(string projectname, string filename, FilePath folder, bool filenameInFilter, string[] filter)
+        private static void RegisterFile(string projectname, string filename, FilePath folder, bool filenameInFilter, string[] filter, bool isPinnedDoc = false)
         {
             RegisterFileForFolder(projectname, filename, folder, filenameInFilter, filter);
 

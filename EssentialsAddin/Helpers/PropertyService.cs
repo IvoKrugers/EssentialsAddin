@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using Humanizer;
 using MonoDevelop.Core;
 using MonoDevelop.Projects;
 using Newtonsoft.Json;
@@ -18,6 +21,8 @@ namespace EssentialsAddin.Helpers
         private readonly JsonSerializer _serializer;
 
         private Dictionary<string, string> _properties;
+
+        public bool Initialized => _properties != null;
 
         PropertyService()
         {
@@ -65,9 +70,10 @@ namespace EssentialsAddin.Helpers
                 var data = (Dictionary<string, string>)_serializer.Deserialize(reader, typeof(Dictionary<string, string>));
                 _properties = data ?? new Dictionary<string, string>();
             }
+            LogProperties();
         }
 
-        private void WriteProperties()
+        internal void WriteProperties()
         {
             using (StreamWriter writer = File.CreateText(_filePath))
             {
@@ -82,6 +88,22 @@ namespace EssentialsAddin.Helpers
 
             if (!File.Exists(_filePath))
                 File.CreateText(_filePath).Close();
+        }
+
+        public List<string> GetAllKeys() => _properties.Keys.ToList();
+
+        public void RemoveKey(string key)
+        {
+            if (_properties.ContainsKey(key))
+                _properties.Remove(key);
+        }
+
+        internal void LogProperties()
+        {
+            foreach (var item in _properties)
+            {
+                Debug.WriteLine($"\t{item.Key,-50}={item.Value,-50}");
+            }  
         }
     }
 }

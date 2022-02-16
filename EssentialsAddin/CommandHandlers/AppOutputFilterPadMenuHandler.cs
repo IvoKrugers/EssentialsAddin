@@ -18,8 +18,7 @@ namespace EssentialsAddin.CommandHandlers
 
         protected override void Update(CommandInfo info)
         {
-            info.Enabled = true;//IdeApp.Workbench.ActiveDocument?.Editor != null;
+            info.Enabled = true;
         }
     }
-    
 }
