@@ -5,14 +5,17 @@
 		<Description>Essentials Addin provides several pads and other functionalities. 
             
 Funtionality summary: 
- - Solution tree filtering (Pad)
- - One click to open file functionality. 
- - Filter project to Expand.
- - Take into account pinned tabs when filtering solution tree
- - Pin files in Solution Tree via Context Menu
- - Store filter and pinned files per git branch
+- Solution Tree filtering (Pad)
+	- Filter project to Expand.
+	- Take into account pinned tabs when filtering solution tree.
+	- Pin files in Solution Tree via Context Menu
+	- Store filter and pinned files per solution and git branch
 
- - Filter Application Output in a new Pad
+- One click to open file functionality.
+
+- Menu: Copy Git Url of selected files. This works for GitHub and Azure DevOps.
+
+- Filter Application Output in a new Pad
 
 The pads can be opened from the View-Pads or Tools menu.
 
@@ -41,7 +44,7 @@ by Ivo Krugers</Description>
 				_label = "Copy Git Url for selected line(s)" defaultHandler="EssentialsAddin.CommandHandlers.GitUrlForLineCommandHandler"/>
 	</Extension>
 
-	<Extension path = "/MonoDevelop/Ide/Commands/Edit">
+	<!--<Extension path = "/MonoDevelop/Ide/Commands/Edit">
 		<Command id="EssentialsAddin.AddinCommands.TEST1"
 				_label="TEST"
 				defaultHandler="EssentialsAddin.CommandHandlers.TestHandler" />
@@ -51,7 +54,7 @@ by Ivo Krugers</Description>
 		<Command id="EssentialsAddin.AddinCommands.TEST2"
 				_label="TEST"
 				defaultHandler="EssentialsAddin.CommandHandlers.TestHandler" />
-	</Extension>
+	</Extension>-->
 
 	<!-- ProjectPad NodeBuilders -->
 	<Extension path="/MonoDevelop/Ide/Pads/ProjectPad">
@@ -60,7 +63,7 @@ by Ivo Krugers</Description>
 	</Extension>
 
 	<!--TRY to find TextEditor Contextmenu-->
-	<Extension path = "/MonoDevelop/SourceEditor2/ContextMenu/Editor">
+	<!--<Extension path = "/MonoDevelop/SourceEditor2/ContextMenu/Editor">
 		<Condition id="FileType" fileExtensions=".cs">
 			<CommandItem id="EssentialsAddin.AddinCommands.TEST" />
 			<CommandItem id="EssentialsAddin.AddinCommands.TEST1" />
@@ -91,7 +94,7 @@ by Ivo Krugers</Description>
 			<CommandItem id="EssentialsAddin.AddinCommands.TEST1" />
 			<CommandItem id="EssentialsAddin.AddinCommands.TEST2" />
 		</Condition>
-	</Extension>
+	</Extension>-->
 
 	<!-- ProjectPad Node ContextMenu Entries -->
 	<Extension path = "/MonoDevelop/Ide/ContextMenu/ProjectPad">
@@ -123,7 +126,7 @@ by Ivo Krugers</Description>
 			<CommandItem id="EssentialsAddin.AddinCommands.ShowAppOutputFilterPad" />
 		</ItemSet>
 		<CommandItem id="EssentialsAddin.AddinCommands.GitHubUrlForLine" />
-		<CommandItem id="EssentialsAddin.AddinCommands.TEST" />
+		<!--<CommandItem id="EssentialsAddin.AddinCommands.TEST" />-->
 		<SeparatorItem id="EssentialsSeparator2" />
 	</Extension>
 

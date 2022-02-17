@@ -12,15 +12,17 @@ using Mono.Addins.Description;
 [assembly: AddinCategory("IDE extensions")]
 [assembly: AddinDescription("Essentials Addin provides several pads and other functionalities. \n\n"+
 "Funtionality summary: \n"+
-" - Solution Tree filtering (Pad)\n" +
-" - One click to open file functionality. \n" +
-" - Filter project to Expand.\n"+
-" - Take into account pinned tabs when filtering solution tree.\n" +
-" - Pin files in Solution Tree via Context Menu\n" +
-" - Store filter and pinned files per git branch\n" +
-
+"- Solution Tree filtering (Pad)\n" +
+"	- Filter project to Expand.\n"+
+"	- Take into account pinned tabs when filtering solution tree.\n" +
+"	- Pin files in Solution Tree via Context Menu\n" +
+"	- Store filter and pinned files per solution and git branch\n" +
 "\n" +
-" - Filter Application Output in a new Pad\n" +
+"- One click to open file functionality. \n" +
+"\n" +
+"- Menu: Copy Git Url of selected files. This works for GitHub and Azure DevOps.\n" +
+"\n" +
+"- Filter Application Output in a new Pad\n" +
 "\n" +
 "The pads can be opened from the View-Pads or Tools menu.\n\nby Ivo Krugers")]
 [assembly: AddinAuthor("Ivo Krugers")]
