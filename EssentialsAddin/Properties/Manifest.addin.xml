@@ -122,8 +122,8 @@ by Ivo Krugers</Description>
 			<CommandItem id="EssentialsAddin.AddinCommands.ShowSolutionFilterPad" />
 			<CommandItem id="EssentialsAddin.AddinCommands.ShowAppOutputFilterPad" />
 		</ItemSet>
-		<CommandItem id="EssentialsAddin.AddinCommands.TEST" />
 		<CommandItem id="EssentialsAddin.AddinCommands.GitHubUrlForLine" />
+		<CommandItem id="EssentialsAddin.AddinCommands.TEST" />
 		<SeparatorItem id="EssentialsSeparator2" />
 	</Extension>
 
