@@ -36,7 +36,7 @@ by Ivo Krugers</Description>
         <Command id = "EssentialsAddin.SolutionFilter.FileNodeContextMenuPin"
 				_label = "pin/unpin" defaultHandler="EssentialsAddin.SolutionFilter.FileNodeContextMenuPinCommandHandler"/>
 		<Command id = "EssentialsAddin.SolutionFilter.FileNodeContextMenuUnPinAll"
-				_label = "Reset pinned documents" defaultHandler="EssentialsAddin.SolutionFilter.FileNodeContextMenuUnPinAllCommandHandler"/>
+				_label = "Reset pinned documents (EssentialsAddin)" defaultHandler="EssentialsAddin.SolutionFilter.FileNodeContextMenuUnPinAllCommandHandler"/>
 	</Extension>
 
 	<!-- ProjectPad NodeBuilders -->

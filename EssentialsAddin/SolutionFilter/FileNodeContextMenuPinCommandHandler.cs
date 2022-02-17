@@ -17,7 +17,7 @@ namespace EssentialsAddin.SolutionFilter
             {
                 info.Enabled = true;
                 var isPinned = EssentialProperties.IsPinned(projectFile);
-                info.Text = isPinned ? "Pinned on Solution Filter" : "Pin on Solution Filter";
+                info.Text = isPinned ? "Pinned on Solution Tree (EssentialsAddin)" : "Pin on Solution Tree (EssentialsAddin)";
                 info.Checked = isPinned;
             }
         }
