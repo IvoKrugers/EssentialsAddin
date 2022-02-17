@@ -38,7 +38,7 @@ by Ivo Krugers</Description>
 		<Command id = "EssentialsAddin.SolutionFilter.FileNodeContextMenuUnPinAll"
 				_label = "Reset pinned documents (EssentialsAddin)" defaultHandler="EssentialsAddin.SolutionFilter.FileNodeContextMenuUnPinAllCommandHandler"/>
 		<Command id = "EssentialsAddin.AddinCommands.GitHubUrlForLine"
-				_label = "Copy Git Url for select line" defaultHandler="EssentialsAddin.CommandHandlers.GitUrlForLineCommandHandler"/>
+				_label = "Copy Git Url for selected line(s)" defaultHandler="EssentialsAddin.CommandHandlers.GitUrlForLineCommandHandler"/>
 	</Extension>
 
 	<Extension path = "/MonoDevelop/Ide/Commands/Edit">
