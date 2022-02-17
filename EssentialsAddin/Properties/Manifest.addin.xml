@@ -37,12 +37,60 @@ by Ivo Krugers</Description>
 				_label = "pin/unpin" defaultHandler="EssentialsAddin.SolutionFilter.FileNodeContextMenuPinCommandHandler"/>
 		<Command id = "EssentialsAddin.SolutionFilter.FileNodeContextMenuUnPinAll"
 				_label = "Reset pinned documents (EssentialsAddin)" defaultHandler="EssentialsAddin.SolutionFilter.FileNodeContextMenuUnPinAllCommandHandler"/>
+		<Command id = "EssentialsAddin.AddinCommands.GitHubUrlForLine"
+				_label = "Copy Git Url for select line" defaultHandler="EssentialsAddin.CommandHandlers.GitUrlForLineCommandHandler"/>
+	</Extension>
+
+	<Extension path = "/MonoDevelop/Ide/Commands/Edit">
+		<Command id="EssentialsAddin.AddinCommands.TEST1"
+				_label="TEST"
+				defaultHandler="EssentialsAddin.CommandHandlers.TestHandler" />
+	</Extension>
+
+	<Extension path = "/MonoDevelop/Ide/Commands/TextEditor">
+		<Command id="EssentialsAddin.AddinCommands.TEST2"
+				_label="TEST"
+				defaultHandler="EssentialsAddin.CommandHandlers.TestHandler" />
 	</Extension>
 
 	<!-- ProjectPad NodeBuilders -->
 	<Extension path="/MonoDevelop/Ide/Pads/ProjectPad">
 		<NodeBuilder class="EssentialsAddin.SolutionFilter.FileNodeBuilderExtension" />
 		<NodeBuilder class="EssentialsAddin.SolutionFilter.SpecialNodeBuilderExtension" />
+	</Extension>
+
+	<!--TRY to find TextEditor Contextmenu-->
+	<Extension path = "/MonoDevelop/SourceEditor2/ContextMenu/Editor">
+		<Condition id="FileType" fileExtensions=".cs">
+			<CommandItem id="EssentialsAddin.AddinCommands.TEST" />
+			<CommandItem id="EssentialsAddin.AddinCommands.TEST1" />
+		</Condition>
+		<Condition id="FileType" mimeTypes="text/x-csharp">
+			<CommandItem id="EssentialsAddin.AddinCommands.TEST" />
+			<CommandItem id="EssentialsAddin.AddinCommands.TEST1" />
+		</Condition>
+	</Extension>
+	<Extension path = "/MonoDevelop/SourceEditor2/ContextMenu/NavigationBar">
+		<Condition id="FileType" mimeTypes="text/x-csharp">
+			<CommandItem id="EssentialsAddin.AddinCommands.TEST" />
+			<CommandItem id="EssentialsAddin.AddinCommands.TEST1" />
+			<CommandItem id="EssentialsAddin.AddinCommands.TEST2" />
+		</Condition>
+	</Extension>
+
+	<Extension path = "/MonoDevelop/TextEditor/ContextMenu/Editor">
+		<Condition id="FileType" mimeTypes="text/x-csharp">
+			<CommandItem id="EssentialsAddin.AddinCommands.TEST" />
+			<CommandItem id="EssentialsAddin.AddinCommands.TEST1" />
+			<CommandItem id="EssentialsAddin.AddinCommands.TEST2" />
+		</Condition>
+	</Extension>
+	<Extension path = "/MonoDevelop/TextEditor/ContextMenu/Fsi">
+		<Condition id="FileType" mimeTypes="text/x-csharp">
+			<CommandItem id="EssentialsAddin.AddinCommands.TEST" />
+			<CommandItem id="EssentialsAddin.AddinCommands.TEST1" />
+			<CommandItem id="EssentialsAddin.AddinCommands.TEST2" />
+		</Condition>
 	</Extension>
 
 	<!-- ProjectPad Node ContextMenu Entries -->
@@ -75,6 +123,7 @@ by Ivo Krugers</Description>
 			<CommandItem id="EssentialsAddin.AddinCommands.ShowAppOutputFilterPad" />
 		</ItemSet>
 		<CommandItem id="EssentialsAddin.AddinCommands.TEST" />
+		<CommandItem id="EssentialsAddin.AddinCommands.GitHubUrlForLine" />
 		<SeparatorItem id="EssentialsSeparator2" />
 	</Extension>
 

@@ -1,9 +1,11 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using EssentialsAddin.Helpers;
-using Microsoft.CodeAnalysis.Text;
-using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Utilities.Internal;
+using Mono.Addins;
+using Mono.Addins.Description;
 using MonoDevelop.Components.Commands;
 using MonoDevelop.Ide;
 
@@ -28,29 +30,52 @@ namespace EssentialsAddin.CommandHandlers
 
             if (IdeApp.Workbench.ActiveDocument != null)
             {
-                var textBuffer = IdeApp.Workbench.ActiveDocument.GetContent<ITextBuffer>();
+                //var textBuffer = IdeApp.Workbench.ActiveDocument.GetContent<ITextBuffer>();
+                //var textEditor = textBuffer.GetTextEditor();
                 var textView = IdeApp.Workbench.ActiveDocument.GetContent<ITextView>();
                 var caretPosition = textView.Caret.Position;
-                textBuffer.Insert(caretPosition.BufferPosition.Position, DateTime.Now.ToShortDateString());
+                //textBuffer.Insert(caretPosition.BufferPosition.Position, DateTime.Now.ToShortDateString());
+                var ln = caretPosition.BufferPosition.GetContainingLine().LineNumber;
+                
+                //var offset = textEditor.Length;
+
+                //var ln = textBuffer.GetTextEditor().OffsetToLineNumber(offset);
             }
+
+            ExtensionPoints();
+        }
+
+        public void ExtensionPoints()
+        {
+            var addins = AddinManager.Registry.GetAddins();
+
+            var points = GatherExtensionPoints(addins);
+
+            Debug.WriteLine($"ExtensionPoint Count: {points.Count}");
+
+            foreach (var point in points)
+            {
+                Debug.WriteLine($"\tpoint: {point}");
+            }
+        }
+
+        private List<string> GatherExtensionPoints(Addin[] addins)
+        {
+            var points = new List<string>();
+
+            foreach (var addin in addins)
+            {
+                foreach (ExtensionPoint extensionPoint in addin.Description.ExtensionPoints)
+                {
+                    points.Add(extensionPoint.Path);
+                }
+            }
+            return points.OrderBy(p => p).ToList();
         }
 
         protected override void Update(CommandInfo info)
         {
             info.Enabled = true;
-
-            if (IdeApp.Workbench.ActiveDocument != null)
-            {
-                var textBuffer = IdeApp.Workbench.ActiveDocument.GetContent<ITextBuffer>();
-                if (textBuffer != null && textBuffer.AsTextContainer() is SourceTextContainer container)
-                {
-                    var document = container.GetTextBuffer();
-                    if (document != null)
-                    {
-                        info.Enabled = true;
-                    }
-                }
-            }
         }
     }
 }

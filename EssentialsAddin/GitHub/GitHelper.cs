@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using GLib;
+using Microsoft.VisualStudio.Text.Editor;
 using MonoDevelop.Ide;
 
 namespace EssentialsAddin.GitHub
@@ -143,20 +144,31 @@ namespace EssentialsAddin.GitHub
             var fileRootDir = submoduleSection == null ? rootDir : Path.Combine(rootDir, Path.Combine(submoduleSection.GetValue("path").Split('/')));
             string subdir = doc.FileName.ToRelative(fileRootDir);
             subdir = subdir.Replace('\\', '/');
+
             string tline;
-            if (doc.Editor.SelectionRange.Offset != doc.Editor.SelectionRange.EndOffset)
+            var textView = IdeApp.Workbench.ActiveDocument.GetContent<ITextView>();
+            var caretPosition = textView.Caret.Position;
+
+            var line1 = textView.Selection.Start.Position.GetContainingLine().LineNumber + 1;
+            var line2 = textView.Selection.End.Position.GetContainingLine().LineNumber + 1;
+            tline = "L" + line1.ToString();
+
+
+            if (host.Contains("visualstudio.com")) // Azure Devops
             {
-                var line1 = doc.Editor.OffsetToLineNumber(doc.Editor.SelectionRange.Offset);
-                var line2 = doc.Editor.OffsetToLineNumber(doc.Editor.SelectionRange.EndOffset);
-                tline = "L" + line1.ToString();
+                if (line1 == line2)
+                    line2 = line1 + 1;
+                else
+                    line2 += 1; // as first colum is selected in AzureDevOps, skip to the next line to select line2
+                return "https://" + host + "/" + repo + "?path=" + subdir + "&version=GB" + branch +
+                    $"&line={line1}&lineEnd={line2}&lineStartColumn=1&lineEndColumn=1&lineStyle=plain&_a=contents";
+            }
+            else // Github
+            {
                 if (line1 != line2)
                     tline += "-L" + line2;
+                return "https://" + host + "/" + repo + "/blob/" + branch + "/" + subdir + "#" + tline;
             }
-            else
-            {
-                tline = "L" + doc.Editor.CaretLine;
-            }
-            return "https://" + host + "/" + repo + "/blob/" + branch + "/" + subdir + "#" + tline;
         }
 
         private static GitConfigFile LoadConfigFile()
