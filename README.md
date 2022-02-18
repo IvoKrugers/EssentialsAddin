@@ -7,10 +7,15 @@ This Addin adds a Pad to filter the solution tree by partial file or foldername.
 
 ![Opening and filtering the solution tree.](/Art/Demo1_low_640.gif)
 
+- Filtering:
+  - By multiple Terms
+
 - Document Pinning:
   - Documents that are pinned in the Documents Pad are always shown in the Solution tree regardless of if they match with any search term. A refresh or change in search terms is required for this to be reflected in the solution tree.
-  - Pin/Unpin context menu is added to .cs files in de solution tree. Same can be achieved by double clicking on a file in the tree.
-  - Reset Pinned documents menu ias also added to the context menu
+  - Solution Tree:
+    - Double-click on .cs fileSame to Pin/Unpin them
+    - Context menu Pin/Unpin is added.
+    - Context menu Reset Pinned documents
 
 - Storing settings:
   - The search terms, pinned documents and projects to expand are stored in a **json** file in the solutionfolder. This way these values are per solution and switching between solutions is easier. 
