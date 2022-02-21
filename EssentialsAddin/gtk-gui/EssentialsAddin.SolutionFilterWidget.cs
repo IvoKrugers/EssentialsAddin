@@ -185,6 +185,7 @@ namespace EssentialsAddin
 			w12.Position = 0;
 			w12.Expand = false;
 			w12.Fill = false;
+			w12.Padding = ((uint)(2));
 			// Container child hbox4.Gtk.Box+BoxChild
 			this.ReloadPropertiesButton = new global::Gtk.Button();
 			this.ReloadPropertiesButton.CanFocus = true;
@@ -197,6 +198,7 @@ namespace EssentialsAddin
 			w13.Position = 2;
 			w13.Expand = false;
 			w13.Fill = false;
+			w13.Padding = ((uint)(6));
 			// Container child hbox4.Gtk.Box+BoxChild
 			this.PinOpenDocumentsButton = new global::Gtk.Button();
 			this.PinOpenDocumentsButton.TooltipMarkup = "Pin all open documents in the workbench";
@@ -207,9 +209,11 @@ namespace EssentialsAddin
 			this.PinOpenDocumentsButton.Label = global::Mono.Unix.Catalog.GetString("Pin All Open Doc\'s");
 			this.hbox4.Add(this.PinOpenDocumentsButton);
 			global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.hbox4[this.PinOpenDocumentsButton]));
+			w14.PackType = ((global::Gtk.PackType)(1));
 			w14.Position = 4;
 			w14.Expand = false;
 			w14.Fill = false;
+			w14.Padding = ((uint)(2));
 			this.vbox1.Add(this.hbox4);
 			global::Gtk.Box.BoxChild w15 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.hbox4]));
 			w15.Position = 4;

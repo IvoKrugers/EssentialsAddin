@@ -207,6 +207,7 @@
                 <property name="AutoSize">True</property>
                 <property name="Expand">False</property>
                 <property name="Fill">False</property>
+                <property name="Padding">2</property>
               </packing>
             </child>
             <child>
@@ -227,6 +228,7 @@
                 <property name="AutoSize">True</property>
                 <property name="Expand">False</property>
                 <property name="Fill">False</property>
+                <property name="Padding">6</property>
               </packing>
             </child>
             <child>
@@ -244,10 +246,12 @@
                 <signal name="Clicked" handler="PinOpenDocuments_Clicked" />
               </widget>
               <packing>
+                <property name="PackType">End</property>
                 <property name="Position">4</property>
                 <property name="AutoSize">True</property>
                 <property name="Expand">False</property>
                 <property name="Fill">False</property>
+                <property name="Padding">2</property>
               </packing>
             </child>
           </widget>
