@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Repository xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Addin>
-    <Url>EssentialsAddin.EssentialsAddin_2.1.0.mpack</Url>
+    <Url>EssentialsAddin.EssentialsAddin_2.2.0.mpack</Url>
     <Addin>
       <Id>EssentialsAddin</Id>
       <Namespace>EssentialsAddin</Namespace>
       <Name>Essentials Addin</Name>
-      <Version>2.1.0</Version>
+      <Version>2.2.0</Version>
       <BaseVersion />
       <Author>Ivo Krugers</Author>
       <Copyright>Ivo Krugers</Copyright>
@@ -65,7 +65,7 @@ by Ivo Krugers</Property>
         <Property name="Copyright">Ivo Krugers</Property>
         <Property name="Url">https://github.com/IvoKrugers/EssentialsAddin</Property>
         <Property name="UpdateRank">Important</Property>
-        <Property name="DownloadSize">55149</Property>
+        <Property name="DownloadSize">55290</Property>
       </Properties>
     </Addin>
   </Addin>

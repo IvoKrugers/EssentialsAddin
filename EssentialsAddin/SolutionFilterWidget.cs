@@ -196,15 +196,15 @@ namespace EssentialsAddin
 
         private async void CheckForNewRelease()
         {
-            //if (await _releaseService.CheckForNewRelease())
-            //{
-            //    newReleaseAvailableButton.Visible = true;
-            //    newReleaseAvailableButton.Label = $"Release {_releaseService.LatestRelease.TagName} available";
-            //}
-            //else
-            //{
-            newReleaseAvailableButton.Visible = false;
-            //}
+            if (await _releaseService.CheckForNewRelease())
+            {
+                newReleaseAvailableButton.Visible = true;
+                newReleaseAvailableButton.Label = $"Release {_releaseService.LatestRelease.TagName} available";
+            }
+            else
+            {
+                newReleaseAvailableButton.Visible = false;
+            }
         }
 
         protected void NewReleaseAvailableButton_Clicked(object sender, EventArgs e)
