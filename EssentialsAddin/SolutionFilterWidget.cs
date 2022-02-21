@@ -37,7 +37,7 @@ namespace EssentialsAddin
             newReleaseAvailableButton.SetBackgroundColor(Xwt.Drawing.Colors.DarkRed);
             newReleaseAvailableButton.Visible = false;
             CheckForNewRelease();
-            
+
         }
 
         public void LoadProperties()
@@ -121,7 +121,7 @@ namespace EssentialsAddin
             }
         }
 
-        private void FilterSolutionPad()
+        internal void FilterSolutionPad()
         {
             var SolutionPad = (SolutionFilterPad)IdeApp.Workbench.Pads.Find((p) => p.Id == Constants.SolutionFilterPadId).Content;
             if (SolutionPad != null)
@@ -134,6 +134,7 @@ namespace EssentialsAddin
                 ctx.AutoPulse = true;
                 ctx.ShowMessage("Filtering...");
                 ctx.Pulse();
+                IdeApp.Workbench.StatusBar.ShowMessage("Filtering...");
 
                 EssentialProperties.SolutionFilter = filterEntry.Text;
 
@@ -195,15 +196,15 @@ namespace EssentialsAddin
 
         private async void CheckForNewRelease()
         {
-            if (await _releaseService.CheckForNewRelease())
-            {
-                newReleaseAvailableButton.Visible = true;
-                newReleaseAvailableButton.Label = $"Release {_releaseService.LatestRelease.TagName} available";
-            }
-            else
-            {
-                newReleaseAvailableButton.Visible = false;
-            }
+            //if (await _releaseService.CheckForNewRelease())
+            //{
+            //    newReleaseAvailableButton.Visible = true;
+            //    newReleaseAvailableButton.Label = $"Release {_releaseService.LatestRelease.TagName} available";
+            //}
+            //else
+            //{
+            newReleaseAvailableButton.Visible = false;
+            //}
         }
 
         protected void NewReleaseAvailableButton_Clicked(object sender, EventArgs e)
@@ -216,6 +217,51 @@ namespace EssentialsAddin
             catch (Exception)
             {
                 string msg = $"Could not open the url {url}";
+                MonoDevelop.Ide.MessageService.ShowError(((Gtk.Widget)sender).Toplevel as Gtk.Window, msg);
+            }
+        }
+
+        protected void PinOpenDocuments_Clicked(object sender, EventArgs e)
+        {
+            try
+            {
+                foreach (var doc in IdeApp.Workbench.Documents)
+                {
+                    EssentialProperties.AddPinnedDocument(doc);
+                }
+                FilterSolutionPad();
+            }
+            catch (Exception ex)
+            {
+                string msg = $"Error {ex.Message}";
+                MonoDevelop.Ide.MessageService.ShowError(((Gtk.Widget)sender).Toplevel as Gtk.Window, msg);
+            }
+        }
+
+        protected void ResetPinnedDocuments_Clicked(object sender, EventArgs e)
+        {
+            try
+            {
+                EssentialProperties.ClearPinnedDocuments();
+                FilterSolutionPad();
+            }
+            catch (Exception ex)
+            {
+                string msg = $"Error {ex.Message}";
+                MonoDevelop.Ide.MessageService.ShowError(((Gtk.Widget)sender).Toplevel as Gtk.Window, msg);
+            }
+        }
+
+        protected void ReloadPropertiesButton_Clicked(object sender, EventArgs e)
+        {
+            try
+            {
+                LoadProperties();
+                FilterSolutionPad();
+            }
+            catch (Exception ex)
+            {
+                string msg = $"Error {ex.Message}";
                 MonoDevelop.Ide.MessageService.ShowError(((Gtk.Widget)sender).Toplevel as Gtk.Window, msg);
             }
         }

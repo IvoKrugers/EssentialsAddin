@@ -29,19 +29,19 @@ namespace EssentialsAddin
             //Debug.WriteLine($"Bundle path: {NSBundle.MainBundle.BundlePath}");
             //Debug.WriteLine($"Bundle Resource path: {NSBundle.MainBundle.ResourcePath}");
 
-            //this.Window.Title = $"Solution Filter ({Constants.Version})";
+            this.Window.Title = $"Solution Filter ({Constants.Version})";
         }
 
         private bool isPinnedDocumentsDirty = false;
 
         void StartListeningForWorkspaceChanges()
         {
-            IdeApp.Workbench.DocumentOpened += (sender, e) => { isPinnedDocumentsDirty = true; };
-            IdeApp.Workbench.DocumentClosed += (sender, e) => { isPinnedDocumentsDirty = true; };
+            //IdeApp.Workbench.DocumentOpened += (sender, e) => { isPinnedDocumentsDirty = true; };
+            //IdeApp.Workbench.DocumentClosed += (sender, e) => { isPinnedDocumentsDirty = true; };
             IdeApp.Workbench.ActiveDocumentChanged += (sender, e) => StorePinnedDocuments(sender);
 
             IdeApp.Workspace.SolutionLoaded += (sender, e) => Initialize();
-            //IdeApp.Workspace.CurrentSelectedSolutionChanged += (sender, e) => Initialize();
+            IdeApp.Workspace.CurrentSelectedSolutionChanged += (sender, e) => Initialize();
 
             //IdeApp.Workspace.SolutionLoaded += (sender, e) => { log("SolutionLoaded"); };
             //IdeApp.Workspace.SolutionUnloaded += (sender, e) => { log("SolutionUnloaded"); };
@@ -68,7 +68,10 @@ namespace EssentialsAddin
 
         private void StorePinnedDocuments(object sender)
         {
-            if (!isPinnedDocumentsDirty)
+            //if (!isPinnedDocumentsDirty)
+            //    return;
+
+            if (sender is null)
                 return;
 
             if (_semaphore.CurrentCount <= 0)
@@ -109,7 +112,7 @@ namespace EssentialsAddin
                            index++;
                        }
                    }
-                   isPinnedDocumentsDirty = false;
+                   //isPinnedDocumentsDirty = false;
                }
                catch (System.Exception ex)
                {
@@ -135,8 +138,8 @@ namespace EssentialsAddin
             if (forceReload && filterChanged)
                 filterWidget.StartTimer();
 
-            if (!forceReload)
-                isPinnedDocumentsDirty = false;
+            //if (!forceReload)
+            //    isPinnedDocumentsDirty = false;
         }
     }
 }

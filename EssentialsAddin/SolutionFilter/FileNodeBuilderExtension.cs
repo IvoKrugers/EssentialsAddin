@@ -100,7 +100,7 @@ namespace EssentialsAddin.SolutionFilter
 
             if (isObjectPinned || addOneClickText)
             {
-                nodeInfo.Label = $"{Path.GetFileName(file.FilePath)}{(isObjectPinned ? " [Pin]" : "")}{(addOneClickText ? $" {OneClickChar}" : "")}";
+                nodeInfo.Label = $"{Path.GetFileName(file.FilePath)}{(isObjectPinned ? " [Pinned]" : "")}{(addOneClickText ? $" {OneClickChar}" : "")}";
             }
         }
 

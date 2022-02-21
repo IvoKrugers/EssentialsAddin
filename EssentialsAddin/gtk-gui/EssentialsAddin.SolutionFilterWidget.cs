@@ -28,6 +28,14 @@ namespace EssentialsAddin
 
 		private global::Gtk.Button collapseButton;
 
+		private global::Gtk.HBox hbox4;
+
+		private global::Gtk.Button ResetPinnedButton;
+
+		private global::Gtk.Button ReloadPropertiesButton;
+
+		private global::Gtk.Button PinOpenDocumentsButton;
+
 		protected virtual void Build()
 		{
 			global::Stetic.Gui.Initialize(this);
@@ -161,6 +169,52 @@ namespace EssentialsAddin
 			w11.Position = 3;
 			w11.Expand = false;
 			w11.Fill = false;
+			// Container child vbox1.Gtk.Box+BoxChild
+			this.hbox4 = new global::Gtk.HBox();
+			this.hbox4.Name = "hbox4";
+			this.hbox4.Spacing = 6;
+			// Container child hbox4.Gtk.Box+BoxChild
+			this.ResetPinnedButton = new global::Gtk.Button();
+			this.ResetPinnedButton.CanFocus = true;
+			this.ResetPinnedButton.Name = "ResetPinnedButton";
+			this.ResetPinnedButton.UseUnderline = true;
+			this.ResetPinnedButton.FocusOnClick = false;
+			this.ResetPinnedButton.Label = global::Mono.Unix.Catalog.GetString("Reset Pinned Doc\'s");
+			this.hbox4.Add(this.ResetPinnedButton);
+			global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.hbox4[this.ResetPinnedButton]));
+			w12.Position = 0;
+			w12.Expand = false;
+			w12.Fill = false;
+			// Container child hbox4.Gtk.Box+BoxChild
+			this.ReloadPropertiesButton = new global::Gtk.Button();
+			this.ReloadPropertiesButton.CanFocus = true;
+			this.ReloadPropertiesButton.Name = "ReloadPropertiesButton";
+			this.ReloadPropertiesButton.UseUnderline = true;
+			this.ReloadPropertiesButton.FocusOnClick = false;
+			this.ReloadPropertiesButton.Label = global::Mono.Unix.Catalog.GetString("Reload Properties");
+			this.hbox4.Add(this.ReloadPropertiesButton);
+			global::Gtk.Box.BoxChild w13 = ((global::Gtk.Box.BoxChild)(this.hbox4[this.ReloadPropertiesButton]));
+			w13.Position = 2;
+			w13.Expand = false;
+			w13.Fill = false;
+			// Container child hbox4.Gtk.Box+BoxChild
+			this.PinOpenDocumentsButton = new global::Gtk.Button();
+			this.PinOpenDocumentsButton.TooltipMarkup = "Pin all open documents in the workbench";
+			this.PinOpenDocumentsButton.CanFocus = true;
+			this.PinOpenDocumentsButton.Name = "PinOpenDocumentsButton";
+			this.PinOpenDocumentsButton.UseUnderline = true;
+			this.PinOpenDocumentsButton.FocusOnClick = false;
+			this.PinOpenDocumentsButton.Label = global::Mono.Unix.Catalog.GetString("Pin All Open Doc\'s");
+			this.hbox4.Add(this.PinOpenDocumentsButton);
+			global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.hbox4[this.PinOpenDocumentsButton]));
+			w14.Position = 4;
+			w14.Expand = false;
+			w14.Fill = false;
+			this.vbox1.Add(this.hbox4);
+			global::Gtk.Box.BoxChild w15 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.hbox4]));
+			w15.Position = 4;
+			w15.Expand = false;
+			w15.Fill = false;
 			this.Add(this.vbox1);
 			if ((this.Child != null))
 			{
@@ -173,6 +227,9 @@ namespace EssentialsAddin
 			this.oneClickCheckbutton.Toggled += new global::System.EventHandler(this.oneClickCheckbutton_Toggled);
 			this.newReleaseAvailableButton.Clicked += new global::System.EventHandler(this.NewReleaseAvailableButton_Clicked);
 			this.collapseButton.Clicked += new global::System.EventHandler(this.collapseButton_Clicked);
+			this.ResetPinnedButton.Clicked += new global::System.EventHandler(this.ResetPinnedDocuments_Clicked);
+			this.ReloadPropertiesButton.Clicked += new global::System.EventHandler(this.ReloadPropertiesButton_Clicked);
+			this.PinOpenDocumentsButton.Clicked += new global::System.EventHandler(this.PinOpenDocuments_Clicked);
 		}
 	}
 }
