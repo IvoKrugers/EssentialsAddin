@@ -9,7 +9,7 @@
   </import>
   <widget class="Gtk.Bin" id="EssentialsAddin.SolutionFilterWidget" design-size="463 165">
     <property name="MemberName" />
-    <property name="HeightRequest">110</property>
+    <property name="HeightRequest">130</property>
     <property name="CanFocus">True</property>
     <child>
       <widget class="Gtk.VBox" id="vbox1">

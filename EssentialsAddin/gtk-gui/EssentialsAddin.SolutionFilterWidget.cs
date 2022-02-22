@@ -41,7 +41,7 @@ namespace EssentialsAddin
 			global::Stetic.Gui.Initialize(this);
 			// Widget EssentialsAddin.SolutionFilterWidget
 			global::Stetic.BinContainer.Attach(this);
-			this.HeightRequest = 110;
+			this.HeightRequest = 130;
 			this.CanFocus = true;
 			this.Name = "EssentialsAddin.SolutionFilterWidget";
 			// Container child EssentialsAddin.SolutionFilterWidget.Gtk.Container+ContainerChild
