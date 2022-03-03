@@ -28,5 +28,8 @@ using Mono.Addins.Description;
 [assembly: AddinAuthor("Ivo Krugers")]
 [assembly: AddinUrl("https://github.com/IvoKrugers/EssentialsAddin")]
 
-[assembly: AddinDependency("::MonoDevelop.Core", MonoDevelop.BuildInfo.Version)]
-[assembly: AddinDependency("::MonoDevelop.Ide", MonoDevelop.BuildInfo.Version)]
+//[assembly: AddinDependency("::MonoDevelop.Core", MonoDevelop.BuildInfo.Version)]
+//[assembly: AddinDependency("::MonoDevelop.Ide", MonoDevelop.BuildInfo.Version)]
+[assembly: AddinDependency("::MonoDevelop.Core", "8.0")]
+[assembly: AddinDependency("::MonoDevelop.Ide", "8.0")]
+[assembly: AddinDependency("::MonoDevelop.TextEditor", "8.0")]

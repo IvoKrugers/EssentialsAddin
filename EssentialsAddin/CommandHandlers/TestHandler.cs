@@ -13,6 +13,11 @@ namespace EssentialsAddin.CommandHandlers
 {
     public class TestHandler : CommandHandler
     {
+        protected override void Update(CommandInfo info)
+        {
+            info.Enabled = true;
+        }
+
         protected override void Run()
         {
             System.Diagnostics.Debug.WriteLine(GitHub.GitHelper.GetCurrentBranch());
@@ -73,9 +78,6 @@ namespace EssentialsAddin.CommandHandlers
             return points.OrderBy(p => p).ToList();
         }
 
-        protected override void Update(CommandInfo info)
-        {
-            info.Enabled = true;
-        }
+        
     }
 }

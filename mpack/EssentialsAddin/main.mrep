@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Repository xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Addin>
-    <Url>EssentialsAddin.EssentialsAddin_2.2.1.mpack</Url>
+    <Url>EssentialsAddin.EssentialsAddin_2.2.2.mpack</Url>
     <Addin>
       <Id>EssentialsAddin</Id>
       <Namespace>EssentialsAddin</Namespace>
       <Name>Essentials Addin</Name>
-      <Version>2.2.1</Version>
+      <Version>2.2.2</Version>
       <BaseVersion />
       <Author>Ivo Krugers</Author>
       <Copyright>Ivo Krugers</Copyright>
@@ -33,11 +33,15 @@ by Ivo Krugers</Description>
       <Dependencies>
         <AddinDependency>
           <AddinId>::MonoDevelop.Core</AddinId>
-          <Version>8.10.19</Version>
+          <Version>8.0</Version>
         </AddinDependency>
         <AddinDependency>
           <AddinId>::MonoDevelop.Ide</AddinId>
-          <Version>8.10.19</Version>
+          <Version>8.0</Version>
+        </AddinDependency>
+        <AddinDependency>
+          <AddinId>::MonoDevelop.TextEditor</AddinId>
+          <Version>8.0</Version>
         </AddinDependency>
       </Dependencies>
       <OptionalDependencies />
@@ -65,7 +69,7 @@ by Ivo Krugers</Property>
         <Property name="Copyright">Ivo Krugers</Property>
         <Property name="Url">https://github.com/IvoKrugers/EssentialsAddin</Property>
         <Property name="UpdateRank">Important</Property>
-        <Property name="DownloadSize">55309</Property>
+        <Property name="DownloadSize">55238</Property>
       </Properties>
     </Addin>
   </Addin>
