@@ -62,9 +62,10 @@
     <Compile Include="GitHub\GitHelper.cs" />
     <Compile Include="GitHub\GitConfigSection.cs" />
     <Compile Include="CommandHandlers\TestHandler.cs" />
-    <Compile Include="SolutionFilter\FileNodeContextMenuPinCommandHandler.cs" />
-    <Compile Include="SolutionFilter\FileNodeContextMenuUnPinAllCommandHandler.cs" />
     <Compile Include="CommandHandlers\GitUrlForLineCommandHandler.cs" />
+    <Compile Include="CommandHandlers\EditorContextMenuPinCommandHandler.cs" />
+    <Compile Include="CommandHandlers\FileNodeContextMenuPinCommandHandler.cs" />
+    <Compile Include="CommandHandlers\FileNodeContextMenuUnPinAllCommandHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Manifest.addin.xml" />
