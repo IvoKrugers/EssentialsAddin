@@ -71,13 +71,15 @@ by Ivo Krugers</Description>
 		<NodeBuilder class="EssentialsAddin.SolutionFilter.SpecialNodeBuilderExtension" />
 	</Extension>
 
+	<!-- Editor Context Menu -->
 	<Extension path = "/MonoDevelop/TextEditor/ContextMenu/Editor">
 		<Condition id="FileType" fileExtensions=".cs">
+			<SeparatorItem id="EssentialsSeparator3" />
 			<CommandItem id="EssentialsAddin.AddinCommands.CurrentVersion"/>
 			<!--<CommandItem id="EssentialsAddin.AddinCommands.TEST" />-->
 			<CommandItem id="EssentialsAddin.AddinCommands.GitHubUrlForLine"/>
 			<CommandItem id="EssentialsAddin.AddinCommands.EditorContextMenuPin"/>
-			<SeparatorItem id="EssentialsSeparator3" />
+			<SeparatorItem id="EssentialsSeparator4" />
 		</Condition>
 	</Extension>
 	<!--<Extension path = "/MonoDevelop/TextEditor/ContextMenu/Fsi">

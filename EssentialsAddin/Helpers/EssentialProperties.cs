@@ -81,6 +81,9 @@ namespace EssentialsAddin.Helpers
             set => Set(SOLUTIONPINNEDDOCUMENTS_KEY, value.Join(","));
         }
 
+        public static bool IsPinned(MonoDevelop.Ide.Gui.Document document)
+        => PinnedDocuments.Contains(document.FilePath.FullPath);
+
         public static bool IsPinned(MonoDevelop.Projects.ProjectFile projectFile)
         => PinnedDocuments.Contains(projectFile.FilePath.FullPath);
             

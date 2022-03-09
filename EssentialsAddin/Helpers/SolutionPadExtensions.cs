@@ -29,11 +29,11 @@ namespace EssentialsAddin.Helpers
             return treeview.GetNodeAtPosition(pos);
         }
 
-        public static void RefreshSelectedNode(this SolutionPad pad )
+        public static void RefreshSelectedNode(this SolutionPad pad)
         {
             var node = pad.Controller.GetSelectedNode();
-                pad.GetTreeView().RefreshNode(node);
-            pad.Controller.RefreshTree();  
+            pad.GetTreeView().RefreshNode(node);
+            pad.Controller.RefreshTree();
         }
     }
 }
