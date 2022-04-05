@@ -24,8 +24,10 @@ namespace EssentialsAddin.SolutionFilter
 
         protected override void Run()
         {
-            if (IdeApp.ProjectOperations.CurrentSelectedItem is ProjectFile projectFile)
+            if (IdeApp.ProjectOperations.CurrentSelectedItem is ProjectFile projectFile
+                && projectFile.Subtype == Subtype.Code)
             {
+
                 var isPinned = EssentialProperties.IsPinned(projectFile);
                 if (isPinned)
                     EssentialProperties.RemovePinnedDocument(projectFile);
