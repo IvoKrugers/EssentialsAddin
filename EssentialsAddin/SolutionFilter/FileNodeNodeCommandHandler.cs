@@ -14,7 +14,7 @@ namespace EssentialsAddin.SolutionFilter
         public override void ActivateItem()
         {
             base.ActivateItem();
-            if (CurrentNode.DataItem is ProjectFile f)
+            if (CurrentNode.DataItem is ProjectFile f && f.BuildAction != "InterfaceDefinition")
             {
                 if (EssentialProperties.IsPinned(f))
                     EssentialProperties.RemovePinnedDocument(f);
