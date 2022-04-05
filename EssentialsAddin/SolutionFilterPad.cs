@@ -68,9 +68,6 @@ namespace EssentialsAddin
 
         private void StorePinnedDocuments(object sender)
         {
-            //if (!isPinnedDocumentsDirty)
-            //    return;
-
             if (sender is null)
                 return;
 
@@ -85,8 +82,6 @@ namespace EssentialsAddin
                {
                    if (!EssentialProperties.Initialized)
                        return;
-
-                   //EssentialProperties.ClearPinnedDocuments();
 
                    if (sender is Workbench wb)
                        sender = wb.RootWindow;
@@ -112,7 +107,6 @@ namespace EssentialsAddin
                            index++;
                        }
                    }
-                   //isPinnedDocumentsDirty = false;
                }
                catch (System.Exception ex)
                {
@@ -137,9 +131,6 @@ namespace EssentialsAddin
 
             if (forceReload && filterChanged)
                 filterWidget.StartTimer();
-
-            //if (!forceReload)
-            //    isPinnedDocumentsDirty = false;
         }
     }
 }
