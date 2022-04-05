@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using Humanizer;
 using MonoDevelop.Core;
 using MonoDevelop.Projects;
 using Newtonsoft.Json;
@@ -26,7 +25,7 @@ namespace EssentialsAddin.Helpers
 
         PropertyService()
         {
-            _serializer = new JsonSerializer();
+            _serializer = JsonSerializer.Create(new JsonSerializerSettings() { Formatting = Formatting.Indented });
         }
 
         public void Init(Solution solution)
@@ -103,7 +102,7 @@ namespace EssentialsAddin.Helpers
             foreach (var item in _properties)
             {
                 Debug.WriteLine($"\t{item.Key,-50}={item.Value,-50}");
-            }  
+            }
         }
     }
 }
